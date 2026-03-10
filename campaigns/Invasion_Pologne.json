@@ -1,0 +1,110 @@
+{
+  "id": "Invasion_Pologne",
+  "title": "Invasion Pologne - 1939",
+  "description": "Invasion de la Pologne, début de la 2e GM.",
+  "illustration": "campaigns/Invasion_Pologne.webp",
+  "playerSide": "axis",
+  "twoPlayers": false,
+
+  "battles": [
+    {
+      "id": "Bataille_de_Brest",
+      "title": "Bataille de Brest",
+      "map": "Bataille_de_Brest.json",
+      "illustration": "illustrations/Grants.webp",
+      "description": "Premier contact avec les britaniques.",
+      "unlocked": true,
+
+      "modifiers": {
+        "base": {}
+      },
+
+      "outcomes": {
+        "victory": {
+          "next": "Kock",
+          "modifiers": {
+            "actions": { "axis": 1 },
+            "addCards": {
+              "axis": [
+                {
+                  "id": "attaque_aerienne",
+                  "illustration": "DE attaque aerienne",
+                  "reusable": false,
+                  "cooldown": 1
+                }
+              ]
+            },
+            "addUnits": {
+              "axis": [{ "type": "tank", "cssClass": "DE Panzer II-A" }]
+            }
+          }
+        },
+        "defeat": {
+          "next": "Kock",
+          "modifiers": {
+            "medals": { "axis": 1 },
+            "actions": { "axis": -1 }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "Kock",
+      "title": "Kock",
+      "map": "Kock.json",
+      "description": "Contacte avec l'élite polonaise",
+      "unlocked": false,
+      "outcomes": {
+        "victory": {
+          "next": "Bataille_de_Varsovie_(1939)",
+          "modifiers": {
+            "actions": { "axis": 1 },
+            "addCards": {
+              "axis": [
+                {
+                  "id": "attaque_aerienne",
+                  "illustration": "DE attaque aerienne",
+                  "reusable": false,
+                  "cooldown": 1
+                }
+              ]
+            },
+            "addUnits": {
+              "axis": [{ "type": "tank", "cssClass": "DE Panzer II-A" }]
+            }
+          }
+        },
+        "defeat": {
+          "next": "Bataille_de_Varsovie_(1939)",
+          "modifiers": {
+            "actions": { "axis": -1 }
+          }
+        },
+        "bonus_objectives": {
+          "obj_1772032726645": {
+            "next": "Bataille_de_Varsovie_(1939)",
+            "modifiers": {
+              "addUnits": {
+                "axis": [
+                  {
+                    "type": "infantryElite",
+                    "cssClass": "DE 957e volksgrenadier",
+                    "blason": "élite DE"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "Bataille_de_Varsovie_(1939)",
+      "title": "Bataille de Varsovie",
+      "map": "Bataille_de_Varsovie_(1939).json",
+      "description": "Défense désespérée de la capitale",
+      "unlocked": false
+    }
+  ]
+}

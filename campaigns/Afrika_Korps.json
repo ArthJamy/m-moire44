@@ -1,0 +1,55 @@
+{
+  "id": "Afrika_Korps",
+  "title": "Afrika Korps - 1942",
+  "description": "Epopée de l'Afrika Korps de Rommel.",
+  "illustration": "campaigns/Afrika_Korps.webp",
+  "playerSide": "axis",
+  "twoPlayers": false,
+
+  "battles": [
+    {
+      "id": "Panzers_VS_Grants",
+      "title": "Accrochage Panzers VS Grants",
+      "map": "Panzers_VS_Grants.json",
+      "description": "Premier contact avec les britaniques.",
+      "unlocked": true,
+
+      "modifiers": {
+        "base": {}
+      },
+
+      "outcomes": {
+        "victory": {
+          "next": "Bir_Hakeim",
+            "modifiers": {
+            "actions": { "axis": 1 },
+            "addCards": { "axis": [{ "id": "attaque_aerienne", "illustration": "DE attaque aerienne", "reusable": false, "cooldown": 1 }] },
+            "addUnits": {"axis": [{ "type": "BlindeCMD", "cssClass": "DE Grief", "blason": "croixDE" }]}
+          }
+        },
+        "defeat": {
+          "next": "Sidi_Rezegh",
+          "modifiers": {
+            "medals": { "allies": -1 },
+            "actions": { "axis": -1 }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "Bir_Hakeim",
+      "title": "Bir Hakeim",
+      "map": "Bir_Hakeim.json",
+      "description": "Dernière chance des alliers",
+      "unlocked": false
+    },
+    {
+      "id": "Sidi_Rezegh",
+      "title": "Sidi Rezegh",
+      "map": "Sidi_Rezegh.json",
+      "description": "Contre offensive britanique",
+      "unlocked": false
+    }
+  ]
+}

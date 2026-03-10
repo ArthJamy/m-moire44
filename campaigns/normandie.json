@@ -1,0 +1,75 @@
+{
+  "id": "normandie",
+  "title": "Normandie - 1944",
+  "description": "Du Débarquement à la percée d'Avranches.",
+  "illustration": "campaigns/normandy.webp",
+  "playerSide": "allies",
+  "twoPlayers": false,
+
+  "battles": [
+    {
+      "id": "utah_beach",
+      "title": "Utah Beach",
+      "map": "Utah_Beach.json",
+      "description": "6 juin 1944. Les Alliés débarquent.",
+      "unlocked": true,
+
+      "modifiers": {
+        "base": {}
+      },
+
+      "outcomes": {
+        "victory": {
+          "next": "carentan",
+          "modifiers": {}
+        },
+        "defeat": {
+          "next": "carentan",
+          "modifiers": {
+            "medals": { "allies": -1 },
+            "actions": { "allies": -1 },
+            "removeCards": { "allies": ["attaque_aerienne"] }
+          }
+        },
+        "bonus_objectives": {
+          "obj_1772008051399": {
+            "next": "carentan",
+            "modifiers": {
+              "addUnits": {
+                "allies": [
+                  { "type": "infantry", "cssClass": "US 60e régiment" }
+                ]
+              }
+            }
+          },
+          "obj_1772008047416": {
+            "next": "carentan",
+            "modifiers": {
+              "addUnits": {
+                "allies": [
+                  { "type": "infantry", "cssClass": "US 60e régiment" }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "carentan",
+      "title": "Carentan",
+      "map": "Carentan.json",
+      "description": "Prendre la ville avant les renforts allemands.",
+      "unlocked": false,
+
+      "_comment":" Le branch sert uniquement quand deux batailles différentes peuvent mener à la même suivante selon des chemins croisés — cas rare.",
+      "branch": {
+        "from": "utah_beach",
+        "if_victory": "carentan_easy",
+        "if_defeat": "carentan_hard"
+      }
+      
+    }
+  ]
+}
