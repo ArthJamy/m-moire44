@@ -416,7 +416,7 @@
     </div>
 
     <div class="menu-illustration">
-      <img src="illustrations/_bg.webp" alt="Illustration Mémoire 44" />
+      <img src="illustrations/bg.webp" alt="Illustration Mémoire 44" />
     </div>
 
     <!-- Barre de filtres -->
@@ -521,7 +521,7 @@
       }
 
       async function loadMapsMetadata() {
-        const res = await fetch(MAPS_PATH + "_index.json");
+        const res = await fetch(MAPS_PATH + "index.json");
         const MAP_FILES = await res.json();
 
         const factionsSet = new Set();
