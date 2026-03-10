@@ -1,0 +1,1392 @@
+{
+  "meta": {
+    "title": "Stalingrad",
+    "date": 1942,
+    "background": "#eaebe5",
+    "image": "Stalingrad.webp",
+    "factions": {
+      "allies": [
+        "urss"
+      ],
+      "axis": [
+        "germany"
+      ]
+    },
+    "victory": {
+      "medals": {
+        "allies": 9,
+        "axis": 9
+      },
+      "objectives": [
+        {
+          "id": "obj_1772621531933",
+          "type": "control_tile",
+          "label": "Prendre ville Ouest",
+          "reward": 1,
+          "side": "axis",
+          "x": 1,
+          "y": 0,
+          "turns": 1
+        },
+        {
+          "id": "obj_1772621582785",
+          "type": "control_tile",
+          "label": "Prendre usines",
+          "reward": 2,
+          "side": "axis",
+          "x": 8,
+          "y": 0,
+          "turns": 2
+        }
+      ]
+    }
+  },
+  "mapConfig": {
+    "width": 13,
+    "height": 9,
+    "actions": {
+      "allies": 10,
+      "axis": 14
+    }
+  },
+  "hexes": [
+    {
+      "x": 0,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeUsine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeUsine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeUsine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeUsine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "bunker",
+        "variant": "neigeInv"
+      }
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "bunker",
+        "variant": "neigeInv"
+      }
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "terrain": {
+        "type": "village",
+        "variant": "neigeRuine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "bunker",
+        "variant": "neigeInv"
+      }
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "mines"
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "mines"
+      }
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "mines"
+      }
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "mines"
+      }
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "mines"
+      }
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "mines"
+      }
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "barbele"
+      }
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "obstacle",
+        "variant": "antichar"
+      }
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "obstacle",
+        "variant": "antichar"
+      }
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neigeColline"
+      },
+      "structure": {
+        "type": "obstacle",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "obstacle",
+        "variant": "antichar"
+      }
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neigeColline"
+      },
+      "structure": {
+        "type": "obstacle",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "obstacle",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "terrain": {
+        "type": "village",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "terrain": {
+        "type": "crevasse",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "terrain": {
+        "type": "crevasse",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neigeCourbe60"
+      }
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "terrain": {
+        "type": "village",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neigeCourbe60"
+      },
+      "structure": {
+        "type": "pont",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neige"
+      },
+      "structure": {
+        "type": "pont",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neigeCourbe240"
+      }
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "terrain": {
+        "type": "riviere",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    }
+  ],
+  "units": [
+    {
+      "x": 2,
+      "y": 0,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "SV canon de campgane D-44"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "SV canon de campgane D-44"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 573e régiment de fusiliers",
+      "blason": "élite RS"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 573e régiment de fusiliers",
+      "blason": "élite RS"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "SV canon de campgane D-44"
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 178e fusiliers"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 178e fusiliers"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 178e fusiliers"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "sniper",
+      "side": "allies",
+      "cssClass": "SV 6e régiments de fusiliers",
+      "blason": "Tireur d'élite RS"
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 178e fusiliers"
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 178e fusiliers"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 573e régiment de fusiliers",
+      "blason": "élite RS"
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 573e régiment de fusiliers",
+      "blason": "élite RS"
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 573e régiment de fusiliers",
+      "blason": "élite RS"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 28e régiment Jager"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "type": "infantryLF",
+      "side": "axis",
+      "cssClass": "DE 4e Baraillon de pionniers"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE bataillon Bergmann",
+      "blason": "élite DE"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 28e régiment Jager"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE bataillon Bergmann",
+      "blason": "élite DE"
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE bataillon Bergmann",
+      "blason": "élite DE"
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 28e régiment Jager"
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "DE Nebelwerfer"
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "type": "infantryLF",
+      "side": "axis",
+      "cssClass": "DE 4e Baraillon de pionniers"
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Panzer III-F"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE bataillon Bergmann",
+      "blason": "élite DE"
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "DE Nebelwerfer"
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 28e régiment Jager"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Panzer III-F"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Panzer III-F"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "DE Nebelwerfer"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "type": "Heavytank",
+      "side": "axis",
+      "cssClass": "DE Panther G",
+      "blason": "élite DE"
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "type": "infantryMortier",
+      "side": "axis",
+      "cssClass": "DE 2e régiment mortier"
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 28e régiment Jager"
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE bataillon Bergmann",
+      "blason": "élite DE"
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 28e régiment Jager"
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Panzer III-F"
+    }
+  ],
+  "cards": {
+    "allies": [
+      {
+        "id": "barrage_artillerie",
+        "illustration": "SV barrage",
+        "reusable": true,
+        "cooldown": 3
+      }
+    ],
+    "axis": [
+      {
+        "id": "attaque_aerienne",
+        "illustration": "DE attaque aerienne",
+        "reusable": false,
+        "cooldown": 2
+      },
+      {
+        "id": "commandement_renforce",
+        "illustration": "DE comm renf",
+        "reusable": false,
+        "cooldown": 1
+      },
+      {
+        "id": "attaque_aerienne",
+        "illustration": "DE attaque aerienne",
+        "reusable": false,
+        "cooldown": 2
+      },
+      {
+        "id": "commandement_renforce",
+        "illustration": "DE comm renf",
+        "reusable": false,
+        "cooldown": 2
+      }
+    ]
+  }
+}

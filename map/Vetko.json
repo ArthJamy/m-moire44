@@ -1,0 +1,1115 @@
+{
+  "meta": {
+    "title": "Vetko",
+    "date": 1939,
+    "background": "#eaebe5",
+    "image": "Vetko.webp",
+    "factions": {
+      "allies": [
+        "urss"
+      ],
+      "axis": [
+        "finlande"
+      ]
+    }
+  },
+  "mapConfig": {
+    "width": 13,
+    "height": 9,
+    "actions": {
+      "allies": 6,
+      "axis": 7
+    }
+  },
+  "hexes": [
+    {
+      "x": 0,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "terrain": {
+        "type": "route",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "terrain": {
+        "type": "route",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 1,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "terrain": {
+        "type": "colline",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "terrain": {
+        "type": "colline",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "terrain": {
+        "type": "colline",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "terrain": {
+        "type": "route",
+        "variant": "neigeBif300"
+      }
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "neigeCourbe120"
+      }
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "neigeCourbe300"
+      }
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "terrain": {
+        "type": "colline",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "terrain": {
+        "type": "colline",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "terrain": {
+        "type": "route",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "terrain": {
+        "type": "route",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "terrain": {
+        "type": "colline",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "terrain": {
+        "type": "route",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "terrain": {
+        "type": "route",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 11,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "terrain": {
+        "type": "route",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "terrain": {
+        "type": "route",
+        "variant": "neige60"
+      }
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "terrain": {
+        "type": "route",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "terrain": {
+        "type": "village",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "terrain": {
+        "type": "route",
+        "variant": "neigeCourbe"
+      }
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "terrain": {
+        "type": "village",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "terrain": {
+        "type": "route",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "terrain": {
+        "type": "foret",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "terrain": {
+        "type": "route",
+        "variant": "neige120"
+      }
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "terrain": {
+        "type": "plaine",
+        "variant": "neige"
+      }
+    }
+  ],
+  "units": [
+    {
+      "x": 3,
+      "y": 0,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "type": "infantrySki",
+      "side": "axis",
+      "cssClass": "FN bataillon détaché 4"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "type": "infantrySki",
+      "side": "allies",
+      "cssClass": "SV 15e régiment ski"
+    }
+  ],
+  "cards": {
+    "allies": [
+      {
+        "id": "renforts_alliesSV",
+        "illustration": "SV renforts",
+        "reusable": true,
+        "cooldown": 5
+      }
+    ],
+    "axis": [
+      {
+        "id": "frappe_eclaire",
+        "illustration": "FN frappe eclaire",
+        "reusable": true,
+        "cooldown": 3
+      }
+    ]
+  }
+}

@@ -1,0 +1,1131 @@
+{
+  "meta": {
+    "title": "Rivière MATANIKAU",
+    "date": 1942,
+    "background": "#94A144",
+    "image": "MATANIKAU.webp",
+    "factions": {
+      "allies": ["usa"],
+      "axis": ["japan"]
+    }
+  },
+  "mapConfig": {
+    "width": 13,
+    "height": 9,
+    "actions": {
+      "allies": 8,
+      "axis": 12
+    }
+  },
+  "hexes": [
+    {
+      "x": 0,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine300"
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine300"
+      }
+    },
+    {
+      "x": 12,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine60"
+      }
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine60"
+      }
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "courbe240"
+      }
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "courbe300"
+      }
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "courbe240"
+      }
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "terrain": {
+        "type": "riviere",
+        "variant": "conf"
+      }
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "courbe60"
+      }
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "courbe120"
+      }
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "terrain": {
+        "type": "riviere",
+        "variant": "courbe60"
+      }
+    },
+    {
+      "x": 11,
+      "y": 5,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine60"
+      }
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine60"
+      }
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      }
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "terrain": {
+        "type": "bocage",
+        "variant": "jungle"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "vert"
+      }
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "terrain": {
+        "type": "sable",
+        "variant": "plaine300"
+      }
+    }
+  ],
+  "units": [
+    {
+      "x": 7,
+      "y": 0,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "JP type 1 37mm"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "JP type 1 37mm"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "type": "tank",
+      "side": "axis",
+      "cssClass": "JP type 95 Ha-Go"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "type": "tank",
+      "side": "axis",
+      "cssClass": "JP type 95 Ha-Go"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "JP 15e régiment"
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "US obusier pack 75mm"
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "US obusier pack 75mm"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "US obusier pack 75mm"
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "US 7e régiment"
+    }
+  ],
+  "cards": {
+    "allies": [
+      {
+        "id": "renforts_allies",
+        "illustration": "US renforts",
+        "reusable": false,
+        "cooldown": 2
+      },
+      {
+        "id": "defense_renforcee",
+        "illustration": "US defense",
+        "reusable": true,
+        "cooldown": 2
+      }
+    ],
+    "axis": [
+      {
+        "id": "avance_tactique",
+        "illustration": "JP avance",
+        "reusable": true,
+        "cooldown": 1
+      },
+      {
+        "id": "barrage_artillerie",
+        "illustration": "JP barrage",
+        "reusable": false,
+        "cooldown": 2
+      },
+      {
+        "id": "frappe_eclaire",
+        "illustration": "JP frappe eclaire",
+        "reusable": true,
+        "cooldown": 1
+      }
+    ]
+  },
+  "customUnits": {
+    "infantry": {
+      "cannotCross": ["mer"],
+      "mustStopOn": ["foret","colline","gare", "tranchee", "barrage", "riviere" ]
+    },
+    "tank": {
+      "cannotCross": ["mer", "montagne", "marecage", "barrage", "chateau"],
+      "mustStopOn": ["foret", "gare", "tranchee", "riviere"]
+    }
+  }
+}

@@ -1,0 +1,2252 @@
+{
+  "meta": {
+    "title": "Hauteurs de Seelow",
+    "date": 1945,
+    "background": "#94A144",
+    "image": "Seelow.webp",
+    "factions": {
+      "allies": [
+        "urss"
+      ],
+      "axis": [
+        "germany"
+      ]
+    }
+  },
+  "mapConfig": {
+    "width": 25,
+    "height": 9,
+    "actions": {
+      "allies": 24,
+      "axis": 18
+    }
+  },
+  "hexes": [
+    {
+      "x": 0,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "terrain": {
+        "type": "route",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 14,
+      "y": 0,
+      "terrain": {
+        "type": "route",
+        "variant": "60"
+      }
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 18,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 21,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 23,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 0,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "routeCouverte",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 13,
+      "y": 1,
+      "terrain": {
+        "type": "village",
+        "variant": "2"
+      }
+    },
+    {
+      "x": 14,
+      "y": 1,
+      "terrain": {
+        "type": "route",
+        "variant": "60"
+      }
+    },
+    {
+      "x": 15,
+      "y": 1,
+      "terrain": {
+        "type": "village",
+        "variant": "ville"
+      }
+    },
+    {
+      "x": 16,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 18,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 20,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 21,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 23,
+      "y": 1,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 24,
+      "y": 1,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe300"
+      }
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "terrain": {
+        "type": "village",
+        "variant": "ville"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 13,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 14,
+      "y": 2,
+      "terrain": {
+        "type": "village",
+        "variant": "ville"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 15,
+      "y": 2,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe120"
+      }
+    },
+    {
+      "x": 16,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 17,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 18,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 19,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 20,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 21,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 22,
+      "y": 2,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 23,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 2,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "60"
+      }
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "terrain": {
+        "type": "village",
+        "variant": "ville"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 13,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 14,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "120"
+      },
+      "structure": {
+        "type": "obstacle"
+      }
+    },
+    {
+      "x": 15,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 16,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 18,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 20,
+      "y": 3,
+      "terrain": {
+        "type": "colline"
+      }
+    },
+    {
+      "x": 21,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 23,
+      "y": 3,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 24,
+      "y": 3,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "terrain": {
+        "type": "village",
+        "variant": "ville"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "terrain": {
+        "type": "foret"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe120"
+      }
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 13,
+      "y": 4,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 14,
+      "y": 4,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe300"
+      }
+    },
+    {
+      "x": 15,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 18,
+      "y": 4,
+      "terrain": {
+        "type": "village",
+        "variant": "ferme"
+      }
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 20,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 21,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "terrain": {
+        "type": "village"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 23,
+      "y": 4,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 4,
+      "terrain": {
+        "type": "foret"
+      },
+      "structure": {
+        "type": "sacs_de_sable",
+        "variant": "bleu"
+      }
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "terrain": {
+        "type": "route",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 13,
+      "y": 5,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 14,
+      "y": 5,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe120"
+      }
+    },
+    {
+      "x": 15,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "terrain": {
+        "type": "tranchee",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 17,
+      "y": 5,
+      "terrain": {
+        "type": "tranchee",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 18,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 20,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 21,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 23,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 5,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "terrain": {
+        "type": "route",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 13,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 14,
+      "y": 6,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe300"
+      }
+    },
+    {
+      "x": 15,
+      "y": 6,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 16,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 6,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 18,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 20,
+      "y": 6,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 21,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 6,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 23,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 6,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "terrain": {
+        "type": "route",
+        "variant": "120"
+      }
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "terrain": {
+        "type": "foret"
+      }
+    },
+    {
+      "x": 13,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "terrain": {
+        "type": "route",
+        "variant": "60"
+      }
+    },
+    {
+      "x": 15,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 16,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 7,
+      "terrain": {
+        "type": "marecage"
+      }
+    },
+    {
+      "x": 20,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 21,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 23,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 7,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "terrain": {
+        "type": "route",
+        "variant": "courbe300"
+      }
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 13,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 15,
+      "y": 8,
+      "terrain": {
+        "type": "route",
+        "variant": "60"
+      }
+    },
+    {
+      "x": 16,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 17,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 18,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 20,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 21,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 22,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 23,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    },
+    {
+      "x": 24,
+      "y": 8,
+      "terrain": {
+        "type": "plaine"
+      }
+    }
+  ],
+  "units": [
+    {
+      "x": 4,
+      "y": 0,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Jagdpanther",
+      "blason": "élite DE"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE 87e grenadier",
+      "blason": "élite DE"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "type": "artilleryMobile",
+      "side": "axis",
+      "cssClass": "DE Mardrer III H"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "type": "Heavytank",
+      "side": "axis",
+      "cssClass": "DE Tiger I-E"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "type": "genie",
+      "side": "axis",
+      "cssClass": "DE 738e régiment de Jager",
+      "blason": "génie DE"
+    },
+    {
+      "x": 14,
+      "y": 0,
+      "type": "Heavytank",
+      "side": "axis",
+      "cssClass": "DE Tiger I-E"
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "type": "tank",
+      "side": "axis",
+      "cssClass": "DE panzer III-J"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Jagdpanther",
+      "blason": "élite DE"
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "type": "tankHP",
+      "side": "axis",
+      "cssClass": "DE Jagdpanther",
+      "blason": "élite DE"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE 87e grenadier",
+      "blason": "élite DE"
+    },
+    {
+      "x": 15,
+      "y": 1,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 20,
+      "y": 1,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE 87e grenadier",
+      "blason": "élite DE"
+    },
+    {
+      "x": 21,
+      "y": 1,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE 87e grenadier",
+      "blason": "élite DE"
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "DE leFH de"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "DE leFH de"
+    },
+    {
+      "x": 14,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 18,
+      "y": 2,
+      "type": "artillery",
+      "side": "axis",
+      "cssClass": "DE leFH de"
+    },
+    {
+      "x": 19,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 22,
+      "y": 2,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "type": "infantryMitrailleuse",
+      "side": "axis",
+      "cssClass": "DE 141e GebirGsager"
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 15,
+      "y": 3,
+      "type": "artilleryAntiChar",
+      "side": "axis",
+      "cssClass": "DE Flak 88"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "type": "infantryMitrailleuse",
+      "side": "axis",
+      "cssClass": "DE 141e GebirGsager"
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "type": "infantryBazouka",
+      "side": "axis",
+      "cssClass": "DE 432e régiment"
+    },
+    {
+      "x": 24,
+      "y": 4,
+      "type": "infantry",
+      "side": "axis",
+      "cssClass": "DE 113e Schutzen"
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE 87e grenadier",
+      "blason": "élite DE"
+    },
+    {
+      "x": 17,
+      "y": 5,
+      "type": "infantryElite",
+      "side": "axis",
+      "cssClass": "DE 87e grenadier",
+      "blason": "élite DE"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 13,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 15,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 16,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 17,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "type": "infantryElite",
+      "side": "allies",
+      "cssClass": "SV 101e de bezhitsa",
+      "blason": "élite RS"
+    },
+    {
+      "x": 20,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 21,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 22,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 23,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "type": "artilleryMobile",
+      "side": "allies",
+      "cssClass": "SV Katyusha"
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "type": "tankHP",
+      "side": "allies",
+      "cssClass": "SV I0SEF Stalin II",
+      "blason": "élite RS"
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "type": "VhcRenf",
+      "side": "allies",
+      "cssClass": "US 7e renf"
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "type": "tankHP",
+      "side": "allies",
+      "cssClass": "SV I0SEF Stalin II",
+      "blason": "élite RS"
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "type": "VhcRenf",
+      "side": "allies",
+      "cssClass": "US 7e renf"
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "SV obusier de 1939 76mm"
+    },
+    {
+      "x": 13,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "type": "artilleryMobile",
+      "side": "allies",
+      "cssClass": "SV Katyusha"
+    },
+    {
+      "x": 15,
+      "y": 8,
+      "type": "tankHP",
+      "side": "allies",
+      "cssClass": "SV I0SEF Stalin II",
+      "blason": "élite RS"
+    },
+    {
+      "x": 16,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 18,
+      "y": 8,
+      "type": "VhcRenf",
+      "side": "allies",
+      "cssClass": "US 7e renf"
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "SV obusier de 1939 76mm"
+    },
+    {
+      "x": 20,
+      "y": 8,
+      "type": "tankHP",
+      "side": "allies",
+      "cssClass": "SV I0SEF Stalin II",
+      "blason": "élite RS"
+    },
+    {
+      "x": 21,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 22,
+      "y": 8,
+      "type": "tank",
+      "side": "allies",
+      "cssClass": "SV T-34 1942"
+    },
+    {
+      "x": 24,
+      "y": 8,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "SV 99e Kholm"
+    }
+  ],
+  "cards": {
+    "allies": [
+      {
+        "id": "barrage_artillerie",
+        "illustration": "SV barrage",
+        "reusable": true,
+        "cooldown": 2
+      },
+      {
+        "id": "frappe_eclaire",
+        "illustration": "SV frappe eclaire",
+        "reusable": true,
+        "cooldown": 3
+      }
+    ],
+    "axis": [
+      {
+        "id": "defense_renforcee",
+        "illustration": "DE defense",
+        "reusable": true,
+        "cooldown": 2
+      },
+      {
+        "id": "barrage_artillerie",
+        "illustration": "DE barrage",
+        "reusable": false,
+        "cooldown": 3
+      }
+    ]
+  }
+}

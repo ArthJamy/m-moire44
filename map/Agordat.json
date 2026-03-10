@@ -1,0 +1,1053 @@
+{
+  "meta": {
+    "title": "Agordat",
+    "date": 1942,
+    "background": "#FDCA7B",
+    "image": "Agordat.webp",
+    "factions": {
+      "allies": [
+        "uk"
+      ],
+      "axis": [
+        "italy"
+      ]
+    }
+  },
+  "mapConfig": {
+    "width": 13,
+    "height": 9,
+    "actions": {
+      "allies": 6,
+      "axis": 8
+    }
+  },
+  "hexes": [
+    {
+      "x": 0,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "terrain": {
+        "type": "route",
+        "variant": "desert60"
+      }
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "terrain": {
+        "type": "route",
+        "variant": "desert60"
+      }
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 12,
+      "y": 1,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "terrain": {
+        "type": "foret",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "terrain": {
+        "type": "foret",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "terrain": {
+        "type": "route",
+        "variant": "desertcourbe"
+      }
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "terrain": {
+        "type": "foret",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "terrain": {
+        "type": "route",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 12,
+      "y": 3,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "terrain": {
+        "type": "montagne",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "terrain": {
+        "type": "montagne",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "terrain": {
+        "type": "route",
+        "variant": "desertcourbe180"
+      }
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "terrain": {
+        "type": "montagne",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "terrain": {
+        "type": "route",
+        "variant": "desert60"
+      }
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "terrain": {
+        "type": "village",
+        "variant": "HQdesert"
+      }
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "terrain": {
+        "type": "route",
+        "variant": "desert60"
+      }
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "terrain": {
+        "type": "montagne",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "terrain": {
+        "type": "montagne",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "terrain": {
+        "type": "route",
+        "variant": "desert60"
+      }
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "terrain": {
+        "type": "colline",
+        "variant": "dune"
+      }
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "terrain": {
+        "type": "montagne",
+        "variant": "desert"
+      }
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "terrain": {
+        "type": "route",
+        "variant": "desertcourbe"
+      }
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "terrain": {
+        "type": "sable"
+      }
+    }
+  ],
+  "units": [
+    {
+      "x": 0,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "type": "infantryCavalerieH",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria",
+      "blason" : "medIT"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "type": "infantryCavalerie",
+      "side": "axis",
+      "cssClass": "IT savoia cavalleria"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "UK Kings african rifles"
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "type": "artillery",
+      "side": "allies",
+      "cssClass": "UK 6 Pounder"
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "UK Kings african rifles"
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "UK Kings african rifles"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "UK Kings african rifles"
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "UK Kings african rifles"
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "type": "LightTank",
+      "side": "allies",
+      "cssClass": "UK M3A3 Honey"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "type": "infantry",
+      "side": "allies",
+      "cssClass": "UK Kings african rifles"
+    }
+  ],
+    "cards": {
+    "allies": [
+      {
+        "id": "defense_renforcee",
+        "illustration": "Uk defense",
+        "reusable": false,
+        "cooldown": 3
+      },
+      {
+        "id": "defense_renforcee",
+        "illustration": "Uk defense",
+        "reusable": false,
+        "cooldown": 3
+      }
+    ],
+    "axis": [
+      {
+        "id": "barrage_artillerie",
+        "illustration": "IT barrage",
+        "reusable": false,
+        "cooldown": 3
+      },
+      {
+        "id": "frappe_eclaire",
+        "illustration": "It frappe eclaire",
+        "reusable": true,
+        "cooldown": 2
+      }
+    ]
+  },
+
+    "customUnits": {
+    "infantryCavalerieH": {
+      "name": "lnt Amedeo Guillet",
+      "shortName": "CAV !",
+      "category": "infantry",
+      "hp": 6,
+      "actionCost": 1,
+      "retreatDistance": 2,
+      "movementWithAttack": 9,
+      "movementWithoutAttack": 12,
+      "damageByRange": [0, 3, 2, 1],
+      "counterDamageByRange": [0, 1],
+      "needsLOS": true,
+      "cannotCross": ["riviere", "mer"],
+      "mustStopOn": ["gare", "tranchee", "barrage", "montagne","foret", "colline"],
+      "mustStopAndCannotFight": ["village", "bocage", "marecage", "chateau"],
+      "description": "Cavalerie héro.",
+      "dice": [55, 5, 15, 10, 15],
+      "ctnDice": [30, 10, 10, 0, 50]
+    }
+  }
+}
