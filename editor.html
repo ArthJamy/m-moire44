@@ -1057,7 +1057,7 @@
         try {
           const [cardsRes, illustrationsRes] = await Promise.all([
             fetch("cards.json"),
-            fetch("units/cards/_list.json"),
+            fetch("units/cards/list.json"),
           ]);
 
           CARDS = await cardsRes.json();
@@ -1665,7 +1665,7 @@
 
         try {
           // Charger la liste depuis le fichier JSON
-          const response = await fetch("units/blasons/_list.json");
+          const response = await fetch("units/blasons/list.json");
           const fileList = await response.json();
 
           const blasons = [{ id: "none", name: "Aucun", img: null }];
@@ -1717,7 +1717,7 @@
         } catch (error) {
           console.error("Erreur lors du chargement de list.json:", error);
           alert(
-            "Impossible de charger la liste des blasons. Vérifiez que units/blasons/_list.json existe.",
+            "Impossible de charger la liste des blasons. Vérifiez que units/blasons/list.json existe.",
           );
         }
       }
