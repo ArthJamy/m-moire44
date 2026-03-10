@@ -1,0 +1,582 @@
+/* ============================================================
+   styleCampaign.css — Menu Campagnes
+   Esthétique : carte militaire / journal de guerre ancien
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ─── Variables ─────────────────────────────────────────── */
+:root {
+  --ink:        #1a1a12;
+  --paper:      #f2ead8;
+  --paper-dark: #e2d4b4;
+  --khaki:      #8b7355;
+  --khaki-dark: #5c4a2a;
+  --olive:      #4a5c2a;
+  --olive-light:#6a7c4a;
+  --red-axis:   #8b2222;
+  --blue-allies:#1a3a6b;
+  --gold:       #c8a84b;
+  --shadow:     rgba(26, 26, 18, 0.35);
+  --radius:     4px;
+}
+
+
+/* ─── Reset & base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Courier Prime', monospace;
+  background-color: #2c3e50 ;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.015) 40px,
+      rgba(255,255,255,0.015) 80px
+    );
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ─── Header ────────────────────────────────────────────── */
+#page-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 20px 32px 16px;
+  background: linear-gradient(180deg, #1a1a0e 0%, #2c3e50  100%);
+  border-bottom: 3px solid var(--khaki-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#main-title {
+  font-family: 'Special Elite', cursive;
+  font-size: clamp(22px, 4vw, 36px);
+  color: var(--gold);
+  text-align: center;
+  letter-spacing: 6px;
+  text-shadow: 0 2px 12px rgba(200,168,75,0.4);
+}
+
+#back-btn {
+  font-family: 'Courier Prime', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+  display: inline-block;
+  width: fit-content;
+}
+#back-btn:hover {
+  color: var(--paper);
+  border-color: var(--gold);
+  background: rgba(139,115,85,0.2);
+}
+
+/* ─── Grille campagnes ──────────────────────────────────── */
+#campaigns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+  padding: 40px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#campaigns-grid.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.loader, .empty-msg {
+  font-family: 'Special Elite', cursive;
+  color: var(--khaki);
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+/* ─── Carte campagne ────────────────────────────────────── */
+.campaign-card {
+  background: var(--paper);
+  border: 2px solid var(--khaki-dark);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 6px 6px 0 rgba(26,26,18,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.campaign-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 28px,
+    rgba(139,115,85,0.08) 28px, rgba(139,115,85,0.08) 29px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.campaign-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 8px 10px 0 rgba(26,18,0,0.5);
+}
+
+.campaign-card-illustration {
+  height: 180px;
+  background-color: #3a3020;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.campaign-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(26,20,10,0.7));
+}
+.campaign-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(26,20,10,0.85);
+  color: var(--gold);
+  font-size: 13px;
+  padding: 3px 8px;
+  border: 1px solid var(--khaki-dark);
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+
+.campaign-card-body {
+  padding: 18px 20px 20px;
+  position: relative;
+  z-index: 1;
+}
+.campaign-card-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 20px;
+  color: var(--khaki-dark);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.campaign-card-desc {
+  font-size: 12px;
+  color: #5a4a30;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  font-style: italic;
+}
+
+.campaign-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.progress-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--paper-dark);
+  border: 1px solid var(--khaki);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--olive), var(--olive-light));
+  transition: width 0.6s ease;
+}
+.progress-label {
+  font-size: 13px;
+  color: var(--khaki);
+  white-space: nowrap;
+}
+
+.campaign-open-btn {
+  width: 100%;
+  padding: 9px;
+  background: var(--khaki-dark);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Special Elite', cursive;
+  font-size: 15px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.campaign-open-btn:hover { background: var(--olive); }
+
+/* ─── Popup overlay ─────────────────────────────────────── */
+#campaign-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 6, 0.88);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+#campaign-popup-overlay.hidden { display: none; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+#campaign-popup {
+  background: var(--paper);
+  border: 2px solid var(--khaki-dark);
+  border-radius: var(--radius);
+  width: min(680px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  position: relative;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+#popup-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: none;
+  border: 1px solid white;
+  color: white;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.15s;
+  line-height: 1;
+}
+#popup-close:hover { background: white; color: black; }
+
+#popup-illustration {
+  height: 200px;
+  background: #3a3020;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 2px solid var(--khaki-dark);
+}
+
+#popup-content { padding: 24px 28px; }
+
+#popup-header { margin-bottom: 20px; }
+#popup-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 26px;
+  color: var(--khaki-dark);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+#popup-description {
+  font-size: 15px;
+  color: #5a4a30;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+#popup-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  padding: 3px 8px;
+  border: 1px solid var(--khaki);
+  border-radius: 2px;
+  color: var(--khaki-dark);
+  background: var(--paper-dark);
+}
+
+#popup-battles-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 14px;
+  color: var(--khaki);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--khaki);
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+
+/* ─── Liste des batailles ────────────────────────────────── */
+#popup-battles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.battle-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--khaki);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.battle-item.locked {
+  opacity: 0.5;
+  background: #d8c8a0;
+}
+.battle-item.current {
+  border-color: var(--olive);
+  background: #e8f0d8;
+  box-shadow: 0 0 0 2px rgba(74,92,42,0.2);
+}
+.battle-item.unlocked:hover { border-color: var(--khaki-dark); }
+
+.battle-number {
+  font-family: 'Special Elite', cursive;
+  font-size: 18px;
+  color: var(--khaki-dark);
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.battle-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 15px;
+  color: var(--khaki-dark);
+  margin-bottom: 2px;
+}
+.battle-desc {
+  font-size: 13px;
+  color: #6a5a40;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.battle-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+.result-icon { font-size: 15px; }
+.result-obj  { font-size: 13px; color: var(--olive); }
+.result-score {
+  font-size: 13px;
+  color: var(--khaki);
+  border: 1px solid var(--khaki);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.battle-mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 5px;
+}
+.battle-mods span {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: rgba(74,92,42,0.15);
+  border: 1px solid var(--olive-light);
+  border-radius: 2px;
+  color: var(--olive);
+}
+
+.battle-launch-btn {
+  padding: 8px 14px;
+  background: var(--khaki-dark);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Special Elite', cursive;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.battle-launch-btn:hover { background: var(--khaki); }
+.battle-launch-btn.primary {
+  background: var(--olive);
+  font-size: 15px;
+  padding: 9px 16px;
+}
+.battle-launch-btn.primary:hover { background: var(--olive-light); }
+
+/* ─── Actions popup ──────────────────────────────────────── */
+#popup-actions {
+  border-top: 1px solid var(--khaki);
+  padding-top: 16px;
+  text-align: right;
+}
+#popup-reset-btn {
+  background: none;
+  border: 1px solid #8b2222;
+  color: #8b2222;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+#popup-reset-btn:hover {
+  background: #8b2222;
+  color: var(--paper);
+}
+
+/* ─── Popup confirmation reset ───────────────────────────── */
+#reset-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#reset-confirm-overlay.hidden { display: none; }
+
+#reset-confirm-popup {
+  background: var(--paper);
+  border: 2px solid #8b2222;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+#reset-confirm-popup p {
+  font-family: 'Special Elite', cursive;
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.reset-warning {
+  font-size: 12px !important;
+  color: #8b2222 !important;
+  font-style: italic;
+  margin-bottom: 20px !important;
+}
+.reset-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.reset-buttons button {
+  padding: 9px 20px;
+  border-radius: var(--radius);
+  font-family: 'Special Elite', cursive;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+}
+.reset-buttons button:hover { opacity: 0.8; }
+#reset-confirm-yes {
+  background: #8b2222;
+  color: var(--paper);
+}
+#reset-confirm-no {
+  background: var(--khaki-dark);
+  color: var(--paper);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+#campaign-popup::-webkit-scrollbar { width: 6px; }
+#campaign-popup::-webkit-scrollbar-track { background: var(--paper-dark); }
+#campaign-popup::-webkit-scrollbar-thumb {
+  background: var(--khaki);
+  border-radius: 3px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  #campaigns-grid { padding: 20px 16px; gap: 18px; }
+  #page-header { padding: 14px 16px; }
+  #popup-content { padding: 18px 16px; }
+  .battle-item { flex-wrap: wrap; }
+  .battle-launch-btn { width: 100%; text-align: center; }
+}
+
+
+/* ─── Groupes de branchement ─────────────────────────────── */
+.battle-branch-group {
+  border: 1px dashed var(--khaki);
+  border-radius: var(--radius);
+  padding: 10px;
+  background: rgba(139,115,85,0.06);
+}
+
+.battle-branch-label {
+  font-size: 11px;
+  color: var(--khaki);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.battle-branch-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.battle-branch-sep {
+  text-align: center;
+  font-family: 'Special Elite', cursive;
+  font-size: 12px;
+  color: var(--khaki);
+  letter-spacing: 3px;
+  padding: 2px 0;
+}
+
+.battle-prefix {
+  width: 100%;
+  margin-bottom: 0;
+  font-size: 11px;
+  order: -1;
+}
+
+.branch-tag {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.branch-tag.victory {
+  background: rgba(74,92,42,0.2);
+  border: 1px solid var(--olive);
+  color: var(--olive);
+}
+.branch-tag.defeat {
+  background: rgba(139,34,34,0.15);
+  border: 1px solid var(--red-axis);
+  color: var(--red-axis);
+}
+
+/* Batailles dans un groupe : pas de marge externe */
+.battle-branch-options .battle-item {
+  margin: 0;
+}

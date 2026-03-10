@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bibliothèque - Mémoire 44</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪖</text></svg>"
+  />
+  <style>
+    /* Layout principal */
+    body {
+      background: linear-gradient(145deg, #2c3e50 0%, #1c3750 100%);
+      font-family: "Courier Prime", monospace;
+      color: #e8d4b0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    #library-header {
+      max-width: 1400px;
+      margin: 0 auto 30px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #8b7355;
+      border-radius: 8px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #library-header h1 {
+      font-family: "Special Elite", cursive;
+      font-size: 32px;
+      color: #d4af37;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .top-nav {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .nav-btn {
+      padding: 10px 20px;
+      background: linear-gradient(145deg, #4a6741, #3a5433);
+      border: 2px solid #8b7355;
+      border-radius: 5px;
+      color: #e8d4b0;
+      font-family: "Courier Prime", monospace;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: linear-gradient(145deg, #5a7751, #4a6741);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(145deg, #d4af37, #b8941f);
+      color: #1a252f;
+      border-color: #d4af37;
+    }
+
+    /* Barre de filtres */
+    .filters-bar {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px;
+      background: rgba(139, 115, 85, 0.2);
+      border: 2px solid #8b7355;
+      border-radius: 8px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 250px;
+      max-width: 400px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 10px 15px 10px 40px;
+      background: #1a252f;
+      border: 2px solid #8b7355;
+      color: #e8d5a3;
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #search-input:focus {
+      border-color: #c9a84c;
+    }
+
+    #search-input::placeholder {
+      color: #8b7355;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .filter-label {
+      color: #8b7355;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .filter-pill {
+      padding: 8px 15px;
+      border: 2px solid #8b7355;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #1a252f;
+      color: #e8d5a3;
+      font-family: 'Courier Prime', monospace;
+      font-size: 13px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .filter-pill:hover {
+      border-color: #c9a84c;
+      background: #22303c;
+    }
+
+    .filter-pill.active {
+      background: #8b7355;
+      border-color: #c9a84c;
+      color: #fff;
+    }
+
+    /* Grille de cartes */
+    .library-container {
+      max-width: 1400px;
+      margin: 30px auto;
+    }
+
+    .section-title {
+      font-family: "Special Elite", cursive;
+      font-size: 24px;
+      color: #d4af37;
+      margin: 30px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #8b7355;
+      text-align: center;
+    }
+
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    /* Carte d'unité */
+    .unit-card {
+      width: 320px;
+      flex-shrink: 0;
+      background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+      border: 3px solid #8b7355;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeInCard 0.5s forwards;
+    }
+
+    @keyframes fadeInCard {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .unit-card:hover {
+      transform: translateY(-5px);
+      border-color: #d4af37;
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .unit-card-image {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-bottom: 2px solid #d4af37;
+      position: relative;
+      background-color: #111;
+    }
+
+    .unit-card-category {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 12px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #d4af37;
+      border-radius: 15px;
+      font-size: 11px;
+      color: #d4af37;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .unit-card-stats {
+      padding: 18px;
+    }
+
+    .unit-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #8b7355;
+    }
+
+    .unit-card-name {
+      font-family: "Special Elite", cursive;
+      font-size: 18px;
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .unit-card-short {
+      font-size: 13px;
+      color: #8b7355;
+      font-weight: normal;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 14px;
+      color: #e8d4b0;
+    }
+
+    .stat-icon {
+      width: 24px;
+      font-size: 16px;
+      margin-right: 10px;
+      text-align: center;
+    }
+
+    .stat-label {
+      flex: 1;
+      color: #c9b999;
+    }
+
+    .stat-value {
+      color: #4a90e2;
+      font-weight: bold;
+    }
+
+    /* Statistiques de dés compactes */
+    .dice-stats-compact {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid #4a90e2;
+      border-radius: 6px;
+    }
+
+    .dice-stats-title {
+      font-family: "Special Elite", cursive;
+      color: #4a90e2;
+      font-size: 12px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .dice-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px 0;
+      font-size: 11px;
+    }
+
+    .dice-icon-small {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      margin-right: 5px;
+    }
+
+    .dice-value {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    /* Carte de commandement */
+    .command-card {
+      width: 320px;
+      flex-shrink: 0;
+      background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+      border: 3px solid #8b7355;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeInCard 0.5s forwards;
+    }
+
+    .command-card:hover {
+      transform: translateY(-5px);
+      border-color: #d4af37;
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .command-card-image {
+      width: 100%;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #111;
+      border-bottom: 2px solid #d4af37;
+      position: relative;
+    }
+
+    .command-card-faction {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+    }
+
+    .command-card-content {
+      padding: 18px;
+    }
+
+    .command-card-title {
+      font-family: "Special Elite", cursive;
+      font-size: 18px;
+      color: #d4af37;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .command-info {
+      display: flex;
+      justify-content: space-around;
+      padding-top: 10px;
+      border-top: 1px solid #8b7355;
+    }
+
+    .command-info-item {
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .command-info-label {
+      color: #8b7355;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .command-info-value {
+      color: #4a90e2;
+      font-weight: bold;
+      font-size: 15px;
+      margin-top: 3px;
+    }
+
+    .reusable-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(74, 144, 226, 0.2);
+      border: 1px solid #4a90e2;
+      border-radius: 12px;
+      color: #4a90e2;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .single-use-badge {
+      background: rgba(226, 74, 74, 0.2);
+      border-color: #e24a4a;
+      color: #e24a4a;
+    }
+
+    /* Message aucun résultat */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: #8b7355;
+      font-size: 18px;
+    }
+
+    .no-results.visible {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cards-grid {
+        justify-content: center;
+      }
+
+      .filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-wrapper {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="library-header">
+  <h1>📖 BIBLIOTHÈQUE - MÉMOIRE 44</h1>
+  
+  <div class="top-nav">
+    <button class="nav-btn active" data-section="units">🪖 Unités</button>
+    <button class="nav-btn" data-section="commands">🎴 Cartes de commandement</button>
+    <button class="nav-btn" onclick="window.location.href='index.html'">🏠 Retour au menu</button>
+  </div>
+
+  <div class="filters-bar">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Rechercher..."
+        autocomplete="off"
+      />
+    </div>
+    
+    <div class="filter-group" id="category-filters"></div>
+      <span class="filter-label">Catégorie :</span>
+      <button class="filter-pill" data-category="all">Toutes</button>
+      <button class="filter-pill" data-category="infantry">🪖 Infanterie</button>
+      <button class="filter-pill" data-category="tank">🛡️ Chars</button>
+      <button class="filter-pill" data-category="artillery">💣 Artillerie</button>
+      <button class="filter-pill" data-category="train">🚂 Trains</button>
+      <button class="filter-pill" data-category="boat">⛵ Bateaux</button>
+      <button class="filter-pill" data-category="sniper">🎯 Tireurs</button>
+    </div>
+  </div>
+</div>
+
+<div class="library-container">
+  <!-- Section Unités -->
+  <div id="units-section">
+    <div class="cards-grid" id="units-grid"></div>
+    <div class="no-results" id="units-no-results">Aucune unité ne correspond à votre recherche.</div>
+  </div>
+
+  <!-- Section Cartes de commandement -->
+  <div id="commands-section" style="display: none;">
+    <div class="cards-grid" id="commands-grid"></div>
+    <div class="no-results" id="commands-no-results">Aucune carte ne correspond à votre recherche.</div>
+  </div>
+</div>
+
+<script>
+  /* =========================
+     CONFIGURATION DES IMAGES
+     ========================= */
+  
+  const UNIT_IMAGES = {
+    "infantry": "units/infantry/DE 1er régiment.png",
+    "infantryMobile": "units/infantry/UK Royal scots.png",
+    "infantryMitrailleuse": "units/infantry/DE 141e GebirGsager.png",
+    "infantryBazouka": "units/infantry/US 506e régiment.png",
+    "infantryMortier": "units/infantry/US 463e bataillon.png",
+    "infantryElite": "units/infantry/UK OX and Bucks.png",
+    "infantryBoat": "units/infantry/SV 2e fusiliers marins.png",
+    "infantrySki": "units/infantry/FN bataillon détaché 4.png",
+    "infantryCavalerie": "units/infantry/PL division Zaza.png",
+    "infantryResistance": "units/infantry/FR FFI.png",
+    "infantryHP": "units/infantry/SV 266e fusiliers de la garde.png",
+    "infantryLF": "units/infantry/DE 4e Baraillon de pionniers.png",
+    "LightTank": "units/tank/DE panzer 35(t).png",
+    "BlindeMTR": "units/tank/DE Sd Kfs 250.png",
+    "BlindeREC": "units/tank/DE Sd Kfz 222.png",
+    "tank": "units/tank/US M4A1.png",
+    "tankHP": "units/tank/FR Somua s35.png",
+    "Heavytank": "units/tank/DE Tiger I-E.png",
+    "tankAC": "units/tank/DE elephant tank.png",
+    "tankAntiMines": "units/tank/UK Churchill Mk III Avre.png",
+    "tankLF": "units/tank/DE Flammpanzer.png",
+    "artilleryAntiChar": "units/artillery/DE Flak 88.png",
+    "artilleryAntiCharMobile": "units/artillery/UK Sexton.png",
+    "artilleryRoc": "units/artillery/SV Katyusha.png",
+    "artilleryMobile": "units/artillery/US M7 Priest.png",
+    "HeavyArtillery": "units/artillery/SV obusier B-4 203mm.png",
+    "artillery": "units/artillery/PL canon Bofors 37mm.png",
+    "train": "units/train/DE panzerzug 61 BP42.png",
+    "trainRenf": "units/train/SV Train blindé.png",
+    "recon": "units/infantry/US recon US.png",
+    "genie": "units/infantry/UK 15e PECCE.png",
+    "VhcRenf": "units/tank/US 7e renf.png",
+    "sniper": "units/sniper/DE 92e régiment.png",
+    "BlindeCMD": "units/tank/DE Grief.png",
+    "VhcRenf": "units/tank/US 7e renf.png",
+    "boatREC": "units/boat/US USS night.png",
+    "boatRenf": "units/boat/US USS MIssouri.png",
+    "boatCroiseur": "units/boat/US USS Fitch.png",
+    "boatPorteAVions": "units/boat/JP Ijn Akagi.png",
+    // Ajoute ici toutes tes autres unités
+  };
+
+  const COMMAND_IMAGES = {
+    "bombardement": "units/cards/US bombardement.png",
+    "renforts_allies": "units/cards/US renforts.png",
+    "avance_tactique": "units/cards/US avance.png",
+    "barrage_artillerie": "units/cards/FR barrage.png",
+    "commandement_renforce": "units/cards/DE comm renf.png",
+    "sabotage": "units/cards/FR sabotage.png",
+    "attaque_aerienne": "units/cards/US attaque aerienne.png",
+    "renforts_alliesSV": "units/cards/SV renforts.png",
+    "renforts_axis": "units/cards/DE renforts.png",
+    "parachutage_alliesUS": "units/cards/US parachutage.png",
+    "parachutage_alliesUK": "units/cards/UK parachutage.png",
+    "parachutage_axis": "units/cards/DE parachutage.png",
+    "defense_renforcee": "units/cards/DE defense.png",
+    "frappe_eclaire": "units/cards/JP frappe eclaire.png"
+    // Ajoute ici toutes tes autres cartes
+  };
+
+  /* =========================
+     ÉTAT GLOBAL
+     ========================= */
+
+  let currentSection = 'units';
+  let allUnits = [];
+  let allCommands = []; // Cartes partagées, plus de séparation allies/axis
+  let activeCategory = 'all';
+
+  /* =========================
+     CHARGEMENT DES DONNÉES
+     ========================= */
+
+  async function loadData() {
+    try {
+      // Charge units.json
+      const unitsRes = await fetch("units.json");
+      const unitsData = await unitsRes.json();
+      
+      allUnits = Object.entries(unitsData).map(([key, data]) => ({
+        id: key,
+        ...data,
+        image: UNIT_IMAGES[key]
+      }));
+
+      renderUnits();
+
+      // Charge cards.json
+      const cardsRes = await fetch("cards.json");
+      const cardsData = await cardsRes.json();
+      
+      // Toutes les cartes sont partagées
+      allCommands = Object.entries(cardsData).map(([key, data]) => ({
+        id: key,
+        ...data,
+        image: COMMAND_IMAGES[key]
+      }));
+
+      renderCommands();
+
+    } catch (error) {
+      console.error("Erreur de chargement :", error);
+    }
+  }
+
+  /* =========================
+     RENDU DES UNITÉS
+     ========================= */
+
+  function renderUnits() {
+    const grid = document.getElementById("units-grid");
+    const noResults = document.getElementById("units-no-results");
+    grid.innerHTML = "";
+
+    const query = document.getElementById("search-input").value.toLowerCase();
+    
+    const filtered = allUnits.filter(unit => {
+      const matchesSearch = query === "" || 
+        unit.name.toLowerCase().includes(query) ||
+        unit.shortName.toLowerCase().includes(query);
+      
+      const matchesCategory = activeCategory === 'all' || unit.category === activeCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+
+    if (filtered.length === 0) {
+      noResults.classList.add("visible");
+      return;
+    }
+    
+    noResults.classList.remove("visible");
+
+    filtered.forEach((unit, index) => {
+      const card = document.createElement("div");
+      card.className = "unit-card";
+      card.style.animationDelay = `${index * 0.05}s`;
+      
+      card.innerHTML = `
+        <div class="unit-card-image" style="background-image: url('${unit.image}')">
+          <div class="unit-card-category">${unit.category || 'Standard'}</div>
+        </div>
+        <div class="unit-card-stats">
+          <div class="unit-card-header">
+            <div>
+              <div class="unit-card-name">${unit.name}</div>
+              <div class="unit-card-short">${unit.shortName}</div>
+            </div>
+          </div>
+          
+          <div class="stat-row">
+            <div class="stat-icon">❤️</div>
+            <div class="stat-label">Points de vie</div>
+            <div class="stat-value">${unit.hp || '-'}</div>
+          </div>
+          
+          <div class="stat-row">
+            <div class="stat-icon">⚔️</div>
+            <div class="stat-label">Dégâts max</div>
+            <div class="stat-value">${formatDamage(unit.damageByRange)}</div>
+          </div>
+          
+          <div class="stat-row">
+            <div class="stat-icon">🛡️</div>
+            <div class="stat-label">Contre-attaque</div>
+            <div class="stat-value">${formatDamage(unit.counterDamageByRange)}</div>
+          </div>
+          
+          <div class="stat-row">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-label">Portée</div>
+            <div class="stat-value">${formatRange(unit.damageByRange)}</div>
+          </div>
+          
+          <div class="stat-row">
+            <div class="stat-icon">➡️</div>
+            <div class="stat-label">Déplacement</div>
+            <div class="stat-value">${unit.movementWithAttack || '-'}/${unit.movementWithoutAttack || '-'}</div>
+          </div>
+          
+          <div class="stat-row">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-label">Coût d'action</div>
+            <div class="stat-value">${unit.actionCost || '-'}</div>
+          </div>
+          
+          ${unit.commandRange ? `
+          <div class="stat-row">
+            <div class="stat-icon">📡</div>
+            <div class="stat-label">Portée commandement</div>
+            <div class="stat-value">${unit.commandRange}</div>
+          </div>` : ''}
+          
+          ${unit.ignoreRetreat ? `
+          <div class="stat-row">
+            <div class="stat-icon">🚫</div>
+            <div class="stat-label">Ignore retraite</div>
+            <div class="stat-value">Oui</div>
+          </div>` : ''}
+          
+          ${unit.needsLOS !== undefined ? `
+          <div class="stat-row">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-label">Ligne de vue requise</div>
+            <div class="stat-value">${unit.needsLOS ? 'Oui' : 'Non'}</div>
+          </div>` : ''}
+          
+          ${unit.commandement ? `
+          <div class="stat-row">
+            <div class="stat-icon">📡</div>
+            <div class="stat-label">Commandement</div>
+            <div class="stat-value">Portée ${unit.commandement}</div>
+          </div>` : ''}
+          
+          ${unit.renfort ? `
+          <div class="stat-row">
+            <div class="stat-icon">🔧</div>
+            <div class="stat-label">Renforts</div>
+            <div class="stat-value" style="font-size: 11px;">${Object.entries(unit.renfort).map(([k,v]) => `${k}: +${v} HP`).join(', ')}</div>
+          </div>` : ''}
+          
+          ${unit.retreatDistance ? `
+          <div class="stat-row">
+            <div class="stat-icon">↩️</div>
+            <div class="stat-label">Distance de retraite</div>
+            <div class="stat-value">${unit.retreatDistance} cases</div>
+          </div>` : ''}
+          
+          ${unit.cannotCross && unit.cannotCross.length > 0 ? `
+          <div class="stat-row">
+            <div class="stat-icon">🚫</div>
+            <div class="stat-label">Ne peut traverser</div>
+            <div class="stat-value" style="font-size: 11px;">${unit.cannotCross.join(', ')}</div>
+          </div>` : ''}
+          
+          ${unit.mustStopOn && unit.mustStopOn.length > 0 ? `
+          <div class="stat-row">
+            <div class="stat-icon">⏸️</div>
+            <div class="stat-label">Doit s'arrêter sur</div>
+            <div class="stat-value" style="font-size: 11px;">${unit.mustStopOn.join(', ')}</div>
+          </div>` : ''}
+          
+          ${unit.mustStopAndCannotFight && unit.mustStopAndCannotFight.length > 0 ? `
+          <div class="stat-row">
+            <div class="stat-icon">⛔</div>
+            <div class="stat-label">S'arrête sans combattre</div>
+            <div class="stat-value" style="font-size: 11px;">${unit.mustStopAndCannotFight.join(', ')}</div>
+          </div>` : ''}
+
+          ${unit.dice ? renderDiceStats(unit.dice, 'Attaque') : ''}
+          ${unit.ctnDice ? renderDiceStats(unit.ctnDice, 'Contre-attaque', true) : ''}
+          
+          ${unit.description ? `
+          <div class="stat-row" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #8b7355;">
+            <div style="font-size: 12px; color: #c9b999; font-style: italic; line-height: 1.4;">
+              ${unit.description}
+            </div>
+          </div>` : ''}
+        </div>
+      `;
+      
+      grid.appendChild(card);
+    });
+  }
+
+  function formatDamage(damageArray) {
+    if (!damageArray) return '-';
+    const max = Math.max(...damageArray);
+    return max > 0 ? max : '-';
+  }
+
+  function formatRange(damageArray) {
+    if (!damageArray) return '-';
+    const maxRange = damageArray.length - 1;
+    return maxRange > 0 ? `1-${maxRange}` : '-';
+  }
+
+  function renderDiceStats(dice, title, isCounter = false) {
+    const types = ['inf', 'tank', 'tous', 'retraite', 'manque'];
+    const labels = ['Infanterie', 'Chars', 'Tous', 'Retraite', 'Manqué'];
+    
+    let html = `<div class="dice-stats-compact ${isCounter ? 'counter' : ''}">`;
+    html += `<div class="dice-stats-title">🎲 ${title}</div>`;
+    
+    types.forEach((type, i) => {
+      if (dice[i] !== undefined) {
+        html += `
+          <div class="dice-row">
+            <img src="units/imgDice/${type}.png" class="dice-icon-small" />
+            <span>${labels[i]}</span>
+            <span class="dice-value">${dice[i]}%</span>
+          </div>
+        `;
+      }
+    });
+    
+    html += `</div>`;
+    return html;
+  }
+
+  /* =========================
+     RENDU DES CARTES
+     ========================= */
+
+  function renderCommands() {
+    const grid = document.getElementById("commands-grid");
+    const noResults = document.getElementById("commands-no-results");
+    grid.innerHTML = "";
+
+    const query = document.getElementById("search-input").value.toLowerCase();
+    
+    const filtered = allCommands.filter(card => {
+      const matchesSearch = query === "" || 
+        card.id.toLowerCase().includes(query) ||
+        (card.name && card.name.toLowerCase().includes(query)) ||
+        (card.description && card.description.toLowerCase().includes(query));
+      
+      return matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      noResults.classList.add("visible");
+      return;
+    }
+    
+    noResults.classList.remove("visible");
+
+    filtered.forEach((card, index) => {
+      const cardEl = document.createElement("div");
+      cardEl.className = "command-card";
+      cardEl.style.animationDelay = `${index * 0.05}s`;
+      
+      cardEl.innerHTML = `
+        <div class="command-card-image" style="background-image: url('${card.image}')">
+        </div>
+        <div class="command-card-content">
+          <div class="command-card-title">${card.name || formatCardName(card.id)}</div>
+          
+          ${card.description ? `
+          <div style="font-size: 12px; color: #c9b999; line-height: 1.5; margin: 12px 0; padding: 10px; background: rgba(139, 115, 85, 0.15); border-radius: 5px; border-left: 3px solid #d4af37;">
+            ${card.description}
+          </div>` : ''}
+          
+          <div class="command-info">
+            ${card.cost !== undefined ? `
+            <div class="command-info-item">
+              <div class="command-info-label">Coût</div>
+              <div class="command-info-value">${card.cost} PA</div>
+            </div>` : ''}
+          </div>
+        </div>
+      `;
+      
+      grid.appendChild(cardEl);
+    });
+  }
+
+  function formatCardName(id) {
+    return id
+      .replace(/_/g, ' ')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
+  /* =========================
+     NAVIGATION ET FILTRES
+     ========================= */
+
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.section) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        currentSection = btn.dataset.section;
+        
+        document.getElementById('units-section').style.display = 
+          currentSection === 'units' ? 'block' : 'none';
+        document.getElementById('commands-section').style.display = 
+          currentSection === 'commands' ? 'block' : 'none';
+        
+        document.getElementById('category-filters').style.display = 
+          currentSection === 'units' ? 'flex' : 'none';
+        
+        document.getElementById('search-input').value = '';
+        applyFilters();
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-category]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('[data-category]').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCategory = pill.dataset.category;
+      renderUnits();
+    });
+  });
+
+  document.getElementById('search-input').addEventListener('input', applyFilters);
+
+  function applyFilters() {
+    if (currentSection === 'units') {
+      renderUnits();
+    } else {
+      renderCommands();
+    }
+  }
+
+  /* =========================
+     INITIALISATION
+     ========================= */
+
+  // Active le premier filtre par défaut
+  document.querySelector('[data-category="all"]').classList.add('active');
+
+  loadData();
+</script>
+
+</body>
+</html>

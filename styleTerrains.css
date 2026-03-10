@@ -1,0 +1,1402 @@
+
+/* Structure layer - sits on top of terrain */
+.structure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Structure types */
+.structure.pont {
+    background-image: url('structures/pont.png');
+}
+
+.structure.pont-60 {
+    background-image: url('structures/pont-60.png');
+}
+
+.structure.pont-120 {
+    background-image: url('structures/pont-120.png');
+}
+
+.structure.pont-fero {
+    background-image: url('structures/pont-fero.png');
+}
+
+.structure.pont-neige {
+    background-image: url('structures/pont-neige.png');
+}
+
+.structure.pont-neige60 {
+    background-image: url('structures/pont-neige60.png');
+}
+
+.structure.pont-neige120 {
+    background-image: url('structures/pont-neige120.png');
+}
+
+.structure.pont-fero60 {
+    background-image: url('structures/pont-fero60.png');
+}
+
+.structure.pont-fero120 {
+    background-image: url('structures/pont-fero120.png');
+}
+
+.structure.pont-feroNeige {
+    background-image: url('structures/pont-feroNeige.png');
+}
+
+.structure.pont-feroNeige60 {
+    background-image: url('structures/pont-feroNeige60.png');
+}
+
+.structure.pont-feroNeige120 {
+    background-image: url('structures/pont-feroNeige120.png');
+}
+
+.structure.routeCouverte {
+    background-image: url('structures/routeCouverte.png');
+}
+
+.structure.pont-acier {
+    background-image: url('structures/pont-acier.png');
+}
+
+.structure.pont-acier60 {
+    background-image: url('structures/pont-acier60.png');
+}
+
+.structure.pont-acier90 {
+    background-image: url('structures/pont-acier90.png');
+}
+
+.structure.pont-acier120 {
+    background-image: url('structures/pont-acier120.png');
+}
+
+.structure.pont-embarquations {
+    background-image: url('structures/pont-embarquations.png');
+}
+
+.structure.pont-mer {
+    background-image: url('structures/pont-mer.png');
+}
+
+.structure.gue {
+    background-image: url('structures/gue.png');
+}
+
+.structure.gue-60 {
+    background-image: url('structures/gue-60.png');
+}
+
+.structure.gue-120 {
+    background-image: url('structures/gue-120.png');
+}
+
+.structure.routeCouverte-60 {
+    background-image: url('structures/routeCouverte-60.png');
+}
+
+.structure.routeCouverte-120 {
+    background-image: url('structures/routeCouverte-120.png');
+}
+
+.structure.routeCouverte-courbe {
+    background-image: url('structures/routeCouverte-courbe.png');
+}
+
+.structure.routeCouverte-courbe60 {
+    background-image: url('structures/routeCouverte-courbe60.png');
+}
+
+.structure.routeCouverte-courbe120 {
+    background-image: url('structures/routeCouverte-courbe120.png');
+}
+
+.structure.routeCouverte-courbe180 {
+    background-image: url('structures/routeCouverte-courbe180.png');
+}
+
+.structure.routeCouverte-courbe240 {
+    background-image: url('structures/routeCouverte-courbe240.png');
+}
+
+.structure.routeCouverte-courbe300 {
+    background-image: url('structures/routeCouverte-courbe300.png');
+}
+
+.structure.bunker {
+    background-image: url('structures/bunker.png');
+}
+
+.structure.bunker-inv {
+    background-image: url('structures/bunker-inv.png');
+}
+
+.structure.bunker-desert {
+    background-image: url('structures/bunker-desert.png');
+}
+
+.structure.bunker-desertinv {
+    background-image: url('structures/bunker-invdesert.png');
+}
+
+.structure.bunker-jungle {
+    background-image: url('structures/bunker-jungle.png');
+}
+
+.structure.bunker-jungleInv {
+    background-image: url('structures/bunker-jungleInv.png');
+}
+
+.structure.bunker-neige {
+    background-image: url('structures/bunker-neige.png');
+}
+
+.structure.bunker-neigeInv {
+    background-image: url('structures/bunker-neigeInv.png');
+}
+
+.structure.bunker-1 {
+    background-image: url('structures/bunker-1.png');
+}
+
+.structure.bunker-inv1 {
+    background-image: url('structures/bunker-inv1.png');
+}
+
+.structure.bunker-2 {
+    background-image: url('structures/bunker-2.png');
+}
+
+.structure.bunker-inv2 {
+    background-image: url('structures/bunker-inv2.png');
+}
+
+.structure.bunker-bois {
+    background-image: url('structures/bunker-bois.png');
+}
+
+.structure.bunker-invbois {
+    background-image: url('structures/bunker-invbois.png');
+}
+
+.structure.obstacle {
+    background-image: url('structures/obstacle.png');
+}
+
+.structure.obstacle-60 {
+    background-image: url('structures/obstacle-60.png');
+}
+
+.structure.obstacle-120 {
+    background-image: url('structures/obstacle-120.png');
+}
+
+.structure.obstacle-desert {
+    background-image: url('structures/obstacle-desert.png');
+}
+
+.structure.obstacle-desert60 {
+    background-image: url('structures/obstacle-desert60.png');
+}
+
+.structure.obstacle-desert120 {
+    background-image: url('structures/obstacle-desert120.png');
+}
+
+.structure.obstacle-neige {
+    background-image: url('structures/obstacle-neige.png');
+}
+
+.structure.obstacle-neige60 {
+    background-image: url('structures/obstacle-neige60.png');
+}
+
+.structure.obstacle-neige120 {
+    background-image: url('structures/obstacle-neige120.png');
+}
+
+.structure.obstacle-antichar {
+    background-image: url('structures/obstacle-antichar.png');
+}
+
+.structure.obstacle-antichar90 {
+    background-image: url('structures/obstacle-antichar90.png');
+}
+
+.structure.sacs_de_sable-vert {
+    background-image: url('structures/sacs_de_sable-vert.png');
+}
+
+.structure.sacs_de_sable-bleu {
+    background-image: url('structures/sacs_de_sable-bleu.png');
+}
+
+.structure.barbele {
+    background-image: url('structures/barbele.png');
+}
+
+.structure.barbele-90 {
+    background-image: url('structures/barbele-90.png');
+}
+
+.structure.mines {
+    background-image: url('structures/mines.png');
+}
+
+/*================================================== TUILES ==================================================*/
+.aerodrome-desertI {
+    background-image: url('terrain/aerodrome-desertI.png');
+}
+
+.aerodrome-desertX {
+    background-image: url('terrain/aerodrome-desertX.png');
+}
+
+.aerodrome-jungle {
+    background-image: url('terrain/aerodrome-jungle.png');
+}
+
+.aerodrome-jungleX {
+    background-image: url('terrain/aerodrome-jungleX.png');
+}
+
+.aerodrome-neige {
+    background-image: url('terrain/aerodrome-neige.png');
+}
+
+.aerodrome-piste {
+    background-image: url('terrain/aerodrome-piste.png');
+}
+
+.aerodrome-radar {
+    background-image: url('terrain/aerodrome-radar.png');
+}
+
+.aerodrome-terre {
+    background-image: url('terrain/aerodrome-terre.png');
+}
+
+.aerodrome {
+    background-image: url('terrain/aerodrome.png');
+}
+
+.barrage-120 {
+    background-image: url('terrain/barrage-120.png');
+}
+
+.barrage-180 {
+    background-image: url('terrain/barrage-180.png');
+}
+
+.barrage-240 {
+    background-image: url('terrain/barrage-240.png');
+}
+
+.barrage-300 {
+    background-image: url('terrain/barrage-300.png');
+}
+
+.barrage-60 {
+    background-image: url('terrain/barrage-60.png');
+}
+
+.barrage {
+    background-image: url('terrain/barrage.png');
+}
+
+.bocage-jungle {
+    background-image: url('terrain/bocage-jungle.png');
+}
+
+.bocage {
+    background-image: url('terrain/bocage.png');
+}
+
+.chateau-neige {
+    background-image: url('terrain/chateau-neige.png');
+}
+
+.chateau {
+    background-image: url('terrain/chateau.png');
+}
+
+.colline-dune {
+    background-image: url('terrain/colline-dune.png');
+}
+
+.colline-ergs {
+    background-image: url('terrain/colline-ergs.png');
+}
+
+.colline-neige {
+    background-image: url('terrain/colline-neige.png');
+}
+
+.colline {
+    background-image: url('terrain/colline.png');
+}
+
+.crevasse-120 {
+    background-image: url('terrain/crevasse-120.png');
+}
+
+.crevasse-60 {
+    background-image: url('terrain/crevasse-60.png');
+}
+
+.crevasse-courbe {
+    background-image: url('terrain/crevasse-courbe.png');
+}
+
+.crevasse-courbe120 {
+    background-image: url('terrain/crevasse-courbe120.png');
+}
+
+.crevasse-courbe180 {
+    background-image: url('terrain/crevasse-courbe180.png');
+}
+
+.crevasse-courbe240 {
+    background-image: url('terrain/crevasse-courbe240.png');
+}
+
+.crevasse-courbe300 {
+    background-image: url('terrain/crevasse-courbe300.png');
+}
+
+.crevasse-courbe60 {
+    background-image: url('terrain/crevasse-courbe60.png');
+}
+
+.crevasse-neige {
+    background-image: url('terrain/crevasse-neige.png');
+}
+
+.crevasse-neige120 {
+    background-image: url('terrain/crevasse-neige120.png');
+}
+
+.crevasse-neige60 {
+    background-image: url('terrain/crevasse-neige60.png');
+}
+
+.crevasse-terre {
+    background-image: url('terrain/crevasse-terre.png');
+}
+
+.crevasse-terre120 {
+    background-image: url('terrain/crevasse-terre120.png');
+}
+
+.crevasse-terre60 {
+    background-image: url('terrain/crevasse-terre60.png');
+}
+
+.crevasse-terreBiff {
+    background-image: url('terrain/crevasse-terreBiff.png');
+}
+
+.crevasse-terreBiff120 {
+    background-image: url('terrain/crevasse-terreBiff120.png');
+}
+
+.crevasse-terreBiff180 {
+    background-image: url('terrain/crevasse-terreBiff180.png');
+}
+
+.crevasse-terreBiff240 {
+    background-image: url('terrain/crevasse-terreBiff240.png');
+}
+
+.crevasse-terreBiff300 {
+    background-image: url('terrain/crevasse-terreBiff300.png');
+}
+
+.crevasse-terreBiff60 {
+    background-image: url('terrain/crevasse-terreBiff60.png');
+}
+
+.crevasse {
+    background-image: url('terrain/crevasse.png');
+}
+
+.croisement-120 {
+    background-image: url('terrain/croisement-120.png');
+}
+
+.croisement-60 {
+    background-image: url('terrain/croisement-60.png');
+}
+
+.croisement-inv {
+    background-image: url('terrain/croisement-inv.png');
+}
+
+.croisement-inv120 {
+    background-image: url('terrain/croisement-inv120.png');
+}
+
+.croisement-inv60 {
+    background-image: url('terrain/croisement-inv60.png');
+}
+
+.croisement-neige {
+    background-image: url('terrain/croisement-neige.png');
+}
+
+.croisement-neige120 {
+    background-image: url('terrain/croisement-neige120.png');
+}
+
+.croisement-neige180 {
+    background-image: url('terrain/croisement-neige180.png');
+}
+
+.croisement-neige240 {
+    background-image: url('terrain/croisement-neige240.png');
+}
+
+.croisement-neige300 {
+    background-image: url('terrain/croisement-neige300.png');
+}
+
+.croisement-neige60 {
+    background-image: url('terrain/croisement-neige60.png');
+}
+
+.croisement {
+    background-image: url('terrain/croisement.png');
+}
+
+.foret-desert {
+    background-image: url('terrain/foret-desert.png');
+}
+
+.foret-neige {
+    background-image: url('terrain/foret-neige.png');
+}
+
+.foret-neigeColline {
+    background-image: url('terrain/foret-neigeColline.png');
+}
+
+.foret {
+    background-image: url('terrain/foret.png');
+}
+
+.gare-120 {
+    background-image: url('terrain/gare-120.png');
+}
+
+.gare-60 {
+    background-image: url('terrain/gare-60.png');
+}
+
+.gare {
+    background-image: url('terrain/gare.png');
+}
+
+.marecage-neige {
+    background-image: url('terrain/marecage-neige.png');
+}
+
+.marecage-riziere {
+    background-image: url('terrain/marecage-riziere.png');
+}
+
+.marecage {
+    background-image: url('terrain/marecage.png');
+}
+
+.mer {
+    background-image: url('terrain/mer.png');
+}
+
+.montagne-desert {
+    background-image: url('terrain/montagne-desert.png');
+}
+
+.montagne-grotte {
+    background-image: url('terrain/montagne-grotte.png');
+}
+
+.montagne-grotte2 {
+    background-image: url('terrain/montagne-grotte2.png');
+}
+
+.montagne {
+    background-image: url('terrain/montagne.png');
+}
+
+.plaine-dune {
+    background-image: url('terrain/plaine-dune.png');
+}
+
+.plaine-neige {
+    background-image: url('terrain/plaine-neige.png');
+}
+
+.plaine {
+    background-image: url('terrain/plaine.png');
+}
+
+.rail-120 {
+    background-image: url('terrain/rail-120.png');
+}
+
+.rail-60 {
+    background-image: url('terrain/rail-60.png');
+}
+
+.rail-bif {
+    background-image: url('terrain/rail-bif.png');
+}
+
+.rail-bif120 {
+    background-image: url('terrain/rail-bif120.png');
+}
+
+.rail-bif120inv {
+    background-image: url('terrain/rail-bif120inv.png');
+}
+
+.rail-bif180 {
+    background-image: url('terrain/rail-bif180.png');
+}
+
+.rail-bif180inv {
+    background-image: url('terrain/rail-bif180inv.png');
+}
+
+.rail-bif240 {
+    background-image: url('terrain/rail-bif240.png');
+}
+
+.rail-bif240inv {
+    background-image: url('terrain/rail-bif240inv.png');
+}
+
+.rail-bif300 {
+    background-image: url('terrain/rail-bif300.png');
+}
+
+.rail-bif300inv {
+    background-image: url('terrain/rail-bif300inv.png');
+}
+
+.rail-bif60 {
+    background-image: url('terrain/rail-bif60.png');
+}
+
+.rail-bif60inv {
+    background-image: url('terrain/rail-bif60inv.png');
+}
+
+.rail-bifinv {
+    background-image: url('terrain/rail-bifinv.png');
+}
+
+.rail-courbe {
+    background-image: url('terrain/rail-courbe.png');
+}
+
+.rail-courbe120 {
+    background-image: url('terrain/rail-courbe120.png');
+}
+
+.rail-courbe180 {
+    background-image: url('terrain/rail-courbe180.png');
+}
+
+.rail-courbe240 {
+    background-image: url('terrain/rail-courbe240.png');
+}
+
+.rail-courbe300 {
+    background-image: url('terrain/rail-courbe300.png');
+}
+
+.rail-courbe60 {
+    background-image: url('terrain/rail-courbe60.png');
+}
+
+.rail-neige {
+    background-image: url('terrain/rail-neige.png');
+}
+
+.rail-neige120 {
+    background-image: url('terrain/rail-neige120.png');
+}
+
+.rail-neige60 {
+    background-image: url('terrain/rail-neige60.png');
+}
+
+.rail-neigeCourbe {
+    background-image: url('terrain/rail-neigeCourbe.png');
+}
+
+.rail-neigeCourbe120 {
+    background-image: url('terrain/rail-neigeCourbe120.png');
+}
+
+.rail-neigeCourbe180 {
+    background-image: url('terrain/rail-neigeCourbe180.png');
+}
+
+.rail-neigeCourbe240 {
+    background-image: url('terrain/rail-neigeCourbe240.png');
+}
+
+.rail-neigeCourbe300 {
+    background-image: url('terrain/rail-neigeCourbe300.png');
+}
+
+.rail-neigeCourbe60 {
+    background-image: url('terrain/rail-neigeCourbe60.png');
+}
+
+.rail {
+    background-image: url('terrain/rail.png');
+}
+
+.riviere-120 {
+    background-image: url('terrain/riviere-120.png');
+}
+
+.riviere-60 {
+    background-image: url('terrain/riviere-60.png');
+}
+
+.riviere-bif {
+    background-image: url('terrain/riviere-bif.png');
+}
+
+.riviere-bif120 {
+    background-image: url('terrain/riviere-bif120.png');
+}
+
+.riviere-bif120inv {
+    background-image: url('terrain/riviere-bif120inv.png');
+}
+
+.riviere-bif180 {
+    background-image: url('terrain/riviere-bif180.png');
+}
+
+.riviere-bif180inv {
+    background-image: url('terrain/riviere-bif180inv.png');
+}
+
+.riviere-bif240 {
+    background-image: url('terrain/riviere-bif240.png');
+}
+
+.riviere-bif240inv {
+    background-image: url('terrain/riviere-bif240inv.png');
+}
+
+.riviere-bif300 {
+    background-image: url('terrain/riviere-bif300.png');
+}
+
+.riviere-bif300inv {
+    background-image: url('terrain/riviere-bif300inv.png');
+}
+
+.riviere-bif60 {
+    background-image: url('terrain/riviere-bif60.png');
+}
+
+.riviere-bif60inv {
+    background-image: url('terrain/riviere-bif60inv.png');
+}
+
+.riviere-bifinv {
+    background-image: url('terrain/riviere-bifinv.png');
+}
+
+.riviere-conf {
+    background-image: url('terrain/riviere-conf.png');
+}
+
+.riviere-conf120 {
+    background-image: url('terrain/riviere-conf120.png');
+}
+
+.riviere-conf180 {
+    background-image: url('terrain/riviere-conf180.png');
+}
+
+.riviere-conf240 {
+    background-image: url('terrain/riviere-conf240.png');
+}
+
+.riviere-conf300 {
+    background-image: url('terrain/riviere-conf300.png');
+}
+
+.riviere-conf60 {
+    background-image: url('terrain/riviere-conf60.png');
+}
+
+.riviere-courbe {
+    background-image: url('terrain/riviere-courbe.png');
+}
+
+.riviere-courbe120 {
+    background-image: url('terrain/riviere-courbe120.png');
+}
+
+.riviere-courbe180 {
+    background-image: url('terrain/riviere-courbe180.png');
+}
+
+.riviere-courbe240 {
+    background-image: url('terrain/riviere-courbe240.png');
+}
+
+.riviere-courbe300 {
+    background-image: url('terrain/riviere-courbe300.png');
+}
+
+.riviere-courbe60 {
+    background-image: url('terrain/riviere-courbe60.png');
+}
+
+.riviere-croisement {
+    background-image: url('terrain/riviere-croisement.png');
+}
+
+.riviere-croisement60 {
+    background-image: url('terrain/riviere-croisement60.png');
+}
+
+.riviere-lac {
+    background-image: url('terrain/riviere-lac.png');
+}
+
+.riviere-lac120 {
+    background-image: url('terrain/riviere-lac120.png');
+}
+
+.riviere-lac180 {
+    background-image: url('terrain/riviere-lac180.png');
+}
+
+.riviere-lac240 {
+    background-image: url('terrain/riviere-lac240.png');
+}
+
+.riviere-lac300 {
+    background-image: url('terrain/riviere-lac300.png');
+}
+
+.riviere-lac60 {
+    background-image: url('terrain/riviere-lac60.png');
+}
+
+.riviere-lacG {
+    background-image: url('terrain/riviere-lacG.png');
+}
+
+.riviere-lacG120 {
+    background-image: url('terrain/riviere-lacG120.png');
+}
+
+.riviere-lacG180 {
+    background-image: url('terrain/riviere-lacG180.png');
+}
+
+.riviere-lacG240 {
+    background-image: url('terrain/riviere-lacG240.png');
+}
+
+.riviere-lacG300 {
+    background-image: url('terrain/riviere-lacG300.png');
+}
+
+.riviere-lacG60 {
+    background-image: url('terrain/riviere-lacG60.png');
+}
+
+.riviere-lacP {
+    background-image: url('terrain/riviere-lacP.png');
+}
+
+.riviere-lacP120 {
+    background-image: url('terrain/riviere-lacP120.png');
+}
+
+.riviere-lacP180 {
+    background-image: url('terrain/riviere-lacP180.png');
+}
+
+.riviere-lacP240 {
+    background-image: url('terrain/riviere-lacP240.png');
+}
+
+.riviere-lacP300 {
+    background-image: url('terrain/riviere-lacP300.png');
+}
+
+.riviere-lacP60 {
+    background-image: url('terrain/riviere-lacP60.png');
+}
+
+.riviere-marre {
+    background-image: url('terrain/riviere-marre.png');
+}
+
+.riviere-marre120 {
+    background-image: url('terrain/riviere-marre120.png');
+}
+
+.riviere-marre180 {
+    background-image: url('terrain/riviere-marre180.png');
+}
+
+.riviere-marre240 {
+    background-image: url('terrain/riviere-marre240.png');
+}
+
+.riviere-marre300 {
+    background-image: url('terrain/riviere-marre300.png');
+}
+
+.riviere-marre60 {
+    background-image: url('terrain/riviere-marre60.png');
+}
+
+.riviere-neige {
+    background-image: url('terrain/riviere-neige.png');
+}
+
+.riviere-neige120 {
+    background-image: url('terrain/riviere-neige120.png');
+}
+
+.riviere-neige60 {
+    background-image: url('terrain/riviere-neige60.png');
+}
+
+.riviere-neigeCourbe {
+    background-image: url('terrain/riviere-neigeCourbe.png');
+}
+
+.riviere-neigeCourbe120 {
+    background-image: url('terrain/riviere-neigeCourbe120.png');
+}
+
+.riviere-neigeCourbe180 {
+    background-image: url('terrain/riviere-neigeCourbe180.png');
+}
+
+.riviere-neigeCourbe240 {
+    background-image: url('terrain/riviere-neigeCourbe240.png');
+}
+
+.riviere-neigeCourbe300 {
+    background-image: url('terrain/riviere-neigeCourbe300.png');
+}
+
+.riviere-neigeCourbe60 {
+    background-image: url('terrain/riviere-neigeCourbe60.png');
+}
+
+.riviere {
+    background-image: url('terrain/riviere.png');
+}
+
+.route-120 {
+    background-image: url('terrain/route-120.png');
+}
+
+.route-60 {
+    background-image: url('terrain/route-60.png');
+}
+
+.route-bif {
+    background-image: url('terrain/route-bif.png');
+}
+
+.route-bif120 {
+    background-image: url('terrain/route-bif120.png');
+}
+
+.route-bif120inv {
+    background-image: url('terrain/route-bif120inv.png');
+}
+
+.route-bif180 {
+    background-image: url('terrain/route-bif180.png');
+}
+
+.route-bif180inv {
+    background-image: url('terrain/route-bif180inv.png');
+}
+
+.route-bif240 {
+    background-image: url('terrain/route-bif240.png');
+}
+
+.route-bif240inv {
+    background-image: url('terrain/route-bif240inv.png');
+}
+
+.route-bif300 {
+    background-image: url('terrain/route-bif300.png');
+}
+
+.route-bif300inv {
+    background-image: url('terrain/route-bif300inv.png');
+}
+
+.route-bif60 {
+    background-image: url('terrain/route-bif60.png');
+}
+
+.route-bif60inv {
+    background-image: url('terrain/route-bif60inv.png');
+}
+
+.route-bifinv {
+    background-image: url('terrain/route-bifinv.png');
+}
+
+.route-courbe {
+    background-image: url('terrain/route-courbe.png');
+}
+
+.route-courbe120 {
+    background-image: url('terrain/route-courbe120.png');
+}
+
+.route-courbe180 {
+    background-image: url('terrain/route-courbe180.png');
+}
+
+.route-courbe240 {
+    background-image: url('terrain/route-courbe240.png');
+}
+
+.route-courbe300 {
+    background-image: url('terrain/route-courbe300.png');
+}
+
+.route-courbe60 {
+    background-image: url('terrain/route-courbe60.png');
+}
+
+.route-croisement {
+    background-image: url('terrain/route-croisement.png');
+}
+
+.route-croisement120 {
+    background-image: url('terrain/route-croisement120.png');
+}
+
+.route-croisement60 {
+    background-image: url('terrain/route-croisement60.png');
+}
+
+.route-croisementY {
+    background-image: url('terrain/route-croisementY.png');
+}
+
+.route-croisementY60 {
+    background-image: url('terrain/route-croisementY60.png');
+}
+
+.route-desert {
+    background-image: url('terrain/route-desert.png');
+}
+
+.route-desert120 {
+    background-image: url('terrain/route-desert120.png');
+}
+
+.route-desert60 {
+    background-image: url('terrain/route-desert60.png');
+}
+
+.route-desertbif {
+    background-image: url('terrain/route-desertbif.png');
+}
+
+.route-desertbif120 {
+    background-image: url('terrain/route-desertbif120.png');
+}
+
+.route-desertbif180 {
+    background-image: url('terrain/route-desertbif180.png');
+}
+
+.route-desertbif240 {
+    background-image: url('terrain/route-desertbif240.png');
+}
+
+.route-desertbif300 {
+    background-image: url('terrain/route-desertbif300.png');
+}
+
+.route-desertbif60 {
+    background-image: url('terrain/route-desertbif60.png');
+}
+
+.route-desertbifinv {
+    background-image: url('terrain/route-desertbifinv.png');
+}
+
+.route-desertbifinv120 {
+    background-image: url('terrain/route-desertbifinv120.png');
+}
+
+.route-desertbifinv180 {
+    background-image: url('terrain/route-desertbifinv180.png');
+}
+
+.route-desertbifinv240 {
+    background-image: url('terrain/route-desertbifinv240.png');
+}
+
+.route-desertbifinv300 {
+    background-image: url('terrain/route-desertbifinv300.png');
+}
+
+.route-desertbifinv60 {
+    background-image: url('terrain/route-desertbifinv60.png');
+}
+
+.route-desertcourbe {
+    background-image: url('terrain/route-desertcourbe.png');
+}
+
+.route-desertcourbe120 {
+    background-image: url('terrain/route-desertcourbe120.png');
+}
+
+.route-desertcourbe180 {
+    background-image: url('terrain/route-desertcourbe180.png');
+}
+
+.route-desertcourbe240 {
+    background-image: url('terrain/route-desertcourbe240.png');
+}
+
+.route-desertcourbe300 {
+    background-image: url('terrain/route-desertcourbe300.png');
+}
+
+.route-desertcourbe60 {
+    background-image: url('terrain/route-desertcourbe60.png');
+}
+
+.route-desertCroisement {
+    background-image: url('terrain/route-desertCroisement.png');
+}
+
+.route-desertCroisement60 {
+    background-image: url('terrain/route-desertCroisement60.png');
+}
+
+.route-neige {
+    background-image: url('terrain/route-neige.png');
+}
+
+.route-neige120 {
+    background-image: url('terrain/route-neige120.png');
+}
+
+.route-neige60 {
+    background-image: url('terrain/route-neige60.png');
+}
+
+.route-neigeBif {
+    background-image: url('terrain/route-neigeBif.png');
+}
+
+.route-neigeBif120 {
+    background-image: url('terrain/route-neigeBif120.png');
+}
+
+.route-neigeBif180 {
+    background-image: url('terrain/route-neigeBif180.png');
+}
+
+.route-neigeBif240 {
+    background-image: url('terrain/route-neigeBif240.png');
+}
+
+.route-neigeBif300 {
+    background-image: url('terrain/route-neigeBif300.png');
+}
+
+.route-neigeBif60 {
+    background-image: url('terrain/route-neigeBif60.png');
+}
+
+.route-neigeBifInv {
+    background-image: url('terrain/route-neigeBifInv.png');
+}
+
+.route-neigeBifInv120 {
+    background-image: url('terrain/route-neigeBifInv120.png');
+}
+
+.route-neigeBifInv180 {
+    background-image: url('terrain/route-neigeBifInv180.png');
+}
+
+.route-neigeBifInv240 {
+    background-image: url('terrain/route-neigeBifInv240.png');
+}
+
+.route-neigeBifInv300 {
+    background-image: url('terrain/route-neigeBifInv300.png');
+}
+
+.route-neigeBifInv60 {
+    background-image: url('terrain/route-neigeBifInv60.png');
+}
+
+.route-neigeCourbe {
+    background-image: url('terrain/route-neigeCourbe.png');
+}
+
+.route-neigeCourbe120 {
+    background-image: url('terrain/route-neigeCourbe120.png');
+}
+
+.route-neigeCourbe180 {
+    background-image: url('terrain/route-neigeCourbe180.png');
+}
+
+.route-neigeCourbe240 {
+    background-image: url('terrain/route-neigeCourbe240.png');
+}
+
+.route-neigeCourbe300 {
+    background-image: url('terrain/route-neigeCourbe300.png');
+}
+
+.route-neigeCourbe60 {
+    background-image: url('terrain/route-neigeCourbe60.png');
+}
+
+.route-neigeCroisX {
+    background-image: url('terrain/route-neigeCroisX.png');
+}
+
+.route-neigeCroisXinv {
+    background-image: url('terrain/route-neigeCroisXinv.png');
+}
+
+.route-neigeCroisY {
+    background-image: url('terrain/route-neigeCroisY.png');
+}
+
+.route-neigeCroisYinv {
+    background-image: url('terrain/route-neigeCroisYinv.png');
+}
+
+.route {
+    background-image: url('terrain/route.png');
+}
+
+.sable-120mer {
+    background-image: url('terrain/sable-120mer.png');
+}
+
+.sable-180mer {
+    background-image: url('terrain/sable-180mer.png');
+}
+
+.sable-240mer {
+    background-image: url('terrain/sable-240mer.png');
+}
+
+.sable-300mer {
+    background-image: url('terrain/sable-300mer.png');
+}
+
+.sable-60mer {
+    background-image: url('terrain/sable-60mer.png');
+}
+
+.sable-courbe120mer {
+    background-image: url('terrain/sable-courbe120mer.png');
+}
+
+.sable-courbe180mer {
+    background-image: url('terrain/sable-courbe180mer.png');
+}
+
+.sable-courbe240mer {
+    background-image: url('terrain/sable-courbe240mer.png');
+}
+
+.sable-courbe300mer {
+    background-image: url('terrain/sable-courbe300mer.png');
+}
+
+.sable-courbe60mer {
+    background-image: url('terrain/sable-courbe60mer.png');
+}
+
+.sable-courbemer {
+    background-image: url('terrain/sable-courbemer.png');
+}
+
+.sable-mer {
+    background-image: url('terrain/sable-mer.png');
+}
+
+.sable-oasis {
+    background-image: url('terrain/sable-oasis.png');
+}
+
+.sable-plaine {
+    background-image: url('terrain/sable-plaine.png');
+}
+
+.sable-plaine120 {
+    background-image: url('terrain/sable-plaine120.png');
+}
+
+.sable-plaine180 {
+    background-image: url('terrain/sable-plaine180.png');
+}
+
+.sable-plaine240 {
+    background-image: url('terrain/sable-plaine240.png');
+}
+
+.sable-plaine300 {
+    background-image: url('terrain/sable-plaine300.png');
+}
+
+.sable-plaine60 {
+    background-image: url('terrain/sable-plaine60.png');
+}
+
+.sable {
+    background-image: url('terrain/sable.png');
+}
+
+.tranchee-120 {
+    background-image: url('terrain/tranchee-120.png');
+}
+
+.tranchee-60 {
+    background-image: url('terrain/tranchee-60.png');
+}
+
+.tranchee-neige {
+    background-image: url('terrain/tranchee-neige.png');
+}
+
+.tranchee {
+    background-image: url('terrain/tranchee.png');
+}
+
+.village-2 {
+    background-image: url('terrain/village-2.png');
+}
+
+.village-asie {
+    background-image: url('terrain/village-asie.png');
+}
+
+.village-barraquement {
+    background-image: url('terrain/village-barraquement.png');
+}
+
+.village-cimetiere {
+    background-image: url('terrain/village-cimetiere.png');
+}
+
+.village-depot {
+    background-image: url('terrain/village-depot.png');
+}
+
+.village-desert {
+    background-image: url('terrain/village-desert.png');
+}
+
+.village-elec {
+    background-image: url('terrain/village-elec.png');
+}
+
+.village-ferme {
+    background-image: url('terrain/village-ferme.png');
+}
+
+.village-hopital {
+    background-image: url('terrain/village-hopital.png');
+}
+
+.village-HQ {
+    background-image: url('terrain/village-HQ.png');
+}
+
+.village-HQdesert {
+    background-image: url('terrain/village-HQdesert.png');
+}
+
+.village-neige {
+    background-image: url('terrain/village-neige.png');
+}
+
+.village-neige2 {
+    background-image: url('terrain/village-neige2.png');
+}
+
+.village-neigeColline {
+    background-image: url('terrain/village-neigeColline.png');
+}
+
+.village-neigeRuine {
+    background-image: url('terrain/village-neigeRuine.png');
+}
+
+.village-neigeUsine {
+    background-image: url('terrain/village-neigeUsine.png');
+}
+
+.village-phare {
+    background-image: url('terrain/village-phare.png');
+}
+
+.village-prison {
+    background-image: url('terrain/village-prison.png');
+}
+
+.village-usine {
+    background-image: url('terrain/village-usine.png');
+}
+
+.village-ville {
+    background-image: url('terrain/village-ville.png');
+}
+
+.village-ville2 {
+    background-image: url('terrain/village-ville2.png');
+}
+
+.village {
+    background-image: url('terrain/village.png');
+}
+

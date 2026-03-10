@@ -1,0 +1,2685 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Éditeur de Carte - Mémoire 44</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styleEditor.css" />
+    <link rel="stylesheet" href="styleTerrains.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪖</text></svg>"
+    />
+    <!-- Remplacer par -->
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3.4.1/src/dom-to-image-more.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>⬢ ÉDITEUR DE CARTE ⬢</h1>
+      <div id="editor-header">
+        <button id="save-btn" class="action-btn">📤 <br />Sauvegarder</button>
+        <button id="load-local-btn" class="action-btn">
+          📥 <br />Charger sauvegarde locale
+        </button>
+        <button id="export-btn" class="action-btn special">
+          📥 <br />Exporter JSON
+        </button>
+        <button id="import-btn" class="action-btn special">
+          📂 <br />Importer JSON
+        </button>
+        <input
+          type="file"
+          id="import-file"
+          accept=".json"
+          style="display: none"
+        />
+        <button id="screenshot-btn" class="action-btn">
+          📸 Capturer la carte
+        </button>
+        <button
+          id="back-btn"
+          class="action-btn"
+          onclick="
+            return confirm('Voulez-vous vraiment quitter ?')
+              ? (location.href = 'index.html')
+              : false;
+          "
+        >
+          🔙 Retour
+        </button>
+      </div>
+    </div>
+
+    <!-- Configuration de la carte -->
+    <div id="config-panel">
+      <h2>⚙️ Configuration de la carte</h2>
+      <div class="config-row">
+        <div class="config-group">
+          <label>Titre de la bataille</label>
+          <input type="text" id="map-title" value="Nouvelle Bataille" />
+        </div>
+        <div class="config-group">
+          <label>Image de fond</label>
+          <input type="text" id="map-image" value="mapTest.webp" />
+        </div>
+        <div class="config-group">
+          <label>Date de la bataille</label>
+          <input type="number" id="map-date" value="1939" min="1930" max="1950" />
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-group">
+          <label>Couleur de fond</label>
+          <select id="map-background">
+            <option value="#94A144">Vert (Prairie)</option>
+            <option value="#FDCA7B">Sable (Désert)</option>
+            <option value="#eaebe5">Neige (Hiver)</option>
+          </select>
+        </div>
+        <div class="config-group">
+          <label>Dimensions</label>
+          <div style="display: flex; gap: 10px">
+            <input type="number" id="map-width" value="12" min="5" max="50" />
+            <span style="color: #c9b999; align-self: center">×</span>
+            <input type="number" id="map-height" value="12" min="5" max="50" />
+          </div>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-group">
+          <label>Actions Alliés</label>
+          <input type="number" id="actions-allies" value="8" min="1" max="30" />
+        </div>
+        <div class="config-group">
+          <label>Actions Axe</label>
+          <input type="number" id="actions-axis" value="6" min="1" max="30" />
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-group">
+          <label>Factions Alliées</label>
+          <div class="faction-selector" id="factions-allies">
+            <label class="faction-checkbox">
+              <input type="checkbox" value="usa" checked />
+              <img src="units/factions/usa.png" alt="USA" />
+              <span>USA</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="uk" />
+              <img src="units/factions/uk.png" alt="UK" />
+              <span>UK</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="france" />
+              <img src="units/factions/france.png" alt="France" />
+              <span>France</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="urss" />
+              <img src="units/factions/urss.png" alt="URSS" />
+              <span>URSS</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="poland" />
+              <img src="units/factions/poland.png" alt="Pologne" />
+              <span>Pologne</span>
+            </label>
+          </div>
+        </div>
+        <div class="config-group">
+          <label>Factions Axe</label>
+          <div class="faction-selector" id="factions-axis">
+            <label class="faction-checkbox">
+              <input type="checkbox" value="germany" checked />
+              <img src="units/factions/germany.png" alt="Allemagne" />
+              <span>Allemagne</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="italy" />
+              <img src="units/factions/italy.png" alt="Italie" />
+              <span>Italie</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="japan" />
+              <img src="units/factions/japan.png" alt="Japon" />
+              <span>Japon</span>
+            </label>
+            <label class="faction-checkbox">
+              <input type="checkbox" value="finlande" />
+              <img src="units/factions/finlande.png" alt="Finlande" />
+              <span>Finlande</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="game-container">
+      <!-- Panel des terrains à gauche -->
+      <div id="palette-panel">
+        <h2>🗺️ Terrains</h2>
+
+        <div class="tool-buttons">
+          <button class="tool-btn active" id="paint-tool">🖌️ Peinture</button>
+          <button class="tool-btn" id="erase-tool">🧹 Effacer</button>
+        </div>
+
+        <div class="palette-category">
+          <h3>Terrains de base</h3>
+          <div class="palette-grid" id="terrain-palette"></div>
+        </div>
+
+        <div class="palette-category">
+          <h3>Structures</h3>
+          <div
+            style="display: grid; grid-template-columns: 1fr; gap: 8px"
+            id="structure-palette"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Carte au centre -->
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+
+      <!-- Panel des unités à droite -->
+      <div id="units-panel" class="actions-panel">
+        <h2>⚔️ Unités</h2>
+        <div id="units-palette"></div>
+      </div>
+    </div>
+
+    <!-- Panel Conditions de victoire -->
+    <div
+      id="victory-config-panel"
+      style="
+        background: rgba(0, 0, 0, 0.7);
+        border: 4px solid #8b7355;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 20px;
+      "
+    >
+      <h2
+        style="
+          font-family: &quot;Special Elite&quot;, cursive;
+          color: #d4af37;
+          font-size: 18px;
+          margin-bottom: 15px;
+        "
+      >
+        🏆 Conditions de victoire
+      </h2>
+
+      <!-- Médailles nécessaires -->
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+        "
+      >
+        <div class="config-group">
+          <label>🔵 Médailles Alliés pour gagner</label>
+          <input type="number" id="medals-allies" value="8" min="1" max="30" />
+        </div>
+        <div class="config-group">
+          <label>🔴 Médailles Axe pour gagner</label>
+          <input type="number" id="medals-axis" value="8" min="1" max="30" />
+        </div>
+      </div>
+
+      <!-- Objectifs -->
+      <h3
+        style="
+          color: #c9b999;
+          font-size: 14px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #8b7355;
+          padding-bottom: 5px;
+        "
+      >
+        Objectifs
+      </h3>
+      <button
+        id="add-objective-btn"
+        class="action-btn"
+        style="width: 100%; margin-bottom: 10px"
+      >
+        ➕ Ajouter un objectif
+      </button>
+      <div
+        id="objectives-list"
+        style="display: flex; flex-direction: column; gap: 8px"
+      ></div>
+    </div>
+
+    <!-- Panel de configuration des cartes -->
+    <div
+      id="cards-config-panel"
+      style="
+        background: rgba(0, 0, 0, 0.7);
+        border: 4px solid #8b7355;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 20px;
+      "
+    >
+      <h2
+        style="
+          font-family: &quot;Special Elite&quot;, cursive;
+          color: #d4af37;
+          font-size: 18px;
+          margin-bottom: 15px;
+        "
+      >
+        🃏 Cartes de commandement
+      </h2>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+        <!-- Cartes Alliées -->
+        <div>
+          <h3 style="color: #4a90e2; margin-bottom: 10px">Alliés</h3>
+          <button
+            id="add-card-allies"
+            class="action-btn"
+            style="width: 100%; margin-bottom: 10px"
+          >
+            ➕ Ajouter une carte
+          </button>
+          <div
+            id="cards-list-allies"
+            style="display: flex; flex-direction: column; gap: 8px"
+          ></div>
+        </div>
+
+        <!-- Cartes Axe -->
+        <div>
+          <h3 style="color: #e24a4a; margin-bottom: 10px">Axe</h3>
+          <button
+            id="add-card-axis"
+            class="action-btn"
+            style="width: 100%; margin-bottom: 10px"
+          >
+            ➕ Ajouter une carte
+          </button>
+          <div
+            id="cards-list-axis"
+            style="display: flex; flex-direction: column; gap: 8px"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de configuration d'unité -->
+    <div id="unit-config-modal">
+      <div class="modal-content">
+        <h2>Configuration de l'unité</h2>
+        <div class="modal-buttons">
+          <button class="modal-btn cancel" id="modal-cancel">Annuler</button>
+          <button class="modal-btn confirm" id="modal-confirm">
+            Placer l'unité
+          </button>
+        </div>
+
+        <div class="modal-section">
+          <p></p>
+          <h3>Type d'unité</h3>
+          <div
+            id="unit-type-display"
+            style="
+              text-align: center;
+              color: #d4af37;
+              font-size: 16px;
+              margin-bottom: 10px;
+            "
+          ></div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Camp</h3>
+          <div class="side-selector">
+            <div class="side-option allies" data-side="allies">
+              <div style="font-size: 24px; margin-bottom: 5px">🔵</div>
+              <div style="font-weight: bold">Alliés</div>
+            </div>
+            <div class="side-option axis" data-side="axis">
+              <div style="font-size: 24px; margin-bottom: 5px">🔴</div>
+              <div style="font-weight: bold">Axe</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3>Nom de l'unité (cssClass)</h3>
+          <div style="display: flex; gap: 8px; align-items: center">
+            <input
+              type="text"
+              id="unit-cssclass"
+              list="unit-names-datalist"
+              class="config-group"
+              style="flex: 1"
+              placeholder="Ex: 1er régiment"
+            />
+            <button
+              id="open-cssclass-modal"
+              class="action-btn"
+              style="white-space: nowrap"
+            >
+              🖼️ Parcourir
+            </button>
+          </div>
+          <datalist id="unit-names-datalist"></datalist>
+        </div>
+
+        <div class="modal-section">
+          <h3>Blason</h3>
+          <div class="blason-selector" id="blason-selector"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de sélection de variante -->
+    <div
+      id="variant-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="modal-content"
+        style="max-width: 800px; max-height: 90vh; overflow-y: auto"
+      >
+        <h2 id="variant-modal-title">Sélectionner une variante</h2>
+        <div
+          id="variant-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+          "
+        ></div>
+        <div class="modal-buttons">
+          <button class="modal-btn cancel" id="variant-modal-cancel">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sous-modal sélection cssClass visuel -->
+    <div
+      id="cssclass-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="modal-content"
+        style="max-width: 70%; max-height: 85vh; overflow-y: auto"
+      >
+        <h2>Choisir une carte d'unité</h2>
+        <div class="modal-buttons">
+          <button class="modal-btn cancel" id="cssclass-modal-cancel">
+            Fermer
+          </button>
+        </div>
+        <input
+          type="text"
+          id="cssclass-search"
+          placeholder="Filtrer (ex: US, DE, UK...)"
+          style="
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #8b7355;
+            border-radius: 4px;
+            color: #e8d4b0;
+            font-family: &quot;Courier Prime&quot;, monospace;
+          "
+        />
+        <div
+          id="cssclass-grid"
+          style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Modal sélection de carte -->
+    <div
+      id="card-config-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="modal-content"
+        style="max-width: 700px; max-height: 85vh; overflow-y: auto"
+      >
+        <h2>Configurer une carte</h2>
+
+        <div class="modal-section">
+          <h3>Choisir la carte</h3>
+          <select
+            id="card-id-select"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+              font-family: &quot;Courier Prime&quot;, monospace;
+            "
+          ></select>
+        </div>
+
+        <div class="modal-section">
+          <h3>Illustration</h3>
+          <input
+            type="text"
+            id="card-illustration"
+            placeholder="Ex: US bombardement"
+            style="
+              width: 100%;
+              padding: 8px;
+              margin-bottom: 10px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+              font-family: &quot;Courier Prime&quot;, monospace;
+            "
+          />
+          <button id="browse-card-illustration" class="action-btn">
+            🖼️ Parcourir
+          </button>
+        </div>
+
+        <div class="modal-section">
+          <h3>Options</h3>
+          <label
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+              cursor: pointer;
+            "
+          >
+            <input type="checkbox" id="card-reusable" />
+            <span>Réutilisable</span>
+          </label>
+          <label style="display: block; margin-bottom: 5px"
+            >Cooldown (tours)</label
+          >
+          <input
+            type="number"
+            id="card-cooldown"
+            value="3"
+            min="0"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          />
+        </div>
+
+        <div class="modal-buttons">
+          <button class="modal-btn cancel" id="card-modal-cancel">
+            Annuler
+          </button>
+          <button class="modal-btn confirm" id="card-modal-confirm">
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal configuration d'objectif -->
+    <div
+      id="objective-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="modal-content"
+        style="max-width: 600px; max-height: 85vh; overflow-y: auto"
+      >
+        <h2>Configurer un objectif</h2>
+
+        <div class="modal-section">
+          <h3>Camp</h3>
+          <select
+            id="obj-side"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          >
+            <option value="allies">🔵 Alliés</option>
+            <option value="axis">🔴 Axe</option>
+          </select>
+        </div>
+
+        <div class="modal-section">
+          <h3>Type d'objectif</h3>
+          <select
+            id="obj-type"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          >
+            <option value="control_tile">📍 Contrôler une case</option>
+            <option value="kill_unit">🎯 Détruire une unité spécifique</option>
+            <option value="survive_turns">⏰ Survivre X tours</option>
+            <option value="evacuation">➡️ Évacuer une unité</option>
+          </select>
+        </div>
+
+        <div class="modal-section">
+          <h3>Label de l'objectif</h3>
+          <input
+            type="text"
+            id="obj-label"
+            placeholder="Ex: Tenir le village"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          />
+        </div>
+
+        <!-- Champs spécifiques selon le type -->
+        <div class="modal-section" id="obj-tile-fields" style="display: none">
+          <h3>Position de la case</h3>
+          <div style="display: flex; gap: 10px">
+            <input
+              type="number"
+              id="obj-x"
+              placeholder="X"
+              min="0"
+              style="
+                flex: 1;
+                padding: 8px;
+                background: rgba(0, 0, 0, 0.5);
+                border: 1px solid #8b7355;
+                border-radius: 4px;
+                color: #e8d4b0;
+              "
+            />
+            <input
+              type="number"
+              id="obj-y"
+              placeholder="Y"
+              min="0"
+              style="
+                flex: 1;
+                padding: 8px;
+                background: rgba(0, 0, 0, 0.5);
+                border: 1px solid #8b7355;
+                border-radius: 4px;
+                color: #e8d4b0;
+              "
+            />
+          </div>
+        </div>
+
+        <div class="modal-section" id="obj-unit-fields" style="display: none">
+          <h3>CssClass de l'unité cible</h3>
+          <input
+            type="text"
+            id="obj-target-cssclass"
+            placeholder="Ex: DE Tiger I-E"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          />
+        </div>
+
+        <div class="modal-section" id="obj-turns-field">
+          <h3>Nombre de tours</h3>
+          <input
+            type="number"
+            id="obj-turns"
+            value="3"
+            min="1"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          />
+        </div>
+
+        <div class="modal-section">
+          <h3>Récompense (médailles)</h3>
+          <input
+            type="number"
+            id="obj-reward"
+            value="2"
+            min="1"
+            style="
+              width: 100%;
+              padding: 8px;
+              background: rgba(0, 0, 0, 0.5);
+              border: 1px solid #8b7355;
+              border-radius: 4px;
+              color: #e8d4b0;
+            "
+          />
+        </div>
+
+        <div class="modal-buttons">
+          <button class="modal-btn cancel" id="objective-modal-cancel">
+            Annuler
+          </button>
+          <button class="modal-btn confirm" id="objective-modal-confirm">
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sous-modal parcourir les illustrations de cartes -->
+    <div
+      id="card-illustration-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 3000;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="modal-content"
+        style="max-width: 800px; max-height: 85vh; overflow-y: auto"
+      >
+        <h2>Choisir une illustration</h2>
+        <div class="modal-buttons">
+          <button class="modal-btn cancel" id="card-illustration-modal-cancel">
+            Fermer
+          </button>
+        </div>
+        <input
+          type="text"
+          id="card-illustration-search"
+          placeholder="Filtrer (ex: US, DE...)"
+          style="
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #8b7355;
+            border-radius: 4px;
+            color: #e8d4b0;
+            font-family: &quot;Courier Prime&quot;, monospace;
+          "
+        />
+        <div
+          id="card-illustration-grid"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <script type="module">
+      // ========================================
+      // CONFIGURATION
+      // ========================================
+      import { UNIT_NAMES } from "./units/unitNames.js";
+
+      const CONFIG = {
+        WIDTH: 12,
+        HEIGHT: 12,
+        HEX_W: 70,
+        HEX_H: 60,
+      };
+
+      let TERRAINS = {};
+      let STRUCTURES = {};
+      let UNITS = {};
+      let TERRAIN_VARIANTS = {}; // Variantes extraites du CSS
+      let STRUCTURE_VARIANTS = {}; // Variantes de structures
+
+      let editorState = {
+        map: [],
+        width: 12,
+        height: 12,
+        currentTool: "paint",
+        selectedTerrain: null,
+        selectedTerrainVariant: null,
+        selectedStructure: null,
+        selectedStructureVariant: null,
+        selectedUnit: null,
+        pendingUnit: null,
+        pendingHex: null,
+        lastPlacedUnit: null,
+        cards: {
+          allies: [],
+          axis: [],
+        },
+        currentCardSide: null, // Pour savoir si on édite allies ou axis
+        editingCardIndex: null, // Pour savoir si on édite une carte existante
+        customUnits: {},
+        victory: {
+          medals: {
+            allies: 8,
+            axis: 8,
+          },
+          objectives: [],
+        },
+        editingObjectiveIndex: null,
+      };
+
+      // ========================================
+      // CHARGEMENT DES DONNÉES
+      // ========================================
+
+      async function parseCSSVariants() {
+        try {
+          const response = await fetch("styleTerrains.css");
+          const cssText = await response.text();
+
+          // Parser les classes de terrains (sans préfixe "terrain-")
+          const terrainRegex =
+            /\.([a-zA-Z0-9_-]+)\s*{\s*background-image:\s*url\(['"]?terrain\/([^'"]+\.png)['"]?\)/g;
+          let match;
+
+          while ((match = terrainRegex.exec(cssText)) !== null) {
+            const className = match[1];
+            const imagePath = match[2];
+
+            if (className.startsWith("structure")) continue;
+
+            const parts = className.split("-");
+            const baseType = parts[0];
+            const variant = parts.length > 1 ? parts.slice(1).join("-") : null;
+
+            if (!TERRAIN_VARIANTS[baseType]) {
+              TERRAIN_VARIANTS[baseType] = [];
+            }
+
+            TERRAIN_VARIANTS[baseType].push({
+              className: className,
+              variant: variant,
+              displayName: variant ? variant : "Défaut",
+              imagePath: imagePath,
+            });
+          }
+
+          // Parser les structures
+          const structRegex =
+            /\.structure\.([a-zA-Z0-9_-]+)\s*{\s*background-image:\s*url\(['"]?structures\/([^'"]+\.png)['"]?\)/g;
+
+          while ((match = structRegex.exec(cssText)) !== null) {
+            const className = match[1];
+            const imagePath = match[2];
+
+            const parts = className.split("-");
+            const baseType = parts[0];
+            const variant = parts.length > 1 ? parts.slice(1).join("-") : null;
+
+            if (!STRUCTURE_VARIANTS[baseType]) {
+              STRUCTURE_VARIANTS[baseType] = [];
+            }
+
+            STRUCTURE_VARIANTS[baseType].push({
+              className: className,
+              variant: variant,
+              displayName: variant ? variant : "Défaut",
+              imagePath: imagePath,
+            });
+          }
+
+          console.log("Variantes de terrains:", TERRAIN_VARIANTS);
+          console.log("Variantes de structures:", STRUCTURE_VARIANTS);
+        } catch (error) {
+          console.error("Erreur lors du parsing du CSS:", error);
+        }
+      }
+
+      function updateUnitNameDatalist(unitType) {
+        const datalist = document.getElementById("unit-names-datalist");
+        datalist.innerHTML = "";
+
+        const names = UNIT_NAMES[unitType] || [];
+        names.forEach((name) => {
+          const option = document.createElement("option");
+          option.value = name;
+          datalist.appendChild(option);
+        });
+      }
+
+      // ========================================
+      // SOUS-MODAL CSSCLASS VISUEL
+      // ========================================
+
+      function openCssClassModal(unitCategory) {
+        const modal = document.getElementById("cssclass-modal");
+        const grid = document.getElementById("cssclass-grid");
+        const searchInput = document.getElementById("cssclass-search");
+
+        const names = UNIT_NAMES[unitCategory] || [];
+
+        searchInput.value = "";
+
+        function renderGrid(filter = "") {
+          grid.innerHTML = "";
+          const filtered = names.filter((n) =>
+            n.toLowerCase().includes(filter.toLowerCase()),
+          );
+
+          filtered.forEach((name) => {
+            const item = document.createElement("div");
+            item.style.cssText = `
+        cursor:pointer; text-align:center; padding:5px;
+        border:2px solid #8b7355; border-radius:8px;
+        transition:all 0.2s; background:rgba(0,0,0,0.3); width: 200px
+      `;
+
+            // Construire le chemin de l'image à partir du nom (même logique que le jeu)
+            const img = document.createElement("img");
+            img.src = `units/${unitCategory}/${name}.png`;
+            img.onerror = () => {
+              img.style.opacity = "0.3";
+            }; // Juste griser si manquante
+
+            img.alt = name;
+            img.style.cssText =
+              "max-width:95%; height:auto; display:block; margin:0 auto 2px; border-radius:5px;";
+
+            const label = document.createElement("div");
+            label.textContent = name;
+            label.style.cssText =
+              "font-size:14px; color:#c9b999; word-break:break-word;";
+
+            item.appendChild(img);
+            item.appendChild(label);
+
+            item.addEventListener("mouseenter", () => {
+              item.style.borderColor = "#d4af37";
+              item.style.transform = "scale(1.05)";
+            });
+            item.addEventListener("mouseleave", () => {
+              item.style.borderColor = "#8b7355";
+              item.style.transform = "scale(1)";
+            });
+
+            item.addEventListener("click", () => {
+              document.getElementById("unit-cssclass").value = name;
+              modal.style.display = "none";
+            });
+
+            grid.appendChild(item);
+          });
+        }
+
+        renderGrid();
+
+        searchInput.oninput = (e) => renderGrid(e.target.value);
+
+        modal.style.display = "flex";
+      }
+
+      document
+        .getElementById("open-cssclass-modal")
+        .addEventListener("click", () => {
+          // Récupérer la catégorie du type d'unité en cours
+          const category =
+            UNITS[editorState.pendingUnit]?.category || "infantry";
+          openCssClassModal(category);
+        });
+
+      document
+        .getElementById("cssclass-modal-cancel")
+        .addEventListener("click", () => {
+          document.getElementById("cssclass-modal").style.display = "none";
+        });
+
+      async function loadGameData() {
+        try {
+          const [terrainRes, unitsRes] = await Promise.all([
+            fetch("terrain.json"),
+            fetch("units.json"),
+            parseCSSVariants(),
+            loadCardsData(),
+          ]);
+
+          const terrainData = await terrainRes.json();
+          const unitsData = await unitsRes.json();
+
+          TERRAINS = terrainData.terrains;
+          STRUCTURES = terrainData.structures;
+          UNITS = unitsData;
+
+          console.log("Données chargées:", { TERRAINS, STRUCTURES, UNITS });
+
+          initializeMap();
+          createTerrainPalette();
+          createStructurePalette();
+          createUnitsPalette();
+          createBlasonSelector();
+          renderMap();
+          renderObjectivesList();
+          renderCardsList();
+        } catch (error) {
+          console.error("Erreur lors du chargement des données:", error);
+          alert("Erreur lors du chargement des fichiers de configuration.");
+        }
+      }
+
+      let CARDS = {};
+      let CARD_ILLUSTRATIONS = [];
+
+      async function loadCardsData() {
+        try {
+          const [cardsRes, illustrationsRes] = await Promise.all([
+            fetch("cards.json"),
+            fetch("units/cards/_list.json"),
+          ]);
+
+          CARDS = await cardsRes.json();
+          CARD_ILLUSTRATIONS = await illustrationsRes.json();
+
+          console.log("Cartes chargées:", CARDS);
+          console.log("Illustrations chargées:", CARD_ILLUSTRATIONS);
+        } catch (error) {
+          console.error("Erreur lors du chargement des cartes:", error);
+        }
+      }
+      // ========================================
+      // GESTION DES CARTES
+      // ========================================
+
+      function renderCardsList() {
+        const alliesList = document.getElementById("cards-list-allies");
+        const axisList = document.getElementById("cards-list-axis");
+
+        alliesList.innerHTML = "";
+        axisList.innerHTML = "";
+
+        // Cartes Alliées
+        editorState.cards.allies.forEach((card, index) => {
+          const cardEl = createCardElement(card, "allies", index);
+          alliesList.appendChild(cardEl);
+        });
+
+        // Cartes Axe
+        editorState.cards.axis.forEach((card, index) => {
+          const cardEl = createCardElement(card, "axis", index);
+          axisList.appendChild(cardEl);
+        });
+      }
+
+      function createCardElement(card, side, index) {
+        const cardInfo = CARDS[card.id];
+        const div = document.createElement("div");
+        div.style.cssText = `
+        background: rgba(139, 115, 85, 0.3);
+        border: 2px solid #8b7355;
+        border-radius: 6px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        `;
+
+        const info = document.createElement("div");
+        info.style.cssText = "flex: 1;";
+
+        info.innerHTML = `
+            <div style="font-weight:bold; color:#d4af37; margin-bottom:4px;">${cardInfo?.name || card.id}</div>
+            <div style="font-size:10px; color:#c9b999;">
+              ${card.illustration} • ${card.reusable ? "♻️" : "🚫"} • CD: ${card.cooldown}
+            </div>
+          `;
+
+        const buttons = document.createElement("div");
+        buttons.style.cssText = "display:flex; gap:5px;";
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "✏️";
+        editBtn.className = "action-btn";
+        editBtn.style.cssText = "padding:4px 8px; font-size:12px;";
+        editBtn.onclick = () => editCard(side, index);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "🗑️";
+        deleteBtn.className = "action-btn";
+        deleteBtn.style.cssText = "padding:4px 8px; font-size:12px;";
+        deleteBtn.onclick = () => deleteCard(side, index);
+
+        buttons.appendChild(editBtn);
+        buttons.appendChild(deleteBtn);
+
+        div.appendChild(info);
+        div.appendChild(buttons);
+
+        return div;
+      }
+
+      function openCardModal(side) {
+        editorState.currentCardSide = side;
+        editorState.editingCardIndex = null;
+
+        const modal = document.getElementById("card-config-modal");
+        const select = document.getElementById("card-id-select");
+
+        // Remplir le select avec les cartes disponibles
+        select.innerHTML = "";
+        Object.keys(CARDS).forEach((cardId) => {
+          const option = document.createElement("option");
+          option.value = cardId;
+          option.textContent = CARDS[cardId].name;
+          select.appendChild(option);
+        });
+
+        // Réinitialiser
+        document.getElementById("card-illustration").value = "";
+        document.getElementById("card-reusable").checked = false;
+        document.getElementById("card-cooldown").value = 3;
+
+        modal.style.display = "flex";
+      }
+
+      function editCard(side, index) {
+        editorState.currentCardSide = side;
+        editorState.editingCardIndex = index;
+
+        const card = editorState.cards[side][index];
+        const modal = document.getElementById("card-config-modal");
+
+        document.getElementById("card-id-select").value = card.id;
+        document.getElementById("card-illustration").value = card.illustration;
+        document.getElementById("card-reusable").checked = card.reusable;
+        document.getElementById("card-cooldown").value = card.cooldown;
+
+        modal.style.display = "flex";
+      }
+
+      function deleteCard(side, index) {
+        if (confirm("Supprimer cette carte ?")) {
+          editorState.cards[side].splice(index, 1);
+          renderCardsList();
+        }
+      }
+
+      function openCardIllustrationModal() {
+        const modal = document.getElementById("card-illustration-modal");
+        const grid = document.getElementById("card-illustration-grid");
+        const searchInput = document.getElementById("card-illustration-search");
+
+        searchInput.value = "";
+
+        function renderGrid(filter = "") {
+          grid.innerHTML = "";
+          const filtered = CARD_ILLUSTRATIONS.filter((name) =>
+            name.toLowerCase().includes(filter.toLowerCase()),
+          );
+
+          filtered.forEach((name) => {
+            const item = document.createElement("div");
+            item.style.cssText = `
+        cursor:pointer; text-align:center; padding:5px;
+        border:2px solid #8b7355; border-radius:8px;
+        transition:all 0.2s; background:rgba(0,0,0,0.3);
+        `;
+
+            const img = document.createElement("img");
+            img.src = `units/cards/${name}`;
+            img.alt = name;
+            img.style.cssText =
+              "width:100px; height:auto; display:block; margin:0 auto 5px; border-radius:4px;";
+            img.onerror = () => {
+              img.style.opacity = "0.3";
+            };
+
+            const label = document.createElement("div");
+            label.textContent = name;
+            label.style.cssText =
+              "font-size:9px; color:#c9b999; word-break:break-word;";
+
+            item.appendChild(img);
+            item.appendChild(label);
+
+            item.addEventListener("mouseenter", () => {
+              item.style.borderColor = "#d4af37";
+              item.style.transform = "scale(1.05)";
+            });
+            item.addEventListener("mouseleave", () => {
+              item.style.borderColor = "#8b7355";
+              item.style.transform = "scale(1)";
+            });
+
+            item.addEventListener("click", () => {
+              // On retire l'extension .png du nom du fichier
+              const nameWithoutExtension = name.replace(".png", "");
+              // On injecte le nom "propre" dans l'input
+              document.getElementById("card-illustration").value =
+                nameWithoutExtension;
+              modal.style.display = "none";
+            });
+
+            grid.appendChild(item);
+          });
+        }
+
+        renderGrid();
+        searchInput.oninput = (e) => renderGrid(e.target.value);
+        modal.style.display = "flex";
+      }
+
+      // Écouteurs
+      document
+        .getElementById("add-card-allies")
+        .addEventListener("click", () => openCardModal("allies"));
+      document
+        .getElementById("add-card-axis")
+        .addEventListener("click", () => openCardModal("axis"));
+
+      document
+        .getElementById("browse-card-illustration")
+        .addEventListener("click", openCardIllustrationModal);
+
+      document
+        .getElementById("card-modal-cancel")
+        .addEventListener("click", () => {
+          document.getElementById("card-config-modal").style.display = "none";
+        });
+
+      document
+        .getElementById("card-illustration-modal-cancel")
+        .addEventListener("click", () => {
+          document.getElementById("card-illustration-modal").style.display =
+            "none";
+        });
+
+      document
+        .getElementById("card-modal-confirm")
+        .addEventListener("click", () => {
+          const cardId = document.getElementById("card-id-select").value;
+          const illustration =
+            document.getElementById("card-illustration").value;
+          const reusable = document.getElementById("card-reusable").checked;
+          const cooldown = parseInt(
+            document.getElementById("card-cooldown").value,
+          );
+
+          if (!illustration) {
+            alert("Veuillez choisir une illustration.");
+            return;
+          }
+
+          const card = { id: cardId, illustration, reusable, cooldown };
+
+          if (editorState.editingCardIndex !== null) {
+            // Édition
+            editorState.cards[editorState.currentCardSide][
+              editorState.editingCardIndex
+            ] = card;
+          } else {
+            // Ajout
+            editorState.cards[editorState.currentCardSide].push(card);
+          }
+
+          renderCardsList();
+          document.getElementById("card-config-modal").style.display = "none";
+        });
+
+      // ========================================
+      // INITIALISATION DE LA CARTE
+      // ========================================
+
+      function getDefaultTerrainFromBackground() {
+        const bg = document.getElementById("map-background").value;
+        if (bg === "#FDCA7B") return { type: "sable" }; // Désert
+        if (bg === "#eaebe5") return { type: "plaine", variant: "neige" }; // Neige
+        return { type: "plaine" }; // Par défaut (vert)
+      }
+
+      function initializeMap() {
+        editorState.width = parseInt(
+          document.getElementById("map-width").value,
+        );
+        editorState.height = parseInt(
+          document.getElementById("map-height").value,
+        );
+        editorState.map = [];
+
+        for (let y = 0; y < editorState.height; y++) {
+          editorState.map[y] = [];
+          for (let x = 0; x < editorState.width; x++) {
+            editorState.map[y][x] = {
+              terrain: getDefaultTerrainFromBackground(),
+              structure: null,
+              unit: null,
+            };
+          }
+        }
+      }
+
+      function resizeMap() {
+        const newWidth = parseInt(document.getElementById("map-width").value);
+        const newHeight = parseInt(document.getElementById("map-height").value);
+
+        const oldMap = editorState.map;
+        const oldWidth = editorState.width;
+        const oldHeight = editorState.height;
+
+        editorState.width = newWidth;
+        editorState.height = newHeight;
+
+        const newMap = [];
+        const defaultTerrain = getDefaultTerrainFromBackground();
+
+        for (let y = 0; y < newHeight; y++) {
+          newMap[y] = [];
+          for (let x = 0; x < newWidth; x++) {
+            if (y < oldHeight && x < oldWidth) {
+              // Conserver l'ancien contenu
+              newMap[y][x] = oldMap[y][x];
+            } else {
+              // Nouvelle cellule
+              newMap[y][x] = {
+                terrain: defaultTerrain,
+                structure: null,
+                unit: null,
+              };
+            }
+          }
+        }
+
+        editorState.map = newMap;
+        renderMap();
+      }
+
+      document.getElementById("map-width").addEventListener("change", () => {
+        resizeMap();
+      });
+
+      document.getElementById("map-height").addEventListener("change", () => {
+        resizeMap();
+      });
+
+      // Initialiser la couleur de fond au chargement
+      document.addEventListener("DOMContentLoaded", () => {
+        const initialBackground =
+          document.getElementById("map-background").value;
+        document.documentElement.style.setProperty(
+          "--map-background-color",
+          initialBackground,
+        );
+      });
+
+      // Changer la couleur de fond quand on change le select
+      document
+        .getElementById("map-background")
+        .addEventListener("change", (e) => {
+          const backgroundColor = e.target.value;
+          document.documentElement.style.setProperty(
+            "--map-background-color",
+            backgroundColor,
+          );
+          console.log(`Couleur de fond changée: ${backgroundColor}`);
+
+          // Mettre à jour tous les hexagones de base existants
+          const defaultTerrain = getDefaultTerrainFromBackground();
+          for (let y = 0; y < editorState.height; y++) {
+            for (let x = 0; x < editorState.width; x++) {
+              const cell = editorState.map[y][x];
+              // Ne changer que les plaines/sable/neige de base (sans structure, sans unité)
+              if (
+                !cell.structure &&
+                !cell.unit &&
+                (cell.terrain.type === "plaine" ||
+                  cell.terrain.type === "sable")
+              ) {
+                cell.terrain = defaultTerrain;
+              }
+            }
+          }
+          renderMap();
+        });
+
+      // ========================================
+      // PALETTE DE TERRAINS
+      // ========================================
+
+      function createTerrainPalette() {
+        const palette = document.getElementById("terrain-palette");
+        palette.innerHTML = "";
+
+        for (const [key, terrain] of Object.entries(TERRAINS)) {
+          const item = document.createElement("div");
+
+          const variantClass =
+            editorState.selectedTerrain === key &&
+            editorState.selectedTerrainVariant
+              ? `${key}-${editorState.selectedTerrainVariant}`
+              : key;
+          item.className = "palette-item " + variantClass;
+
+          item.draggable = true;
+          item.dataset.terrain = key;
+
+          // Ajouter un label
+          const label = document.createElement("div");
+          label.className = "palette-item-label";
+          label.textContent = terrain.name;
+
+          const wrapper = document.createElement("div");
+          wrapper.style.position = "relative";
+          wrapper.style.marginBottom = "15px";
+          wrapper.appendChild(item);
+          wrapper.appendChild(label);
+
+          item.addEventListener("dragstart", (e) => {
+            item.classList.add("dragging");
+            e.dataTransfer.effectAllowed = "copy";
+            e.dataTransfer.setData("terrain", key);
+          });
+
+          item.addEventListener("dragend", () => {
+            item.classList.remove("dragging");
+          });
+
+          item.addEventListener("click", () => {
+            editorState.selectedTerrain = key;
+            editorState.selectedTerrainVariant = null; // Réinitialiser la variante
+            editorState.selectedStructure = null;
+            editorState.selectedStructureVariant = null;
+            editorState.selectedUnit = null;
+            updatePaletteSelection();
+          });
+
+          // Double-clic pour ouvrir le sélecteur de variantes
+          item.addEventListener("dblclick", (e) => {
+            e.stopPropagation();
+            openVariantModal(key, "terrain");
+          });
+
+          palette.appendChild(wrapper);
+        }
+      }
+
+      // ========================================
+      // PALETTE DE STRUCTURES
+      // ========================================
+
+      function createStructurePalette() {
+        const palette = document.getElementById("structure-palette");
+        palette.innerHTML = "";
+
+        for (const [key, structure] of Object.entries(STRUCTURES)) {
+          const item = document.createElement("div");
+          item.className = "structure-palette-item";
+          item.draggable = true;
+          item.dataset.structure = key;
+          item.textContent = structure.name;
+
+          item.addEventListener("dragstart", (e) => {
+            item.classList.add("dragging");
+            e.dataTransfer.effectAllowed = "copy";
+            e.dataTransfer.setData("structure", key);
+          });
+
+          item.addEventListener("dragend", () => {
+            item.classList.remove("dragging");
+          });
+
+          item.addEventListener("click", () => {
+            editorState.selectedStructure = key;
+            editorState.selectedStructureVariant = null; // Réinitialiser la variante
+            editorState.selectedTerrain = null;
+            editorState.selectedTerrainVariant = null;
+            updatePaletteSelection();
+          });
+          // Double-clic pour ouvrir le sélecteur de variantes
+          item.addEventListener("dblclick", (e) => {
+            e.stopPropagation();
+            openVariantModal(key, "structure");
+          });
+
+          palette.appendChild(item);
+        }
+      }
+
+      function openVariantModal(baseType, type) {
+        const modalTitle = document.getElementById("variant-modal-title");
+        const variantGrid = document.getElementById("variant-grid");
+        const modal = document.getElementById("variant-modal");
+
+        const variants =
+          type === "terrain"
+            ? TERRAIN_VARIANTS[baseType]
+            : STRUCTURE_VARIANTS[baseType];
+
+        if (!variants || variants.length === 0) {
+          alert("Aucune variante disponible pour cet élément.");
+          return;
+        }
+
+        modalTitle.textContent = `Variantes de ${baseType}`;
+        variantGrid.innerHTML = "";
+
+        variants.forEach((variant) => {
+          const item = document.createElement("div");
+          item.style.cssText = `
+      cursor: pointer;
+      text-align: center;
+      padding: 5px;
+      border: 2px solid #8b7355;
+      border-radius: 8px;
+      transition: all 0.3s;
+    `;
+
+          const hexPreview = document.createElement("div");
+          hexPreview.style.cssText = `
+      width: 70px;
+      height: 60px;
+      margin: 0 auto 5px;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url('${type === "terrain" ? "terrain" : "structures"}/${variant.imagePath}');
+    `;
+
+          const label = document.createElement("div");
+          label.textContent = variant.displayName;
+          label.style.cssText = "font-size: 10px; color: #c9b999;";
+
+          item.appendChild(hexPreview);
+          item.appendChild(label);
+
+          item.addEventListener("click", () => {
+            if (type === "terrain") {
+              editorState.selectedTerrain = baseType;
+              editorState.selectedTerrainVariant = variant.variant; // NOUVELLE VARIABLE
+              editorState.selectedStructure = null;
+            } else {
+              editorState.selectedStructure = baseType;
+              editorState.selectedStructureVariant = variant.variant; // NOUVELLE VARIABLE
+              editorState.selectedTerrain = null;
+            }
+            modal.style.display = "none";
+            updatePaletteSelection();
+          });
+
+          item.addEventListener("mouseenter", () => {
+            item.style.borderColor = "#d4af37";
+            item.style.transform = "scale(1.05)";
+          });
+
+          item.addEventListener("mouseleave", () => {
+            item.style.borderColor = "#8b7355";
+            item.style.transform = "scale(1)";
+          });
+
+          variantGrid.appendChild(item);
+        });
+
+        modal.style.display = "flex";
+        // Régénérer la palette pour afficher la nouvelle variante
+        createTerrainPalette();
+      }
+
+      // Fermer le modal
+      document
+        .getElementById("variant-modal-cancel")
+        .addEventListener("click", () => {
+          document.getElementById("variant-modal").style.display = "none";
+        });
+
+      // ========================================
+      // PALETTE D'UNITÉS
+      // ========================================
+
+      function createUnitsPalette() {
+        const palette = document.getElementById("units-palette");
+        palette.innerHTML = "";
+
+        for (const [key, unit] of Object.entries(UNITS)) {
+          const item = document.createElement("div");
+          item.className = "unit-palette-item";
+          item.draggable = true;
+          item.dataset.unitType = key;
+
+          const info = document.createElement("div");
+          info.className = "unit-palette-info";
+
+          const name = document.createElement("div");
+          name.className = "unit-palette-name";
+          name.textContent = unit.name;
+
+          const type = document.createElement("div");
+          type.className = "unit-palette-type";
+          type.textContent = unit.shortName;
+
+          info.appendChild(name);
+          info.appendChild(type);
+          item.appendChild(info);
+
+          item.addEventListener("dragstart", (e) => {
+            item.classList.add("dragging");
+            e.dataTransfer.effectAllowed = "copy";
+            e.dataTransfer.setData("unit", key);
+          });
+
+          item.addEventListener("dragend", () => {
+            item.classList.remove("dragging");
+          });
+
+          palette.appendChild(item);
+        }
+      }
+
+      // ========================================
+      // SÉLECTEUR DE BLASONS
+      // ========================================
+
+      async function createBlasonSelector() {
+        const selector = document.getElementById("blason-selector");
+
+        try {
+          // Charger la liste depuis le fichier JSON
+          const response = await fetch("units/blasons/_list.json");
+          const fileList = await response.json();
+
+          const blasons = [{ id: "none", name: "Aucun", img: null }];
+
+          fileList.forEach((filename) => {
+            const name = filename.replace(".png", "");
+            blasons.push({
+              id: name,
+              name: name,
+              img: `units/blasons/${filename}`,
+            });
+          });
+
+          // Créer les éléments du sélecteur
+          blasons.forEach((blason) => {
+            const option = document.createElement("div");
+            option.className = "blason-option";
+            option.dataset.blason = blason.id;
+
+            if (blason.img) {
+              const img = document.createElement("img");
+              img.src = blason.img;
+              img.alt = blason.name;
+              img.style.width = "40px";
+              img.style.height = "40px";
+              img.style.objectFit = "contain";
+              option.appendChild(img);
+            }
+
+            const label = document.createElement("span");
+            label.textContent = blason.name;
+            option.appendChild(label);
+
+            option.addEventListener("click", () => {
+              document.querySelectorAll(".blason-option").forEach((opt) => {
+                opt.classList.remove("selected");
+              });
+              option.classList.add("selected");
+            });
+
+            selector.appendChild(option);
+            // Sélectionner "Aucun" par défaut
+            if (blason.id === "none") {
+              option.classList.add("selected");
+            }
+          });
+
+          console.log(`${blasons.length - 1} blasons chargés depuis list.json`);
+        } catch (error) {
+          console.error("Erreur lors du chargement de list.json:", error);
+          alert(
+            "Impossible de charger la liste des blasons. Vérifiez que units/blasons/_list.json existe.",
+          );
+        }
+      }
+
+      // ========================================
+      // OUTILS (PEINTURE / EFFACER)
+      // ========================================
+
+      document.getElementById("paint-tool").addEventListener("click", () => {
+        editorState.currentTool = "paint";
+        document
+          .querySelectorAll(".tool-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.getElementById("paint-tool").classList.add("active");
+      });
+
+      document.getElementById("erase-tool").addEventListener("click", () => {
+        editorState.currentTool = "erase";
+        document
+          .querySelectorAll(".tool-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.getElementById("erase-tool").classList.add("active");
+      });
+
+      // ========================================
+      // RENDU DE LA CARTE
+      // ========================================
+      function hexCoords(x, y) {
+        const offset = y % 2 === 0 ? 0 : CONFIG.HEX_W / 2;
+        return {
+          left: x * CONFIG.HEX_W + offset,
+          top: y * (CONFIG.HEX_H * 0.75),
+        };
+      }
+
+      function renderMap() {
+        const mapElement = document.getElementById("map");
+        mapElement.innerHTML = "";
+
+        for (let y = 0; y < editorState.height; y++) {
+          for (let x = 0; x < editorState.width; x++) {
+            const cell = editorState.map[y][x];
+
+            // Créer un wrapper pour l'hexagone (comme dans game.html)
+            const wrapper = document.createElement("div");
+            wrapper.className = "hex-wrapper";
+            wrapper.dataset.x = x;
+            wrapper.dataset.y = y;
+
+            const pos = hexCoords(x, y);
+            wrapper.style.position = "absolute";
+            wrapper.style.left = `${pos.left}px`;
+            wrapper.style.top = `${pos.top}px`;
+            wrapper.style.width = `${CONFIG.HEX_W}px`;
+            wrapper.style.height = `${CONFIG.HEX_H}px`;
+
+            // Créer l'hexagone lui-même (terrain de base)
+            const hex = document.createElement("div");
+            hex.style.position = "relative";
+            hex.style.width = "100%";
+            hex.style.height = "100%";
+
+            // Appliquer le terrain
+            if (cell.terrain) {
+              const terrainClass = cell.terrain.variant
+                ? `${cell.terrain.type}-${cell.terrain.variant}`
+                : cell.terrain.type;
+              hex.className = `hex ${terrainClass}`;
+            } else {
+              hex.className = "hex plaine";
+            }
+
+            // IMPORTANT : Créer la couche de structure SÉPARÉE (comme dans game.html)
+            if (cell.structure) {
+              const structType =
+                typeof cell.structure === "string"
+                  ? cell.structure
+                  : cell.structure.type;
+              const structVariant =
+                typeof cell.structure === "object"
+                  ? cell.structure.variant
+                  : null;
+
+              const structureDiv = document.createElement("div");
+              const structClass = structVariant
+                ? `${structType}-${structVariant}`
+                : structType;
+              structureDiv.className = `structure ${structClass}`;
+              hex.appendChild(structureDiv); // Ajouter DANS l'hexagone
+            }
+
+            // Afficher l'unité
+            if (cell.unit) {
+              const unitDiv = document.createElement("div");
+              unitDiv.className = `unit unit-${cell.unit.side}`;
+
+              // CORRECTION : Afficher le shortName
+              const unitTemplate = UNITS[cell.unit.type];
+              if (unitTemplate) {
+                const nameDiv = document.createElement("div");
+                nameDiv.textContent = unitTemplate.shortName;
+                unitDiv.appendChild(nameDiv);
+
+                // HP
+                const hpDiv = document.createElement("div");
+                hpDiv.className = "unit-hp";
+                hpDiv.textContent = `HP: ${cell.unit.hp || unitTemplate.hp}/${cell.unit.hp || unitTemplate.hp}`;
+                unitDiv.appendChild(hpDiv);
+              }
+
+              // Blason
+              if (cell.unit.blason) {
+                const blasonImg = document.createElement("img");
+                blasonImg.className = "unit-blason";
+                blasonImg.src = `units/blasons/${cell.unit.blason}.png`;
+                blasonImg.style.position = "absolute";
+                blasonImg.style.top = "-6px";
+                blasonImg.style.left = "-6px";
+                unitDiv.appendChild(blasonImg);
+              }
+
+              // Click pour supprimer l'unité
+              unitDiv.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (confirm("Supprimer cette unité ?")) {
+                  cell.unit = null;
+                  renderMap();
+                }
+              });
+
+              hex.appendChild(unitDiv);
+            }
+
+            // Événements de drop
+            hex.addEventListener("dragover", (e) => {
+              e.preventDefault();
+              hex.classList.add("drop-target");
+            });
+
+            hex.addEventListener("dragleave", () => {
+              hex.classList.remove("drop-target");
+            });
+
+            hex.addEventListener("drop", (e) => {
+              e.preventDefault();
+              hex.classList.remove("drop-target");
+
+              const terrainType = e.dataTransfer.getData("terrain");
+              const structureType = e.dataTransfer.getData("structure");
+              const unitType = e.dataTransfer.getData("unit");
+
+              if (terrainType) {
+                cell.terrain = { type: terrainType };
+                renderMap();
+              } else if (structureType) {
+                cell.structure = { type: structureType };
+                renderMap();
+              } else if (unitType) {
+                // Réinitialiser la sélection terrain/structure
+                editorState.selectedTerrain = null;
+                editorState.selectedTerrainVariant = null;
+                editorState.selectedStructure = null;
+                editorState.selectedStructureVariant = null;
+                updatePaletteSelection();
+                // Ouvrir le modal de configuration
+                openUnitConfigModal(unitType, x, y);
+              }
+            });
+
+            // Click pour appliquer le terrain/structure sélectionné
+            hex.addEventListener("click", () => {
+              if (editorState.currentTool === "paint") {
+                if (editorState.selectedTerrain) {
+                  cell.terrain = editorState.selectedTerrainVariant
+                    ? {
+                        type: editorState.selectedTerrain,
+                        variant: editorState.selectedTerrainVariant,
+                      }
+                    : { type: editorState.selectedTerrain };
+                  renderMap();
+                } else if (editorState.selectedStructure) {
+                  cell.structure = editorState.selectedStructureVariant
+                    ? {
+                        type: editorState.selectedStructure,
+                        variant: editorState.selectedStructureVariant,
+                      }
+                    : { type: editorState.selectedStructure };
+                  renderMap();
+                } else if (editorState.lastPlacedUnit && !cell.unit) {
+                  // Copier-coller la dernière unité placée
+                  cell.unit = { ...editorState.lastPlacedUnit };
+                  renderMap();
+                }
+              } else if (editorState.currentTool === "erase") {
+                cell.terrain = { type: "plaine" };
+                cell.structure = null;
+                renderMap();
+              }
+            });
+
+            wrapper.appendChild(hex);
+            mapElement.appendChild(wrapper);
+          }
+        }
+      }
+
+      // ========================================
+      // MODAL DE CONFIGURATION D'UNITÉ
+      // ========================================
+
+      function openUnitConfigModal(unitType, x, y) {
+        editorState.pendingUnit = unitType;
+        editorState.pendingHex = { x, y };
+
+        const modal = document.getElementById("unit-config-modal");
+        const unitDisplay = document.getElementById("unit-type-display");
+
+        unitDisplay.textContent = UNITS[unitType].name;
+
+        // Mettre à jour la datalist d'autocomplétion
+        updateUnitNameDatalist(UNITS[unitType].category);
+
+        // Réinitialiser les sélections
+        document
+          .querySelectorAll(".side-option")
+          .forEach((opt) => opt.classList.remove("selected"));
+
+        document
+          .querySelectorAll(".blason-option")
+          .forEach((opt) => opt.classList.remove("selected"));
+
+        document.getElementById("unit-cssclass").value = "";
+
+        // Sélectionner "aucun" par défaut
+        const noneBlason = document.querySelector(
+          '.blason-option[data-blason="none"]',
+        );
+        if (noneBlason) noneBlason.classList.add("selected");
+
+        modal.classList.add("show");
+      }
+
+      // Sélection du camp
+      document.querySelectorAll(".side-option").forEach((option) => {
+        option.addEventListener("click", () => {
+          document
+            .querySelectorAll(".side-option")
+            .forEach((opt) => opt.classList.remove("selected"));
+          option.classList.add("selected");
+        });
+      });
+
+      // Annuler
+      document.getElementById("modal-cancel").addEventListener("click", () => {
+        document.getElementById("unit-config-modal").classList.remove("show");
+        editorState.pendingUnit = null;
+        editorState.pendingHex = null;
+      });
+
+      // Confirmer
+      document.getElementById("modal-confirm").addEventListener("click", () => {
+        const selectedSide = document.querySelector(".side-option.selected");
+        const selectedBlason = document.querySelector(
+          ".blason-option.selected",
+        );
+        const cssClass = document.getElementById("unit-cssclass").value;
+
+        if (!selectedSide) {
+          alert("Veuillez sélectionner un camp.");
+          return;
+        }
+
+        const { x, y } = editorState.pendingHex;
+        const cell = editorState.map[y][x];
+
+        const unit = {
+          type: editorState.pendingUnit,
+          side: selectedSide.dataset.side,
+          cssClass: cssClass || UNITS[editorState.pendingUnit].name,
+          hp: UNITS[editorState.pendingUnit].hp,
+        };
+
+        // Ajouter le blason si sélectionné
+        const blasonId = selectedBlason.dataset.blason;
+        if (blasonId !== "none") {
+          unit.blason = blasonId;
+        }
+
+        editorState.lastPlacedUnit = { ...unit };
+        cell.unit = unit;
+
+        document.getElementById("unit-config-modal").classList.remove("show");
+        editorState.pendingUnit = null;
+        editorState.pendingHex = null;
+        renderMap();
+      });
+
+      // ========================================
+      // MISE À JOUR DE LA SÉLECTION
+      // ========================================
+
+      function updatePaletteSelection() {
+        // Retirer toutes les sélections visuelles
+        document.querySelectorAll(".palette-item").forEach((item) => {
+          item.style.border = "0px solid";
+        });
+
+        // Appliquer la sélection
+        if (editorState.selectedTerrain) {
+          const selected = document.querySelector(
+            `[data-terrain="${editorState.selectedTerrain}"]`,
+          );
+          if (selected) selected.style.border = "2px solid #d4af37";
+        } else if (editorState.selectedStructure) {
+          const selected = document.querySelector(
+            `[data-structure="${editorState.selectedStructure}"]`,
+          );
+          if (selected) selected.style.borderColor = "#d4af37";
+        }
+      }
+
+      // ========================================
+      // EXPORT JSON
+      // ========================================
+
+      document.getElementById("export-btn").addEventListener("click", () => {
+        const mapData = generateMapJSON();
+        const json = JSON.stringify(mapData, null, 2);
+
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${document.getElementById("map-title").value.replace(/\s+/g, "_")}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        alert("Carte exportée !");
+      });
+
+      function generateMapJSON() {
+        const hexes = [];
+        const units = [];
+
+        for (let y = 0; y < editorState.height; y++) {
+          for (let x = 0; x < editorState.width; x++) {
+            const cell = editorState.map[y][x];
+
+            const hexData = { x, y, terrain: cell.terrain };
+            if (cell.structure) {
+              hexData.structure = cell.structure;
+            }
+            hexes.push(hexData);
+
+            if (cell.unit) {
+              units.push({
+                x,
+                y,
+                type: cell.unit.type,
+                side: cell.unit.side,
+                cssClass: cell.unit.cssClass,
+                ...(cell.unit.blason && { blason: cell.unit.blason }),
+              });
+            }
+          }
+        }
+
+        // Récupérer les factions sélectionnées
+        const alliesFactions = Array.from(
+          document.querySelectorAll("#factions-allies input:checked"),
+        ).map((cb) => cb.value);
+
+        const axisFactions = Array.from(
+          document.querySelectorAll("#factions-axis input:checked"),
+        ).map((cb) => cb.value);
+
+        const result = {
+          meta: {
+            title: document.getElementById("map-title").value,
+            background: document.getElementById("map-background").value,
+            image: document.getElementById("map-image").value,
+            date: parseInt(document.getElementById("map-date").value),
+            factions: {
+              allies: alliesFactions,
+              axis: axisFactions,
+            },
+            victory: editorState.victory,
+          },
+          mapConfig: {
+            width: editorState.width,
+            height: editorState.height,
+            actions: {
+              allies: parseInt(document.getElementById("actions-allies").value),
+              axis: parseInt(document.getElementById("actions-axis").value),
+            },
+          },
+          hexes,
+          units,
+        };
+        // Ajouter les cartes si présentes
+        if (
+          editorState.cards.allies.length > 0 ||
+          editorState.cards.axis.length > 0
+        ) {
+          result.cards = {
+            allies: editorState.cards.allies,
+            axis: editorState.cards.axis,
+          };
+        }
+        // Ajouter les customUnits si présentes
+        if (Object.keys(editorState.customUnits).length > 0) {
+          result.customUnits = editorState.customUnits;
+        }
+
+        return result;
+      }
+
+      // ========================================
+      // SAUVEGARDE
+      // ========================================
+      document.getElementById("save-btn").addEventListener("click", () => {
+        if (!confirm("Voulez-vous vraiment sauvegarder l'état actuel ?")) {
+          return;
+        }
+
+        const mapData = generateMapJSON();
+        localStorage.setItem("editorMapData", JSON.stringify(mapData));
+        alert("Carte sauvegardée localement !");
+      });
+
+      document
+        .getElementById("load-local-btn")
+        .addEventListener("click", () => {
+          if (
+            !confirm(
+              "Attention : Charger une sauvegarde locale écrasera votre travail actuel. Continuer ?",
+            )
+          ) {
+            return;
+          }
+          const savedData = localStorage.getItem("editorMapData");
+          if (!savedData) {
+            alert("Aucune carte sauvegardée localement.");
+            return;
+          }
+
+          try {
+            const mapData = JSON.parse(savedData);
+            loadMapFromJSON(mapData);
+            alert("Carte locale chargée !");
+          } catch (error) {
+            console.error("Erreur:", error);
+            alert("Erreur lors du chargement de la sauvegarde locale.");
+          }
+        });
+
+      // ========================================
+      // IMPORT JSON
+      // ========================================
+
+      document.getElementById("import-btn").addEventListener("click", () => {
+        document.getElementById("import-file").click();
+      });
+
+      document.getElementById("import-file").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const mapData = JSON.parse(event.target.result);
+            loadMapFromJSON(mapData);
+            alert("Carte importée avec succès !");
+            // Réinitialiser l'input pour pouvoir réimporter le même fichier
+            e.target.value = "";
+          } catch (error) {
+            console.error("Erreur lors de l'import:", error);
+            alert("Erreur : fichier JSON invalide.");
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      function loadMapFromJSON(mapData) {
+        // Charger les métadonnées
+        document.getElementById("map-title").value =
+          mapData.meta.title || "Nouvelle carte";
+        document.getElementById("map-background").value =
+          mapData.meta.background || "#94A144";
+        document.getElementById("map-image").value = mapData.meta.image || "";
+        document.getElementById("map-date").value = mapData.meta.date || null;
+
+        // Charger les conditions de victoire
+        if (mapData.meta.victory) {
+          editorState.victory = mapData.meta.victory;
+          document.getElementById("medals-allies").value =
+            mapData.meta.victory.medals.allies;
+          document.getElementById("medals-axis").value =
+            mapData.meta.victory.medals.axis;
+          renderObjectivesList();
+        } else {
+          // Valeurs par défaut
+          editorState.victory = {
+            medals: { allies: 8, axis: 8 },
+            objectives: [],
+          };
+          document.getElementById("medals-allies").value = 8;
+          document.getElementById("medals-axis").value = 8;
+        }
+
+        // Mettre à jour la couleur de fond
+        document.documentElement.style.setProperty(
+          "--map-background-color",
+          mapData.meta.background || "#94A144",
+        );
+
+        // Charger les dimensions
+        document.getElementById("map-width").value = mapData.mapConfig.width;
+        document.getElementById("map-height").value = mapData.mapConfig.height;
+        document.getElementById("actions-allies").value =
+          mapData.mapConfig.actions.allies;
+        document.getElementById("actions-axis").value =
+          mapData.mapConfig.actions.axis;
+
+        editorState.width = mapData.mapConfig.width;
+        editorState.height = mapData.mapConfig.height;
+
+        // Charger les factions
+        document.querySelectorAll("#factions-allies input").forEach((cb) => {
+          cb.checked = mapData.meta.factions.allies.includes(cb.value);
+        });
+
+        document.querySelectorAll("#factions-axis input").forEach((cb) => {
+          cb.checked = mapData.meta.factions.axis.includes(cb.value);
+        });
+
+        // Initialiser la carte vide
+        editorState.map = [];
+        for (let y = 0; y < editorState.height; y++) {
+          editorState.map[y] = [];
+          for (let x = 0; x < editorState.width; x++) {
+            editorState.map[y][x] = {
+              terrain: { type: "plaine" },
+              structure: null,
+              unit: null,
+            };
+          }
+        }
+
+        // Charger les hexagones
+        mapData.hexes.forEach((hexData) => {
+          if (hexData.y < editorState.height && hexData.x < editorState.width) {
+            editorState.map[hexData.y][hexData.x].terrain = hexData.terrain;
+            editorState.map[hexData.y][hexData.x].structure =
+              hexData.structure || null;
+          }
+        });
+
+        // Fusionner customUnits dans UNITS
+        if (mapData.customUnits) {
+          Object.keys(mapData.customUnits).forEach((unitType) => {
+            const customData = mapData.customUnits[unitType];
+
+            if (UNITS[unitType]) {
+              // Surcharge d'une unité existante
+              UNITS[unitType] = { ...UNITS[unitType], ...customData };
+            } else {
+              // Nouvelle unité custom
+              UNITS[unitType] = customData;
+            }
+          });
+          console.log("Custom units fusionnées:", mapData.customUnits);
+        }
+
+        // Charger les unités
+        mapData.units.forEach((unitData) => {
+          if (
+            unitData.y < editorState.height &&
+            unitData.x < editorState.width
+          ) {
+            editorState.map[unitData.y][unitData.x].unit = {
+              type: unitData.type,
+              side: unitData.side,
+              cssClass: unitData.cssClass,
+              hp: UNITS[unitData.type].hp,
+              ...(unitData.blason && { blason: unitData.blason }),
+            };
+          }
+        });
+
+        // Charger les cartes
+        if (mapData.cards) {
+          editorState.cards.allies = mapData.cards.allies || [];
+          editorState.cards.axis = mapData.cards.axis || [];
+          renderCardsList();
+        }
+
+        // Stocker ET fusionner customUnits
+        if (mapData.customUnits) {
+          editorState.customUnits = mapData.customUnits; // Stocker pour l'export
+
+          Object.keys(mapData.customUnits).forEach((unitType) => {
+            const customData = mapData.customUnits[unitType];
+
+            if (UNITS[unitType]) {
+              UNITS[unitType] = { ...UNITS[unitType], ...customData };
+            } else {
+              UNITS[unitType] = customData;
+            }
+          });
+          console.log("Custom units fusionnées:", mapData.customUnits);
+        }
+
+        renderMap();
+      }
+
+      // Capture d'écran
+      document
+        .getElementById("screenshot-btn")
+        .addEventListener("click", async () => {
+          const mapElement = document.getElementById("map-container");
+
+          const title =
+            document.getElementById("map-image").value.replace(/\s+/g, "_") ||
+            "map";
+
+          try {
+            const blob = await domtoimage.toBlob(mapElement, {
+              scale: 2,
+              style: {
+                transform: "scale(1)",
+                left: "0px",
+                top: "0px",
+              },
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${title}`;
+            a.click();
+            URL.revokeObjectURL(url);
+          } catch (error) {
+            console.error("Erreur capture:", error);
+            alert("Erreur lors de la capture.");
+          }
+        });
+
+      // ========================================
+      // GESTION DES OBJECTIFS DE VICTOIRE
+      // ========================================
+
+      function renderObjectivesList() {
+        const list = document.getElementById("objectives-list");
+        list.innerHTML = "";
+
+        editorState.victory.objectives.forEach((obj, index) => {
+          const objEl = createObjectiveElement(obj, index);
+          list.appendChild(objEl);
+        });
+      }
+
+      function createObjectiveElement(obj, index) {
+        const div = document.createElement("div");
+        div.style.cssText = `
+          background: rgba(139, 115, 85, 0.3);
+          border: 2px solid #8b7355;
+          border-radius: 6px;
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        `;
+
+        const sideEmoji = obj.side === "allies" ? "🔵" : "🔴";
+        const typeEmoji =
+          obj.type === "control_tile"
+            ? "📍"
+            : obj.type === "kill_unit"
+              ? "🎯"
+              : obj.type === "survive_turns"
+                ? "⏰"
+                : obj.type === "evacuation"
+                  ? "➡️"
+                  : "❓";
+
+        const info = document.createElement("div");
+        info.style.cssText = "flex: 1;";
+        info.innerHTML = `
+          <div style="font-weight:bold; color:#d4af37; margin-bottom:4px;">${sideEmoji} ${typeEmoji} ${obj.label}</div>
+          <div style="font-size:10px; color:#c9b999;">
+            Récompense: ${obj.reward} médaille(s)
+            ${obj.turns ? ` • ${obj.turns} tours` : ""}
+            ${obj.x !== undefined ? ` • Case (${obj.x},${obj.y})` : ""}
+            ${obj.targetCssClass ? ` • Cible: ${obj.targetCssClass}` : ""}
+          </div>
+        `;
+
+        const buttons = document.createElement("div");
+        buttons.style.cssText = "display:flex; gap:5px;";
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "✏️";
+        editBtn.className = "action-btn";
+        editBtn.style.cssText = "padding:4px 8px; font-size:12px;";
+        editBtn.onclick = () => editObjective(index);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "🗑️";
+        deleteBtn.className = "action-btn";
+        deleteBtn.style.cssText = "padding:4px 8px; font-size:12px;";
+        deleteBtn.onclick = () => deleteObjective(index);
+
+        buttons.appendChild(editBtn);
+        buttons.appendChild(deleteBtn);
+
+        div.appendChild(info);
+        div.appendChild(buttons);
+
+        return div;
+      }
+
+      function openObjectiveModal() {
+        editorState.editingObjectiveIndex = null;
+
+        const modal = document.getElementById("objective-modal");
+
+        // Réinitialiser
+        document.getElementById("obj-side").value = "allies";
+        document.getElementById("obj-type").value = "control_tile";
+        document.getElementById("obj-label").value = "";
+        document.getElementById("obj-x").value = "";
+        document.getElementById("obj-y").value = "";
+        document.getElementById("obj-target-cssclass").value = "";
+        document.getElementById("obj-turns").value = "3";
+        document.getElementById("obj-reward").value = "2";
+
+        updateObjectiveFields();
+        modal.style.display = "flex";
+      }
+
+      function editObjective(index) {
+        editorState.editingObjectiveIndex = index;
+        const obj = editorState.victory.objectives[index];
+        
+        const modal = document.getElementById("objective-modal");
+        
+        document.getElementById("obj-side").value = obj.side;
+        document.getElementById("obj-type").value = obj.type;
+        document.getElementById("obj-label").value = obj.label;
+        document.getElementById("obj-reward").value = obj.reward;
+        
+        if (obj.type === "control_tile" || obj.type === "evacuation") {
+          document.getElementById("obj-x").value = obj.x;
+          document.getElementById("obj-y").value = obj.y;
+          if (obj.turns !== undefined) {
+            document.getElementById("obj-turns").value = obj.turns;
+          }
+        } else if (obj.type === "kill_unit") {
+          document.getElementById("obj-target-cssclass").value = obj.targetCssClass;
+        } else if (obj.type === "survive_turns") {
+          document.getElementById("obj-turns").value = obj.turns;
+        }
+        
+        updateObjectiveFields();
+        modal.style.display = "flex";
+      }
+
+      function deleteObjective(index) {
+        if (confirm("Supprimer cet objectif ?")) {
+          editorState.victory.objectives.splice(index, 1);
+          renderObjectivesList();
+        }
+      }
+
+      function updateObjectiveFields() {
+        const type = document.getElementById("obj-type").value;
+
+        // Afficher les champs position pour control_tile ET evacuation
+        document.getElementById("obj-tile-fields").style.display =
+          type === "control_tile" || type === "evacuation" ? "block" : "none";
+
+        document.getElementById("obj-unit-fields").style.display =
+          type === "kill_unit" ? "block" : "none";
+
+        // Afficher les tours SEULEMENT pour control_tile et survive_turns (PAS evacuation)
+        document.getElementById("obj-turns-field").style.display =
+          type === "control_tile" || type === "survive_turns"
+            ? "block"
+            : "none";
+      }
+
+      // Écouteurs
+      document
+        .getElementById("add-objective-btn")
+        .addEventListener("click", openObjectiveModal);
+
+      document
+        .getElementById("obj-type")
+        .addEventListener("change", updateObjectiveFields);
+
+      document
+        .getElementById("objective-modal-cancel")
+        .addEventListener("click", () => {
+          document.getElementById("objective-modal").style.display = "none";
+        });
+
+      document
+        .getElementById("objective-modal-confirm")
+        .addEventListener("click", () => {
+          const side = document.getElementById("obj-side").value;
+          const type = document.getElementById("obj-type").value;
+          const label = document.getElementById("obj-label").value;
+          const reward = parseInt(document.getElementById("obj-reward").value);
+
+          if (!label) {
+            alert("Veuillez saisir un label.");
+            return;
+          }
+
+          const obj = {
+            id: `obj_${Date.now()}`,
+            type,
+            label,
+            reward,
+            side,
+          };
+
+          if (type === "control_tile" || type === "evacuation") {
+            const x = parseInt(document.getElementById("obj-x").value);
+            const y = parseInt(document.getElementById("obj-y").value);
+
+            if (isNaN(x) || isNaN(y)) {
+              alert("Veuillez saisir des coordonnées valides.");
+              return;
+            }
+
+            obj.x = x;
+            obj.y = y;
+
+            // Ajouter turns seulement pour control_tile
+            if (type === "control_tile") {
+              const turns = parseInt(
+                document.getElementById("obj-turns").value,
+              );
+              obj.turns = turns;
+            }
+          } else if (type === "kill_unit") {
+            const targetCssClass = document.getElementById(
+              "obj-target-cssclass",
+            ).value;
+
+            if (!targetCssClass) {
+              alert("Veuillez saisir le cssClass de la cible.");
+              return;
+            }
+
+            obj.targetCssClass = targetCssClass;
+          } else if (type === "survive_turns") {
+            const turns = parseInt(document.getElementById("obj-turns").value);
+            obj.turns = turns;
+          }
+
+          if (editorState.editingObjectiveIndex !== null) {
+            editorState.victory.objectives[editorState.editingObjectiveIndex] =
+              obj;
+          } else {
+            editorState.victory.objectives.push(obj);
+          }
+
+          renderObjectivesList();
+          document.getElementById("objective-modal").style.display = "none";
+        });
+
+      // Synchroniser les inputs des médailles
+      document
+        .getElementById("medals-allies")
+        .addEventListener("input", (e) => {
+          editorState.victory.medals.allies = parseInt(e.target.value);
+        });
+
+      document.getElementById("medals-axis").addEventListener("input", (e) => {
+        editorState.victory.medals.axis = parseInt(e.target.value);
+      });
+
+      // ========================================
+      // DRAG & PAN DE LA CARTE
+      // ========================================
+
+      const container = document.getElementById("map-container");
+      const map = document.getElementById("map");
+
+      let isDragging = false;
+      let startX, startY;
+      let scrollLeft, scrollTop;
+
+      container.addEventListener("mousedown", (e) => {
+        if (e.target.closest(".unit") || e.target.closest("button")) return;
+
+        isDragging = true;
+        startX = e.pageX - container.offsetLeft;
+        startY = e.pageY - container.offsetTop;
+        scrollLeft = map.offsetLeft;
+        scrollTop = map.offsetTop;
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const x = e.pageX - container.offsetLeft;
+        const y = e.pageY - container.offsetTop;
+
+        const walkX = x - startX;
+        const walkY = y - startY;
+
+        map.style.left = scrollLeft + walkX + "px";
+        map.style.top = scrollTop + walkY + "px";
+      });
+
+      window.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+
+      // Zoom
+      let scale = 1;
+      const ZOOM_SPEED = 0.12;
+      const MIN_SCALE = 0.5;
+      const MAX_SCALE = 1.8;
+
+      container.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+
+          const delta = e.deltaY > 0 ? -ZOOM_SPEED : ZOOM_SPEED;
+          const oldScale = scale;
+          scale = Math.min(Math.max(MIN_SCALE, scale + delta), MAX_SCALE);
+
+          const rect = container.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const mouseY = e.clientY - rect.top;
+
+          const mapX = map.offsetLeft;
+          const mapY = map.offsetTop;
+
+          const newX = mouseX - (mouseX - mapX) * (scale / oldScale);
+          const newY = mouseY - (mouseY - mapY) * (scale / oldScale);
+
+          map.style.left = `${newX}px`;
+          map.style.top = `${newY}px`;
+          map.style.transform = `scale(${scale})`;
+        },
+        { passive: false },
+      );
+
+      // ========================================
+      // INITIALISATION
+      // ========================================
+
+      loadGameData();
+    </script>
+  </body>
+</html>

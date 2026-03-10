@@ -1,0 +1,336 @@
+/* ========================================
+   BARRE DE CARTES (bas de l'écran)
+   ======================================== */
+
+#cards-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+#cards-bar-toggle {
+  pointer-events: all;
+  background: linear-gradient(145deg, #2a1f0e, #1a1208);
+  border: 2px solid #8b7355;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 6px 18px 4px;
+  cursor: pointer;
+  font-family: 'Special Elite', cursive;
+  font-size: 13px;
+  color: #d4af37;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
+}
+
+#cards-bar-toggle:hover {
+  background: linear-gradient(145deg, #3a2f1e, #2a2010);
+  padding: 10px 24px 6px;
+  font-size: 15px;
+  color: #f0c040;
+}
+
+#cards-bar-toggle .cards-count {
+  background: #8b3a3a;
+  color: #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier Prime', monospace;
+}
+
+#cards-bar-toggle .cooldown-indicator {
+  background: #555;
+  color: #aaa;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-family: 'Courier Prime', monospace;
+}
+
+/* ========================================
+   OVERLAY DES CARTES
+   ======================================== */
+
+#cards-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 300;
+  justify-content: center;
+  align-items: center;
+}
+
+#cards-overlay.visible {
+  display: flex;
+}
+
+#cards-panel {
+  background: linear-gradient(160deg, #2a1f0e, #1a1208);
+  border: 2px solid #8b7355;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 1100px;
+  width: 95vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+  font-family: 'Special Elite', cursive;
+  position: relative;
+}
+
+#cards-panel h2 {
+  color: #d4af37;
+  text-align: center;
+  margin: 0 0 10px;
+  font-size: 26px;
+  letter-spacing: 2px;
+}
+
+#cards-panel .cards-subtitle {
+  color: #8b7355;
+  text-align: center;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+#cards-panel .cards-subtitle .cd-warning {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+#cards-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #8b7355;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+#cards-close:hover {
+  color: #d4af37;
+}
+
+/* ========================================
+   GRILLE DE CARTES
+   ======================================== */
+
+#cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.card-item {
+  width: 200px;
+  background: linear-gradient(160deg, #1e1408, #2a1f0e);
+  border: 2px solid #6b5535;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;        
+  flex-direction: column;  
+}
+
+.card-item:hover:not(.card-disabled) {
+  border-color: #d4af37;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.card-item.card-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(60%);
+}
+
+.card-item.card-used {
+  opacity: 0.25;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+
+.card-illustration {
+  width: 100%;
+  height: 130px;
+  background: #0a0806 center/cover no-repeat;
+  border-bottom: 1px solid #6b5535;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+.card-illustration img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-illustration .card-fallback-icon {
+  font-size: 36px;
+}
+
+.card-body {
+  padding: 12px 14px 14px;
+  display: flex;              /* AJOUT */
+  flex-direction: column;     /* AJOUT */
+  flex: 1;                    /* AJOUT - prend l'espace restant */
+}
+
+.card-name {
+  color: #d4af37;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.card-description {
+  color: #a09070;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  flex: 1;  /* AJOUT - pousse le footer en bas */
+
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.card-cost {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid #d4af37;
+  border-radius: 3px;
+  color: #d4af37;
+  font-family: 'Courier Prime', monospace;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 4px 6px;
+}
+
+.card-type-badge {
+  font-size: 25px;
+  font-family: 'Courier Prime', monospace;
+  color: #ca913c;
+  text-transform: uppercase;
+}
+
+.card-cooldown-badge {
+  font-size: 17px;
+  font-family: 'Courier Prime', monospace;
+  color: #8b7355;
+  background: rgba(139, 115, 85, 0.15);
+  border: 1px solid #8b7355;
+  border-radius: 3px;
+  padding: 2px 5px;
+}
+
+.card-cooldown-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.card-cooldown-overlay .cd-icon {
+  font-size: 26px;
+}
+
+.card-cooldown-overlay .cd-text {
+  color: #fff;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* ========================================
+   MODE CIBLAGE CARTE
+   ======================================== */
+
+#card-targeting-banner {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 250;
+  background: linear-gradient(90deg, #1a0f00, #2a1f0e, #1a0f00);
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  padding: 10px 24px;
+  color: #d4af37;
+  font-family: 'Special Elite', cursive;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+#card-targeting-banner.visible {
+  display: block;
+}
+
+/* Hexagones ciblables via carte */
+.hex.card-target {
+  outline: 3px solid #d4af37 !important;
+  outline-offset: -3px;
+}
+
+.hex.card-target::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 175, 55, 0.18);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hex.card-aoe {
+  outline: 2px dashed rgba(212, 175, 55, 0.5) !important;
+  outline-offset: -2px;
+}
+
+.hex.card-aoe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 100, 55, 0.12);
+  pointer-events: none;
+  z-index: 3;
+}

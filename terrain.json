@@ -1,0 +1,364 @@
+{
+  "structures": {
+    "pont": {
+      "name": "Pont",
+      "defense": 0,
+      "attackMod": 0,
+      "overridesMovement": true,
+      "blocksLOS": false,
+      "impassableFor": [],
+      "buildableBy": ["genie"],
+      "buildableOn": ["riviere", "mer"],
+      "moveCost": 3
+    },
+    "routeCouverte": {
+      "name": "Route couverte",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1
+      },
+      "attackMod": 0,
+      "overridesMovement": true,
+      "blocksLOS": true,
+      "impassableFor": ["train", "boat"],
+      "moveCost": 3
+    },
+    "bunker": {
+      "name": "Bunker",
+      "defense": {
+        "default": 1,
+        "infantry": 2,
+        "tank": 2,
+        "boat": 0,
+        "tankAC": 1,
+        "infantryLF": 0,
+        "tankLF": 0,
+        "genie": 1
+      },
+      "attackMod": 0,
+      "overridesMovement": true,
+      "blocksLOS": true,
+      "impassableFor": ["tank", "artillery", "train", "boat"],
+      "ignoreRetreat": 1,
+      "moveCost": 4
+    },
+    "sacs_de_sable": {
+      "name": "Sacs de sable",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "tankAC": 0,
+        "infantryMortier": 0,
+        "infantryLF": 0,
+        "tankLF": 0
+      },
+      "attackMod": 0,
+      "overridesMovement": false,
+      "blocksLOS": false,
+      "impassableFor": [],
+      "ignoreRetreat": 1,
+      "buildableBy": ["genie"],
+      "moveCost": 4
+    },
+    "obstacle": {
+      "name": "Obstacle",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0,
+        "infantryLF": 1,
+        "tankLF": 1
+      },
+      "attackMod": 0,
+      "overridesMovement": true,
+      "blocksLOS": true,
+      "impassableFor": ["tank", "artillery", "train", "boat"],
+      "crushableBy": ["genie"],
+      "mustStopOn": true,
+      "buildableBy": ["genie"],
+      "moveCost": {
+        "default": 4,
+        "genie": 6
+      }
+    },
+    "gue": {
+      "name": "Gué",
+      "defense": 0,
+      "attackMod": -1,
+      "overridesMovement": true,
+      "blocksLOS": false,
+      "impassableFor": ["tank", "artillery", "train", "boat"],
+      "mustStopOn": true,
+      "moveCost": 4
+    },
+    "barbele": {
+      "name": "Barbelés",
+      "defense": 0,
+      "attackMod": 0,
+      "overridesMovement": false,
+      "blocksLOS": false,
+      "impassableFor": ["infantry"],
+      "crushableBy": ["tank", "genie"],
+      "cuttable": true,
+      "mustStopOn": true,
+      "moveCost": 4
+    },
+    "mines": {
+      "name": "Mines",
+      "defense": 0,
+      "attackMod": 0,
+      "overridesMovement": false,
+      "blocksLOS": false,
+      "mustStopOn": true,
+      "trap": true,
+      "trapDamage": [0, 3],
+      "crushableBy": ["genie", "tankAntiMines"],
+      "moveCost": 4
+    }
+  },
+  "terrains": {
+    "plaine": {
+      "name": "Plaine",
+      "defense": 0,
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": 4
+    },
+    "sable": {
+      "name": "Sable",
+      "defense": 0,
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": {
+        "default": 4,
+        "tank": 6,
+        "artillery": 6
+      }
+    },
+    "foret": {
+      "name": "Forêt",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0,
+        "genie":0
+      },
+      "attackMod": 0,
+      "blocksLOS": true,
+      "moveCost": 4
+    },
+    "bocage": {
+      "name": "Bocage",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 2,
+        "tankAC": 1,
+        "infantryMortier": 0,
+        "infantryLF": 0,
+        "tankLF": 0
+      },
+      "attackMod": 0,
+      "blocksLOS": true,
+      "moveCost": 4
+    },
+    "marecage": {
+      "name": "Marécage",
+      "defense": 0,
+      "attackMod": -1,
+      "blocksLOS": false,
+      "moveCost": {
+        "default": 4,
+        "tank": 8,
+        "artillery": 8
+      }
+    },
+    "village": {
+      "name": "Village",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 2,
+        "tankAC": 1,
+        "infantryMortier": 0,
+        "infantryLF": 0,
+        "tankLF": 0,
+        "BlindeMTR": 1,
+        "genie":0
+      },
+      "attackMod": {
+        "default": 0,
+        "infantry": 0,
+        "tank": -2,
+        "artillery": 0
+      },
+      "blocksLOS": true,
+      "moveCost": 4
+    },
+    "chateau": {
+      "name": "Château",
+      "defense": {
+        "default": 1,
+        "infantry": 2,
+        "tank": 2,
+        "boat": 0,
+        "tankAC": 1,
+        "infantryMortier": 1,
+        "infantryLF": 1,
+        "tankLF": 1,
+        "genie":1
+      },
+      "attackMod": 0,
+      "blocksLOS": true,
+      "ignoreRetreat": 1,
+      "moveCost": 4
+    },
+    "gare": {
+      "name": "Gare",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0,
+        "infantryLF": 0,
+        "tankLF": 0,
+        "genie":0
+      },
+      "attackMod": 0,
+      "blocksLOS": true,
+      "moveCost": 4
+    },
+    "rail": {
+      "name": "Rail",
+      "defense": 0,
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": 4
+    },
+    "route": {
+      "name": "Route",
+      "defense": 0,
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": 3
+    },
+    "croisement": {
+      "name": "Croisement",
+      "defense": 0,
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": 3
+    },
+    "aerodrome": {
+      "name": "Aérodrome",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0,
+        "infantryLF": 0,
+        "tankLF": 0,
+        "genie":0
+      },
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": 4
+    },
+    "riviere": {
+      "name": "Rivière",
+      "defense": 0,
+      "attackMod": {
+        "default": -1,
+        "boat": 0
+      },
+      "blocksLOS": false,
+      "moveCost": {
+        "default": 6,
+        "boat": 4
+      }
+    },
+    "mer": {
+      "name": "Mer",
+      "defense": 0,
+      "attackMod": {
+        "default": -1,
+        "boat": 0
+      },
+      "blocksLOS": false,
+      "moveCost": {
+        "default": 6,
+        "boat": 4
+      }
+    },
+    "barrage": {
+      "name": "Barrage",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0,
+        "infantryLF": 0,
+        "tankLF": 0,
+        "genie":0
+      },
+      "attackMod": 0,
+      "blocksLOS": true,
+      "moveCost": 4
+    },
+    "colline": {
+      "name": "Colline",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0,
+        "genie":0
+      },
+      "attackMod": 0,
+      "blocksLOS": true,
+      "moveCost": 4
+    },
+    "tranchee": {
+      "name": "Tranchée",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryLF": 0,
+        "tankLF": 0,
+        "genie":0
+      },
+      "attackMod": 0,
+      "blocksLOS": false,
+      "moveCost": 4
+    },
+    "montagne": {
+      "name": "Montagne",
+      "defense": 1,
+      "attackMod": 0,
+      "blocksLOS": true,
+      "moveCost": 6
+    },
+    "crevasse": {
+      "name": "Crevasse",
+      "defense": {
+        "default": 0,
+        "infantry": 1,
+        "tank": 1,
+        "infantryMortier": 0
+      },
+      "attackMod": {
+        "default": -1,
+        "infantry": -1,
+        "tank": -1,
+        "artillery": 0
+      },
+      "blocksLOS": false,
+      "moveCost": 4
+    }
+  }
+}

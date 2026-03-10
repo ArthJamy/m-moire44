@@ -1,0 +1,168 @@
+{
+  "barrage_artillerie": {
+    "name": "Barrage d'artillerie",
+    "cost": 3,
+    "description": "Inflige 0 à 2 dégâts à une unité ennemie de la case ciblée.",
+    "effect": "area_damage",
+    "params": {
+      "radius": 1,
+      "minDamage": 0,
+      "maxDamage": 2,
+      "damageProbs": [40, 40, 20],
+      "targetsEnemy": true,
+      "targetsFriendly": true
+    }
+  },
+  "bombardement": {
+    "name": "Bombardement",
+    "cost": 4,
+    "description": "Inflige 0 à 1 dégâts à toutes les unités (amies et ennemies) dans un rayon de 2 autour d'une case ciblée.",
+    "effect": "area_damage",
+    "params": {
+      "radius": 2,
+      "minDamage": 0,
+      "maxDamage": 1,
+      "damageProbs": [30, 70],
+      "targetsEnemy": true,
+      "targetsFriendly": true
+    }
+  },
+  "sabotage": {
+    "name": "Sabotage",
+    "cost": 2,
+    "description": "Inflige 1 à 2 dégâts à une unité de la case ciblée.",
+    "effect": "area_damage",
+    "params": {
+      "radius": 0,
+      "minDamage": 1,
+      "maxDamage": 2,
+      "damageProbs": [75, 25],
+      "targetsEnemy": true,
+      "targetsFriendly": false
+    }
+  },
+  "attaque_aerienne": {
+    "name": "Attaque aérienne",
+    "cost": 2,
+    "description": "Inflige 0 à 1 dégât à une unité ennemie de la case ciblée.",
+    "effect": "area_damage",
+    "params": {
+      "radius": 0,
+      "minDamage": 0,
+      "maxDamage": 1,
+      "damageProbs": [20, 80],
+      "targetsEnemy": true
+    }
+  },
+  "avance_tactique": {
+    "name": "Avance tactique",
+    "cost": 1,
+    "description": "Une unité alliée choisie peut se déplacer sans consommer de point d'action ce tour.",
+    "effect": "free_move",
+    "params": {}
+  },
+  "commandement_renforce": {
+    "name": "Commandement renforcé",
+    "cost": 2,
+    "description": "Réduit de 1 le coût en PA de toutes les unités alliées ce tour.",
+    "effect": "reduce_cost",
+    "params": {
+      "reduction": 1
+    }
+  },
+  "renforts_allies": {
+    "name": "Renforts US",
+    "cost": 4,
+    "description": "Fait apparaître une unité d'infanterie alliée sur le bord inférieur de la carte.",
+    "effect": "spawn_unit",
+    "params": {
+      "unitType": "infantry",
+      "side": "allies",
+      "spawnEdge": "bottom",
+      "cssClass": "US 99e bataillon",
+      "blason": null
+    }
+  },
+    "renforts_alliesSV": {
+    "name": "Renforts SV",
+    "cost": 3,
+    "description": "Fait apparaître une unité d'infanterie alliée sur le bord inférieur de la carte.",
+    "effect": "spawn_unit",
+    "params": {
+      "unitType": "infantryHP",
+      "side": "allies",
+      "spawnEdge": "bottom",
+      "cssClass": "SV 266e fusiliers de la garde",
+      "blason": null
+    }
+  },
+  "renforts_axis": {
+    "name": "Renforts DE",
+    "cost": 4,
+    "description": "Fait apparaître une unité d'infanterie de l'Axe sur le bord inférieur de la carte.",
+    "effect": "spawn_unit",
+    "params": {
+      "unitType": "infantry",
+      "side": "axis",
+      "spawnEdge": "top",
+      "cssClass": "DE 1er régiment",
+      "blason": null
+    }
+  },
+  "parachutage_alliesUS": {
+    "name": "Parachutage US",
+    "cost": 4,
+    "description": "Fait apparaître une unité d'infanterie alliée sur le bord suppérieur de la carte.",
+    "effect": "spawn_unit",
+    "params": {
+      "unitType": "infantryElite",
+      "side": "allies",
+      "spawnEdge": "top",
+      "cssClass": "US 507e para",
+      "blason": "101e para"
+    }
+  },
+  "parachutage_alliesUK": {
+    "name": "Parachutage UK",
+    "cost": 4,
+    "description": "Fait apparaître une unité d'infanterie alliée sur le bord suppérieur de la carte.",
+    "effect": "spawn_unit",
+    "params": {
+      "unitType": "infantryElite",
+      "side": "allies",
+      "spawnEdge": "top",
+      "cssClass": "UK bataillon parachutiste",
+      "blason": "para UK"
+    }
+  },
+  "parachutage_axis": {
+    "name": "Parachutage DE",
+    "cost": 4,
+    "description": "Fait apparaître une unité d'infanterie de l'Axe sur le bord inférieur de la carte.",
+    "effect": "spawn_unit",
+    "params": {
+      "unitType": "infantryElite",
+      "side": "axis",
+      "spawnEdge": "bottom",
+      "cssClass": "DE 957e volksgrenadier",
+      "blason": "élite DE"
+    }
+  },
+  "defense_renforcee": {
+    "name": "Défense renforcée",
+    "cost": 2,
+    "description": "Une unité alliée choisie gagne +2 en défense jusqu'à la fin du prochain tour ennemi. Elle ignore les retraite si elle est sensée être détruite",
+    "effect": "shield",
+    "params": {
+      "bonus": 2,
+      "duration": 2
+    }
+  },
+  "frappe_eclaire": {
+    "name": "Frappe éclair",
+    "cost": 1,
+    "description": "Une unité alliée choisie ayant déjà attaquée peut attaquer une deuxième fois ce tour.",
+    "effect": "double_attack",
+    "params": {}
+  }
+}

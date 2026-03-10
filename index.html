@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mémoire 44</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪖</text></svg>"
+    />
+    <style>
+      .map-grid {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center; /* centre horizontalement */
+        align-items: center; /* centre verticalement */
+      }
+
+      .map-card {
+        position: relative;
+        border: 2px solid #8b7355;
+        padding: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        height: 200px;
+        width: 300px;
+        background-color: #1a252f;
+      }
+
+      .map-card:hover {
+        transform: scale(1.05);
+      }
+
+      .bg-green {
+        background: #355e3b;
+      }
+      .bg-sand {
+        background: #d8a554;
+      }
+      .bg-snow {
+        background: #cfd8dc;
+      }
+
+      .factions img {
+        height: 32px;
+        margin-right: 5px;
+      }
+
+      .menu-illustration {
+        width: 40%;
+        max-height: 250px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        border: 2px solid #8b7355;
+      }
+
+      .menu-illustration img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ── Filtres ── */
+      .filters-bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+
+      .search-wrapper {
+        position: relative;
+        flex: 1;
+        min-width: 200px;
+        max-width: 360px;
+      }
+
+      .search-wrapper .search-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      #search-input {
+        width: 100%;
+        padding: 8px 12px 8px 32px;
+        background: #1a252f;
+        border: 2px solid #8b7355;
+        color: #e8d5a3;
+        font-family: "Courier Prime", monospace;
+        font-size: 14px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      #search-input:focus {
+        border-color: #c9a84c;
+      }
+
+      #search-input::placeholder {
+        color: #8b7355;
+      }
+
+      /* Faction pills */
+      .faction-filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .faction-filters span.label {
+        color: #8b7355;
+        font-family: "Courier Prime", monospace;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .faction-pill {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        border: 2px solid #8b7355;
+        border-radius: 20px;
+        cursor: pointer;
+        background: #1a252f;
+        color: #e8d5a3;
+        font-family: "Courier Prime", monospace;
+        font-size: 13px;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        user-select: none;
+      }
+
+      .faction-pill img {
+        height: 20px;
+      }
+
+      .faction-pill:hover {
+        border-color: #c9a84c;
+        background: #22303c;
+      }
+
+      .faction-pill.active {
+        background: #8b7355;
+        border-color: #c9a84c;
+        color: #fff;
+      }
+
+      /* Terrain pills */
+      .terrain-pill {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 12px;
+        border: 2px solid #8b7355;
+        border-radius: 20px;
+        cursor: pointer;
+        background: #1a252f;
+        color: #e8d5a3;
+        font-family: "Courier Prime", monospace;
+        font-size: 13px;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        user-select: none;
+      }
+
+      .terrain-pill:hover {
+        border-color: #c9a84c;
+        background: #22303c;
+      }
+
+      .terrain-pill.active {
+        background: #8b7355;
+        border-color: #c9a84c;
+        color: #fff;
+      }
+
+      /* Compteur de résultats */
+      .results-count {
+        color: #8b7355;
+        font-family: "Courier Prime", monospace;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+
+      /* Carte masquée */
+      .map-card.hidden {
+        display: none;
+      }
+
+      /* Message aucun résultat */
+      #no-results {
+        display: none;
+        color: #8b7355;
+        font-family: "Courier Prime", monospace;
+        font-size: 16px;
+        padding: 20px 0;
+      }
+
+      /* Loader */
+      .loader {
+        display: none;
+        text-align: center;
+        padding: 20px;
+        color: #8b7355;
+        font-family: "Courier Prime", monospace;
+      }
+
+      .loader.visible {
+        display: block;
+      }
+
+      /* Bouton unités */
+      .units-filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border: 2px solid #8b7355;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #1a252f;
+        color: #e8d5a3;
+        font-family: "Courier Prime", monospace;
+        font-size: 13px;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        user-select: none;
+        white-space: nowrap;
+      }
+
+      .units-filter-btn:hover {
+        border-color: #c9a84c;
+        background: #22303c;
+      }
+
+      .units-filter-btn.active {
+        background: #8b7355;
+        border-color: #c9a84c;
+      }
+
+      /* Popup unités */
+      .units-popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .units-popup-overlay.visible {
+        display: flex;
+      }
+
+      .units-popup {
+        background: #1a252f;
+        border: 3px solid #8b7355;
+        border-radius: 8px;
+        padding: 0; /* Retirer le padding global */
+        max-width: 500px;
+        max-height: 80vh;
+        overflow: hidden; /* Changer overflow-y en overflow */
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .units-popup-header {
+        position: sticky;
+        top: 0;
+        background: #1a252f;
+        padding: 20px 24px 16px 24px;
+        border-bottom: 2px solid #8b7355;
+        z-index: 10;
+      }
+
+      .units-popup-content {
+        padding: 16px 24px 24px 24px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .units-popup h3 {
+        color: #e8d5a3;
+        font-family: "Special Elite", cursive;
+        margin: 0;
+        font-size: 18px;
+        display: inline-block;
+      }
+
+      .units-popup-close {
+        float: right;
+        background: none;
+        border: none;
+        color: #8b7355;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        margin-top: -4px;
+      }
+
+      .units-popup-close:hover {
+        color: #c9a84c;
+      }
+
+      .unit-checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        margin-bottom: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .unit-checkbox-item:hover {
+        background: #22303c;
+      }
+
+      .unit-checkbox-item input[type="checkbox"] {
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+      }
+
+      .unit-checkbox-item label {
+        color: #e8d5a3;
+        font-family: "Courier Prime", monospace;
+        font-size: 14px;
+        cursor: pointer;
+        flex: 1;
+      }
+
+      .custom-unit-label {
+        color: #c9a84c;
+        font-style: italic;
+      }
+
+      .date-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 4px 10px;
+        background: rgba(0, 0, 0, 0.85);
+        border: 2px solid #d4af37;
+        border-radius: 5px;
+        font-family: 'Special Elite', cursive;
+        font-size: 13px;
+        font-weight: bold;
+        color: #d4af37;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        z-index: 5;
+        pointer-events: none;
+      }
+      .year-select {
+        padding: 8px 12px;
+        background: #1a252f;
+        border: 2px solid #8b7355;
+        color: #e8d5a3;
+        font-family: 'Courier Prime', monospace;
+        font-size: 13px;
+        border-radius: 5px;
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .year-select:hover {
+        border-color: #c9a84c;
+      }
+
+      .year-select:focus {
+        border-color: #c9a84c;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <h1 class="game-title">⬢ MÉMOIRE 44 ⬢</h1>
+      <div class="top-buttons">
+        <button id="end-turn-btn" onclick="location.href = 'editor.html'">
+          🛠️ Éditeur de carte
+        </button>
+        <button
+          id="end-turn-btn"
+          onclick="location.href = 'units-library.html'"
+        >
+          📖 Bibliothèque
+        </button>
+        <button id="end-turn-btn" onclick="location.href = 'campaign.html'">🗺️ Campagne</button>
+      </div>
+    </div>
+
+    <div class="menu-illustration">
+      <img src="illustrations/_bg.webp" alt="Illustration Mémoire 44" />
+    </div>
+
+    <!-- Barre de filtres -->
+    <div class="filters-bar">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Rechercher une carte…"
+          autocomplete="off"
+        />
+      </div>
+      <button class="units-filter-btn" id="units-filter-btn">
+        🎯 Unités <span id="units-count"></span>
+      </button>
+      <div class="faction-filters">
+        <span class="label">Armée :</span>
+        <div
+          id="faction-pill-container"
+          style="display: flex; gap: 8px; flex-wrap: wrap"
+        ></div>
+      </div>
+      <div class="faction-filters">
+        <span class="label">Terrain :</span>
+        <div
+          id="terrain-pill-container"
+          style="display: flex; gap: 8px; flex-wrap: wrap"
+        >
+          <button class="terrain-pill" data-terrain="plaine">🌾 Plaine</button>
+          <button class="terrain-pill" data-terrain="desert">🏜️ Désert</button>
+          <button class="terrain-pill" data-terrain="neige">❄️ Neige</button>
+        </div>
+      </div>
+      <div class="faction-filters">
+        <span class="label">Année :</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <select id="year-filter" class="year-select">
+            <option value="">Toutes les années</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup unités -->
+    <div class="units-popup-overlay" id="units-popup-overlay">
+      <div class="units-popup">
+        <div class="units-popup-header">
+          <button class="units-popup-close" onclick="closeUnitsPopup()">
+            ×
+          </button>
+          <h3>🎯 Filtrer par unités</h3>
+        </div>
+        <div class="units-popup-content">
+          <div id="units-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-count" id="results-count"></div>
+    <div id="no-results">Aucune carte ne correspond à votre recherche.</div>
+    <div id="map-list" class="map-grid"></div>
+    <div class="loader" id="loader">⏳ Chargement...</div>
+
+    <script>
+      const MAPS_PATH = "map/";
+      const BATCH_SIZE = 12; // Nombre de cartes à charger par paquet
+
+      // Toutes les cartes (métadonnées)
+      let allMapsData = [];
+      // Cartes filtrées actuelles
+      let filteredMapsData = [];
+      // Index actuel de chargement
+      let currentIndex = 0;
+      // Factions actives dans le filtre
+      let activeFactions = new Set();
+      // Terrains actifs dans le filtre
+      let activeTerrains = new Set();
+      // Flag pour éviter le chargement multiple
+      let isLoading = false;
+      // Unités actives dans le filtre
+      let activeUnits = new Set();
+      // Liste de toutes les unités disponibles
+      let allUnitsTypes = new Set();
+      // Selection année
+      let selectedYear = "";
+
+      // Charge les noms des unités depuis units.json
+      async function loadUnitsNames() {
+        try {
+          const res = await fetch("units.json");
+          const unitsData = await res.json();
+
+          window.unitsNamesMap = new Map();
+          for (const [type, config] of Object.entries(unitsData)) {
+            window.unitsNamesMap.set(type, config.name || type);
+          }
+        } catch (err) {
+          console.warn("units.json non trouvé, utilisation des types bruts");
+          window.unitsNamesMap = new Map();
+        }
+      }
+
+      async function loadMapsMetadata() {
+        const res = await fetch(MAPS_PATH + "_index.json");
+        const MAP_FILES = await res.json();
+
+        const factionsSet = new Set();
+
+        // Charge toutes les métadonnées
+        for (const file of MAP_FILES) {
+          const mapRes = await fetch(MAPS_PATH + file);
+          const data = await mapRes.json();
+
+          const cardFactions = [];
+          for (const side in data.meta.factions) {
+            data.meta.factions[side].forEach((f) => {
+              cardFactions.push(f);
+              factionsSet.add(f);
+            });
+          }
+
+          // Détermine le terrain
+          const bg = data.meta.background;
+          let terrain = "plaine";
+          if (bg === "#FDCA7B") {
+            terrain = "desert";
+          } else if (bg === "#eaebe5") {
+            terrain = "neige";
+          }
+
+          // Collecte les types d'unités avec leurs noms
+          const mapUnits = new Set();
+          let hasCustomUnits = false;
+
+          if (data.units) {
+            data.units.forEach((unit) => {
+              mapUnits.add(unit.type);
+              allUnitsTypes.add(unit.type);
+
+              if (!window.unitsNamesMap) window.unitsNamesMap = new Map();
+              if (!window.unitsNamesMap.has(unit.type)) {
+                window.unitsNamesMap.set(unit.type, unit.type);
+              }
+            });
+          }
+
+          if (data.customUnits) {
+            hasCustomUnits = true;
+            for (const [type, config] of Object.entries(data.customUnits)) {
+              if (config.name && !window.unitsNamesMap.has(type)) {
+                window.unitsNamesMap.set(type, config.name);
+              }
+            }
+          }
+
+          allMapsData.push({
+            file,
+            data,
+            title: data.meta.title.toLowerCase(),
+            factions: cardFactions,
+            terrain,
+            units: [...mapUnits],
+            hasCustomUnits,
+            date: data.meta.date || null
+          });
+        }
+
+        // Mélange aléatoire
+        shuffleArray(allMapsData);
+
+        buildFactionPills([...factionsSet].sort());
+        setupTerrainPills();
+        buildYearFilter();
+        buildUnitsList();
+        applyFilters();
+      }
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function renderFactions(factions) {
+        let html = "";
+        for (const side in factions) {
+          factions[side].forEach((f) => {
+            html += `<img src="units/factions/${f}.png" title="${f}">`;
+          });
+        }
+        return html;
+      }
+
+      // Construit les pills de filtre armée
+      function buildFactionPills(factions) {
+        const container = document.getElementById("faction-pill-container");
+        container.innerHTML = "";
+
+        factions.forEach((f) => {
+          const pill = document.createElement("button");
+          pill.className = "faction-pill";
+          pill.dataset.faction = f;
+          pill.innerHTML = `<img src="units/factions/${f}.png" alt="${f}"> ${f}`;
+
+          pill.addEventListener("click", () => {
+            if (activeFactions.has(f)) {
+              activeFactions.delete(f);
+              pill.classList.remove("active");
+            } else {
+              activeFactions.add(f);
+              pill.classList.add("active");
+            }
+            applyFilters();
+          });
+
+          container.appendChild(pill);
+        });
+      }
+
+      // Configure les pills terrain
+      function setupTerrainPills() {
+        const pills = document.querySelectorAll(".terrain-pill");
+        pills.forEach((pill) => {
+          pill.addEventListener("click", () => {
+            const terrain = pill.dataset.terrain;
+            if (activeTerrains.has(terrain)) {
+              activeTerrains.delete(terrain);
+              pill.classList.remove("active");
+            } else {
+              activeTerrains.add(terrain);
+              pill.classList.add("active");
+            }
+            applyFilters();
+          });
+        });
+      }
+
+      // Construit le sélecteur d'années
+      function buildYearFilter() {
+        const yearSelect = document.getElementById('year-filter');
+        const years = new Set();
+        
+        // Collecte toutes les années uniques
+        allMapsData.forEach(map => {
+          if (map.date) {
+            years.add(map.date);
+          }
+        });
+        
+        // Trie et ajoute les options
+        [...years].sort((a, b) => a - b).forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          yearSelect.appendChild(option);
+        });
+        
+        // Écoute les changements
+        yearSelect.addEventListener('change', (e) => {
+          selectedYear = e.target.value;
+          applyFilters();
+        });
+      }
+
+      // Construit la liste des unités dans le popup
+      function buildUnitsList() {
+        const container = document.getElementById("units-list");
+        container.innerHTML = "";
+
+        // Checkbox pour customUnits
+        const customDiv = document.createElement("div");
+        customDiv.className = "unit-checkbox-item";
+        customDiv.innerHTML = `
+    <input type="checkbox" id="unit-custom" data-unit="custom">
+    <label for="unit-custom" class="custom-unit-label">⚙️ Unités personnalisées</label>
+  `;
+        container.appendChild(customDiv);
+
+        // Séparateur
+        const separator = document.createElement("hr");
+        separator.style.border = "1px solid #8b7355";
+        separator.style.margin = "12px 0";
+        container.appendChild(separator);
+
+        // Liste des types d'unités
+        const unitTypes = [...allUnitsTypes].sort();
+        unitTypes.forEach((unitType) => {
+          const displayName = window.unitsNamesMap?.get(unitType) || unitType;
+          const div = document.createElement("div");
+          div.className = "unit-checkbox-item";
+          div.innerHTML = `
+            <input type="checkbox" id="unit-${unitType}" data-unit="${unitType}">
+            <label for="unit-${unitType}">${displayName}</label>
+          `;
+          container.appendChild(div);
+        });
+
+        // Écoute les changements
+        container
+          .querySelectorAll('input[type="checkbox"]')
+          .forEach((checkbox) => {
+            checkbox.addEventListener("change", handleUnitChange);
+          });
+      }
+
+      function handleUnitChange(e) {
+        const unit = e.target.dataset.unit;
+
+        if (e.target.checked) {
+          activeUnits.add(unit);
+        } else {
+          activeUnits.delete(unit);
+        }
+
+        updateUnitsButton();
+        applyFilters();
+      }
+
+      function updateUnitsButton() {
+        const btn = document.getElementById("units-filter-btn");
+        const count = document.getElementById("units-count");
+
+        if (activeUnits.size > 0) {
+          btn.classList.add("active");
+          count.textContent = `(${activeUnits.size})`;
+        } else {
+          btn.classList.remove("active");
+          count.textContent = "";
+        }
+      }
+
+      function openUnitsPopup() {
+        document.getElementById("units-popup-overlay").classList.add("visible");
+      }
+
+      function closeUnitsPopup() {
+        document
+          .getElementById("units-popup-overlay")
+          .classList.remove("visible");
+      }
+
+      // Ferme le popup en cliquant sur l'overlay
+      document
+        .getElementById("units-popup-overlay")
+        .addEventListener("click", (e) => {
+          if (e.target.id === "units-popup-overlay") {
+            closeUnitsPopup();
+          }
+        });
+
+      // Ouvre le popup au clic sur le bouton
+      document
+        .getElementById("units-filter-btn")
+        .addEventListener("click", openUnitsPopup);
+
+      // Filtre combiné recherche + armée + terrain + unités
+      function applyFilters() {
+        const query = document
+          .getElementById("search-input")
+          .value.toLowerCase()
+          .trim();
+
+        filteredMapsData = allMapsData.filter(
+          ({ title, factions, terrain, units, hasCustomUnits, date }) => {
+            const matchesSearch = query === "" || title.includes(query);
+            const matchesFaction =
+              activeFactions.size === 0 ||
+              [...activeFactions].every((f) => factions.includes(f));
+            const matchesTerrain =
+              activeTerrains.size === 0 || activeTerrains.has(terrain);
+
+            const matchesYear = selectedYear === "" || date == selectedYear; 
+
+            // Filtre unités
+            let matchesUnits = true;
+            if (activeUnits.size > 0) {
+              matchesUnits = [...activeUnits].every((unit) => {
+                if (unit === "custom") {
+                  return hasCustomUnits;
+                }
+                return units.includes(unit);
+              });
+            }
+
+            return (
+              matchesSearch && matchesFaction && matchesTerrain && matchesUnits && matchesYear
+            );
+          },
+        );
+
+        // Réinitialise l'affichage
+        currentIndex = 0;
+        document.getElementById("map-list").innerHTML = "";
+        loadNextBatch();
+        updateResultsCount();
+      }
+
+      // Charge le prochain paquet de cartes
+      function loadNextBatch() {
+        if (isLoading) return;
+        isLoading = true;
+
+        const container = document.getElementById("map-list");
+        const loader = document.getElementById("loader");
+        loader.classList.add("visible");
+
+        const end = Math.min(
+          currentIndex + BATCH_SIZE,
+          filteredMapsData.length,
+        );
+        const batch = filteredMapsData.slice(currentIndex, end);
+
+        // Simule un petit délai pour effet visuel
+        setTimeout(() => {
+          batch.forEach(({ file, data, date }) => {
+            const card = document.createElement("div");
+            card.className = `map-card bg-${data.meta.background}`;
+
+            card.style.backgroundImage = `
+              linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("illustrations/${data.meta.image}")
+            `;
+            card.style.backgroundRepeat = "no-repeat";
+            card.style.backgroundPosition = "center";
+            card.style.backgroundSize = "contain";
+            card.style.borderRadius = "5% 5%";
+
+            card.innerHTML = `
+              <h2>${data.meta.title}</h2>
+              <div class="factions">
+                ${renderFactions(data.meta.factions)}
+              </div>
+              ${date ? `<div class="date-badge">${date}</div>` : ''}
+            `;
+
+            card.onclick = () => {
+              window.open(`game.html?map=${file}`, "_blank");
+            };
+
+            container.appendChild(card);
+          });
+
+          currentIndex = end;
+          loader.classList.remove("visible");
+          isLoading = false;
+
+          updateResultsCount();
+        }, 300);
+      }
+
+      // Met à jour le compteur
+      function updateResultsCount() {
+        const total = filteredMapsData.length;
+        const loaded = Math.min(currentIndex, total);
+        const countEl = document.getElementById("results-count");
+
+        if (total === 0) {
+          countEl.textContent = "";
+          document.getElementById("no-results").style.display = "block";
+        } else {
+          document.getElementById("no-results").style.display = "none";
+          if (loaded < total) {
+            countEl.textContent = `${loaded} / ${total} carte${total > 1 ? "s" : ""} (défilez pour charger plus)`;
+          } else {
+            countEl.textContent = `${total} carte${total > 1 ? "s" : ""}`;
+          }
+        }
+      }
+
+      // Détection du scroll infini
+      function handleScroll() {
+        if (isLoading) return;
+        if (currentIndex >= filteredMapsData.length) return;
+
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = window.innerHeight;
+
+        // Si on est à 200px du bas
+        if (scrollTop + clientHeight >= scrollHeight - 200) {
+          loadNextBatch();
+        }
+      }
+
+      // Écoute la saisie
+      document
+        .getElementById("search-input")
+        .addEventListener("input", applyFilters);
+
+      // Écoute le scroll
+      window.addEventListener("scroll", handleScroll);
+
+      loadUnitsNames().then(() => loadMapsMetadata());
+    </script>
+  </body>
+</html>

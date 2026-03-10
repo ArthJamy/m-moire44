@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campagnes — Mémoire 44</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styleCampaign.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪖</text></svg>" />
+</head>
+<body>
+
+  <div id="page-header">
+    <div id="header-left">
+      <a href="index.html" id="back-btn">← Accueil</a>
+    </div>
+    <h1 id="main-title">⬢ CAMPAGNES ⬢</h1>
+    <div id="header-right"></div>
+  </div>
+
+  <div id="campaigns-grid" class="loading">
+    <div class="loader">Chargement des campagnes…</div>
+  </div>
+
+  <!-- Popup détail campagne -->
+  <div id="campaign-popup-overlay" class="hidden">
+    <div id="campaign-popup">
+      <button id="popup-close">✕</button>
+      <div id="popup-illustration"></div>
+      <div id="popup-content">
+        <div id="popup-header">
+          <h2 id="popup-title"></h2>
+          <p id="popup-description"></p>
+          <div id="popup-meta"></div>
+        </div>
+        <div id="popup-battles-title">Batailles</div>
+        <div id="popup-battles-list"></div>
+        <div id="popup-actions">
+          <button id="popup-reset-btn">🔄 Réinitialiser la campagne</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup confirmation reset -->
+  <div id="reset-confirm-overlay" class="hidden">
+    <div id="reset-confirm-popup">
+      <p>Réinitialiser la progression de cette campagne ?</p>
+      <p class="reset-warning">Cette action est irréversible.</p>
+      <div class="reset-buttons">
+        <button id="reset-confirm-yes">Confirmer</button>
+        <button id="reset-confirm-no">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="campaign.js"></script>
+  <script>
+    // ─── Liste des fichiers de campagne disponibles ───────────────────────────
+    // Ajoute ici le chemin vers chaque fichier JSON de campagne
+    const CAMPAIGN_FILES = [
+      'campaigns/Invasion_Pologne.json',
+      'campaigns/Afrika_Korps.json',
+      'campaigns/normandie.json',
+      //'campaigns/ardennes.json',
+    ];
+
+    // ─── État local ───────────────────────────────────────────────────────────
+    let _campaigns = [];       // campagnes chargées
+    let _activeCampaign = null;
+    let _activeProgress = null;
+
+    // ─── Chargement ──────────────────────────────────────────────────────────
+    async function loadAllCampaigns() {
+      const grid = document.getElementById('campaigns-grid');
+      grid.classList.remove('loading');
+      grid.innerHTML = '';
+
+      const results = await Promise.allSettled(
+        CAMPAIGN_FILES.map(f => CampaignSystem.loadCampaign(f))
+      );
+
+      _campaigns = results
+        .filter(r => r.status === 'fulfilled')
+        .map(r => r.value);
+
+      if (_campaigns.length === 0) {
+        grid.innerHTML = `<p class="empty-msg">Aucune campagne disponible.</p>`;
+        return;
+      }
+
+      _campaigns.forEach(campaign => renderCampaignCard(campaign, grid));
+    }
+
+    // ─── Carte campagne ───────────────────────────────────────────────────────
+    function renderCampaignCard(campaign, container) {
+      const progress  = CampaignSystem.loadProgress(campaign.id);
+      const completed = progress ? Object.keys(progress.results).length : 0;
+      const total     = campaign.battles.length;
+      const pct       = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+      const card = document.createElement('div');
+      card.className = 'campaign-card';
+      card.innerHTML = `
+        <div class="campaign-card-illustration" style="${campaign.illustration ? `background-image:url('${campaign.illustration}')` : ''}">
+          <div class="campaign-card-overlay"></div>
+          <div class="campaign-card-badge">${campaign.twoPlayers ? '👥 2 joueurs' : '👤 1 joueur'}</div>
+        </div>
+        <div class="campaign-card-body">
+          <h2 class="campaign-card-title">${campaign.title}</h2>
+          <p class="campaign-card-desc">${campaign.description}</p>
+          <div class="campaign-progress">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" style="width:${pct}%"></div>
+            </div>
+            <span class="progress-label">${completed}/${total} batailles</span>
+          </div>
+          <button class="campaign-open-btn">Voir les batailles →</button>
+        </div>
+      `;
+
+      card.querySelector('.campaign-open-btn').onclick = () => openCampaignPopup(campaign);
+      container.appendChild(card);
+    }
+
+    // ─── Popup campagne ───────────────────────────────────────────────────────
+    function openCampaignPopup(campaign) {
+      _activeCampaign = campaign;
+      _activeProgress = CampaignSystem.loadProgress(campaign.id) || CampaignSystem.initProgress(campaign);
+
+      // Illustration
+      const illusEl = document.getElementById('popup-illustration');
+      illusEl.style.backgroundImage = campaign.illustration ? `url('${campaign.illustration}')` : '';
+
+      document.getElementById('popup-title').textContent       = campaign.title;
+      document.getElementById('popup-description').textContent = campaign.description;
+
+      // Meta
+      const sideLabel = campaign.twoPlayers
+        ? '👥 2 joueurs'
+        : `👤 ${campaign.playerSide === 'allies' ? '🔵 Alliés' : '🔴 Axe'}`;
+      document.getElementById('popup-meta').innerHTML = `
+        <span class="meta-badge">${sideLabel}</span>
+        <span class="meta-badge">${campaign.battles.length} batailles</span>
+      `;
+
+      renderBattlesList(campaign, _activeProgress);
+
+      // Reset
+      document.getElementById('popup-reset-btn').onclick = () => openResetConfirm(campaign);
+
+      document.getElementById('campaign-popup-overlay').classList.remove('hidden');
+    }
+
+    function renderBattlesList(campaign, progress) {
+      const list = document.getElementById('popup-battles-list');
+      list.innerHTML = '';
+
+      // Construire une map des relations entre batailles
+      const branchGroups = _buildBranchGroups(campaign);
+
+      let i = 0;
+      while (i < campaign.battles.length) {
+        const battle = campaign.battles[i];
+
+        // Vérifier si cette bataille fait partie d'un groupe exclusif
+        const group = branchGroups.find(g => g.includes(battle.id));
+
+        if (group && group[0] === battle.id) {
+          // Afficher le groupe comme un bloc "OU"
+          const groupEl = document.createElement('div');
+          groupEl.className = 'battle-branch-group';
+
+          const label = document.createElement('div');
+          label.className = 'battle-branch-label';
+          label.textContent = '⬦ Selon l\'issue de la bataille précédente :';
+          groupEl.appendChild(label);
+
+          const branches = document.createElement('div');
+          branches.className = 'battle-branch-options';
+
+          group.forEach((bid, idx) => {
+            const b = campaign.battles.find(x => x.id === bid);
+            if (!b) return;
+
+            const sourceId = _getBranchSource(campaign, bid);
+            const sourceOutcome = _getBranchOutcome(campaign, sourceId, bid);
+            const outcomeLabel = sourceOutcome === 'victory'
+              ? '<span class="branch-tag victory">✅ Si victoire</span>'
+              : '<span class="branch-tag defeat">❌ Si défaite</span>';
+
+            branches.appendChild(_buildBattleItem(b, progress, outcomeLabel));
+
+            // Séparateur "OU" entre les branches
+            if (idx < group.length - 1) {
+              const sep = document.createElement('div');
+              sep.className = 'battle-branch-sep';
+              sep.textContent = 'OU';
+              branches.appendChild(sep);
+            }
+          });
+
+          groupEl.appendChild(branches);
+          list.appendChild(groupEl);
+
+          // Sauter les batailles du groupe dans la boucle principale
+          i += group.length;
+        } else if (!group) {
+          list.appendChild(_buildBattleItem(battle, progress, null));
+          i++;
+        } else {
+          i++;
+        }
+      }
+    }
+
+    function _buildBranchGroups(campaign) {
+      // Trouver les batailles qui sont des alternatives (même source, outcomes différents)
+      const groups = [];
+      const seen   = new Set();
+
+      campaign.battles.forEach(battle => {
+        if (!battle.outcomes) return;
+        const victoryNext = battle.outcomes.victory?.next;
+        const defeatNext  = battle.outcomes.defeat?.next;
+
+        if (victoryNext && defeatNext && victoryNext !== defeatNext) {
+          if (!seen.has(victoryNext) && !seen.has(defeatNext)) {
+            groups.push([victoryNext, defeatNext]);
+            seen.add(victoryNext);
+            seen.add(defeatNext);
+          }
+        }
+      });
+
+      return groups;
+    }
+
+    function _getBranchSource(campaign, battleId) {
+      const source = campaign.battles.find(b =>
+        b.outcomes?.victory?.next === battleId ||
+        b.outcomes?.defeat?.next  === battleId
+      );
+      return source?.id || null;
+    }
+
+    function _getBranchOutcome(campaign, sourceId, battleId) {
+      const source = campaign.battles.find(b => b.id === sourceId);
+      if (!source?.outcomes) return null;
+      if (source.outcomes.victory?.next === battleId) return 'victory';
+      if (source.outcomes.defeat?.next  === battleId) return 'defeat';
+      return null;
+    }
+
+    function _buildBattleItem(battle, progress, prefixHtml) {
+      const isUnlocked = progress.unlockedBattles.includes(battle.id);
+      const result     = progress.results[battle.id];
+      const isCurrent  = progress.currentBattle === battle.id;
+
+      let resultBadge = '';
+      if (result) {
+        const icon     = result.outcome === 'victory' ? '✅' : '❌';
+        const objCount = result.objectivesCompleted?.length || 0;
+        resultBadge = `
+          <div class="battle-result">
+            <span class="result-icon">${icon}</span>
+            ${objCount > 0 ? `<span class="result-obj">🎯 ${objCount} obj.</span>` : ''}
+            <span class="result-score">${result.scores?.allies || 0}🔵 vs ${result.scores?.axis || 0}🔴</span>
+          </div>`;
+      }
+
+      const mods = progress.cumulativeModifiers;
+      let modsHtml = '';
+      if (isCurrent && mods) {
+        const lines = [];
+        for (const side of ['allies', 'axis']) {
+          const sIcon = side === 'allies' ? '🔵' : '🔴';
+          if (mods.actions?.[side])              lines.push(`${sIcon} PA ${mods.actions[side] > 0 ? '+' : ''}${mods.actions[side]}`);
+          if (mods.medals?.[side])               lines.push(`${sIcon} Seuil ${mods.medals[side] > 0 ? '+' : ''}${mods.medals[side]} 🏅`);
+          if (mods.addCards?.[side]?.length)     lines.push(`${sIcon} +${mods.addCards[side].length} carte(s)`);
+          if (mods.removeCards?.[side]?.length)  lines.push(`${sIcon} -${mods.removeCards[side].length} carte(s)`);
+          if (mods.addUnits?.[side]?.length)     lines.push(`${sIcon} +${mods.addUnits[side].length} unité(s)`);
+          if (mods.removeUnits?.[side]?.length)  lines.push(`${sIcon} -${mods.removeUnits[side].length} unité(s)`);
+        }
+        if (lines.length > 0)
+          modsHtml = `<div class="battle-mods">${lines.map(l => `<span>${l}</span>`).join('')}</div>`;
+      }
+
+      const idx = _activeCampaign.battles.findIndex(b => b.id === battle.id);
+
+      const item = document.createElement('div');
+      item.className = `battle-item ${isUnlocked ? 'unlocked' : 'locked'} ${isCurrent ? 'current' : ''}`;
+      item.innerHTML = `
+        ${prefixHtml ? `<div class="battle-prefix">${prefixHtml}</div>` : ''}
+        <div class="battle-number">${isUnlocked ? (idx + 1) : '🔒'}</div>
+        <div class="battle-info">
+          <div class="battle-title">${battle.title}</div>
+          <div class="battle-desc">${battle.description || ''}</div>
+          ${resultBadge}
+          ${modsHtml}
+        </div>
+        ${isUnlocked ? `<button class="battle-launch-btn ${isCurrent ? 'primary' : ''}" data-id="${battle.id}">
+          ${isCurrent ? '▶ Lancer' : '↩ Rejouer'}
+        </button>` : ''}
+      `;
+
+      if (isUnlocked) {
+        item.querySelector('.battle-launch-btn').onclick = () => launchBattle(battle);
+      }
+
+      return item;
+    }
+
+    function launchBattle(battle) {
+      if (!_activeCampaign || !_activeProgress) return;
+      const url = CampaignSystem.buildGameUrl(_activeCampaign, battle, _activeProgress);
+      window.location.href = url;
+    }
+
+    // ─── Reset campagne ───────────────────────────────────────────────────────
+    function openResetConfirm(campaign) {
+      document.getElementById('reset-confirm-overlay').classList.remove('hidden');
+      document.getElementById('reset-confirm-yes').onclick = () => {
+        CampaignSystem.resetProgress(campaign.id);
+        document.getElementById('reset-confirm-overlay').classList.add('hidden');
+        document.getElementById('campaign-popup-overlay').classList.add('hidden');
+        loadAllCampaigns(); // Rafraîchir
+      };
+      document.getElementById('reset-confirm-no').onclick = () => {
+        document.getElementById('reset-confirm-overlay').classList.add('hidden');
+      };
+    }
+
+    // ─── Fermeture popup ──────────────────────────────────────────────────────
+    document.getElementById('popup-close').onclick = () => {
+      document.getElementById('campaign-popup-overlay').classList.add('hidden');
+    };
+    document.getElementById('campaign-popup-overlay').addEventListener('click', e => {
+      if (e.target.id === 'campaign-popup-overlay')
+        document.getElementById('campaign-popup-overlay').classList.add('hidden');
+    });
+
+    // ─── Init ─────────────────────────────────────────────────────────────────
+    loadAllCampaigns();
+  </script>
+</body>
+</html>

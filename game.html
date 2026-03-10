@@ -1,0 +1,4050 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mémoire 44 - Bataille</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styleTerrains.css" />
+    <link rel="stylesheet" href="styleCards.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪖</text></svg>"
+    />
+  </head>
+  <body>
+    <div id="header">
+      <h1>⬢ MÉMOIRE 44 ⬢</h1>
+      <div id="turn-info">
+        <div id="current-player" class="turn-display"></div>
+        <span id="action-counter"> ?/?</span>
+        <button id="end-turn-btn">Fin du tour</button>
+      </div>
+    </div>
+
+    <div id="game-container">
+      <div id="info-panel">
+        <h2>📋 Informations</h2>
+
+        <div class="info-section">
+          <h3>Hexagone sélectionné</h3>
+          <div id="hex-info">
+            <div class="info-row">
+              <span>Position:</span>
+              <span id="hex-coords" class="stat-value">-</span>
+            </div>
+            <div class="info-row">
+              <span>Terrain:</span>
+              <span id="hex-terrain" class="stat-value">-</span>
+            </div>
+            <div
+              id="hex-defense-details"
+              style="
+                font-size: 11px;
+                margin-top: 10px;
+                border-top: 1px solid #8b7355;
+                padding-top: 8px;
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div class="info-section" id="score-section">
+          <h3>🏅 Score</h3>
+          <div class="info-row">
+            <img id="score-icon-allies" class="faction-icon" src="" style="width:20px;height:20px;margin-right:6px" />
+            <span id="score-allies" class="stat-value">🏅 0</span>
+          </div>
+          <div class="info-row" style="margin-top:6px">
+            <img id="score-icon-axis" class="faction-icon" src="" style="width:20px;height:20px;margin-right:6px" />
+            <span id="score-axis" class="stat-value">🏅 0</span>
+          </div>
+          <h3 style="margin-top:12px">🪖 Unités</h3>
+          <div class="info-row">
+            <img id="units-icon-allies" class="faction-icon" src="" style="width:20px;height:20px;margin-right:6px" />
+            <span id="units-allies" class="stat-value">-</span>
+          </div>
+          <div class="info-row" style="margin-top:6px">
+            <img id="units-icon-axis" class="faction-icon" src="" style="width:20px;height:20px;margin-right:6px" />
+            <span id="units-axis" class="stat-value">-</span>
+          </div>
+        </div>
+
+        <div id="legend">
+          <h3>🗺️ Légende des terrains</h3>
+          <div id="legend-content"></div>
+        </div>
+      </div>
+
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+
+      <div id="actions-panel">
+        <h2>⚔️ Actions</h2>
+        <div id="actions">
+          <button class="action-btn" id="move-btn" disabled>
+            🎯 Déplacer (? cases)
+          </button>
+          <button class="action-btn move-attack" id="move-attack-btn" disabled>
+            🏃⚔️ Déplacer (?) + Attaquer
+          </button>
+          <button class="action-btn attack" id="attack-btn" disabled>
+            ⚔️ Attaquer seulement
+          </button>
+          <button class="action-btn" id="cancel-btn" disabled>
+            ❌ Annuler
+          </button>
+          <button
+            class="action-btn special"
+            id="ground-take-btn"
+            style="display: none"
+          >
+            🎖️ Prise de terrain
+          </button>
+          <button
+            class="action-btn special"
+            id="breakthrough-btn"
+            style="display: none"
+          >
+            ⚡ Percée de blindé
+          </button>
+        </div>
+        <h2></h2>
+        <div id="unit-card" style="display: none">
+          <div class="unit-card-image" id="unit-card-image"></div>
+          <div class="unit-card-stats">
+            <div class="unit-card-header">
+              <span id="unit-card-name">-</span>
+              <img id="unit-card-faction" class="faction-icon" src="" alt="" />
+            </div>
+            <div class="unit-card-stat-row">
+              <div class="stat-icon">❤️</div>
+              <div class="stat-bar">
+                <div id="unit-card-hp-bar" class="stat-bar-fill"></div>
+              </div>
+              <span id="unit-card-hp-text">-/-</span>
+            </div>
+            <div class="unit-card-stat-row">
+              <div class="stat-icon">⚔️</div>
+              <span id="unit-card-damage">-</span>
+            </div>
+            <div class="unit-card-stat-row">
+              <div class="stat-icon">🛡️</div>
+              <span id="unit-card-counter">-</span>
+            </div>
+            <div class="unit-card-stat-row">
+              <div class="stat-icon">🎯</div>
+              <span id="unit-card-range">-</span>
+            </div>
+            <div class="unit-card-stat-row">
+              <div class="stat-icon">➡️</div>
+              <span id="unit-card-move">-/-</span>
+            </div>
+            <div class="unit-card-stat-row">
+              <div class="stat-icon">⚡</div>
+              <span id="unit-card-actionCost">-</span>
+            </div>
+
+            <div class="unit-dice-stats">
+              <h4>🎲 Attaque</h4>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/inf.png" class="dice-stat-icon" />
+                <span id="dice-stat-inf">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/tank.png" class="dice-stat-icon" />
+                <span id="dice-stat-tank">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/tous.png" class="dice-stat-icon" />
+                <span id="dice-stat-tous">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/retraite.png" class="dice-stat-icon" />
+                <span id="dice-stat-retraite">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/manque.png" class="dice-stat-icon" />
+                <span id="dice-stat-manque">-</span>%
+              </div>
+            </div>
+
+            <div
+              class="unit-dice-stats"
+              id="counter-dice-stats"
+              style="display: none"
+            >
+              <h4>🎲 Contre-attaque</h4>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/inf.png" class="dice-stat-icon" />
+                <span id="dice-ctn-inf">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/tank.png" class="dice-stat-icon" />
+                <span id="dice-ctn-tank">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/tous.png" class="dice-stat-icon" />
+                <span id="dice-ctn-tous">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/retraite.png" class="dice-stat-icon" />
+                <span id="dice-ctn-retraite">-</span>%
+              </div>
+              <div class="dice-stats-row">
+                <img src="units/imgDice/manque.png" class="dice-stat-icon" />
+                <span id="dice-ctn-manque">-</span>%
+              </div>
+            </div>
+
+            <div class="unit-card-status" id="unit-card-status">Peut agir</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup de lancement de dés -->
+    <div id="dice-popup" style="display: none">
+      <div id="dice-popup-content">
+        <h3 id="dice-popup-title">Lancement des dés</h3>
+        <div id="dice-container"></div>
+        <div id="dice-results">
+          <div class="dice-result-row">
+            <img src="units/imgDice/inf.png" class="dice-icon-small" />
+            <span id="dice-result-inf">0</span> touches
+          </div>
+          <div class="dice-result-row">
+            <img src="units/imgDice/tank.png" class="dice-icon-small" />
+            <span id="dice-result-tank">0</span> touches
+          </div>
+          <div class="dice-result-row">
+            <img src="units/imgDice/tous.png" class="dice-icon-small" />
+            <span id="dice-result-tous">0</span> touches
+          </div>
+          <div class="dice-result-row">
+            <img src="units/imgDice/retraite.png" class="dice-icon-small" />
+            <span id="dice-result-retraite">0</span> retraites
+          </div>
+          <div class="dice-result-row">
+            <img src="units/imgDice/manque.png" class="dice-icon-small" />
+            <span id="dice-result-manque">0</span> manqué
+          </div>
+        </div>
+        <button id="dice-apply-btn" class="action-btn special">
+          ✓ Appliquer les résultats
+        </button>
+      </div>
+    </div>
+
+    <div id="combat-log"></div>
+
+    <script>
+      // ========================================
+      // CONFIGURATION
+      // ========================================
+
+      const CONFIG = {
+        HEX_W: 70,
+        HEX_H: 60,
+      };
+
+      let TERRAINS = {};
+      let STRUCTURES = {};
+      let UNIT_TYPES = {};
+      let MAP_DATA = {};
+      let TERRAIN_DATA = {};
+
+      // ========================================
+      // HELPERS TERRAIN - Support  format {type, variant}
+      // ========================================
+
+      /**
+       * Normalise un terrain depuis l'ancien ou  format
+       * Ancien: "riviere-60" → : {type: "riviere", variant: "60"}
+       */
+      function normalizeTerrain(terrainData) {
+        if (typeof terrainData === "object" && terrainData.type) {
+          return terrainData;
+        }
+        if (typeof terrainData === "string") {
+          const parts = terrainData.split("-");
+          if (parts.length === 1) {
+            return { type: parts[0] };
+          }
+          return { type: parts[0], variant: parts[1] };
+        }
+        return { type: "plaine" };
+      }
+
+      /**
+       * Obtient le type de terrain (pour les règles de jeu)
+       */
+      function getTerrainType(terrain) {
+        if (typeof terrain === "string") {
+          return terrain.split("-")[0];
+        }
+        return terrain.type || "plaine";
+      }
+
+      /**
+       * Obtient la classe CSS pour l'affichage
+       */
+      function getTerrainCSSClass(terrain) {
+        if (typeof terrain === "string") {
+          return terrain;
+        }
+        if (!terrain.variant) {
+          return terrain.type;
+        }
+        return `${terrain.type}-${terrain.variant}`;
+      }
+
+      /**
+       * Normalise une structure depuis l'ancien ou  format
+       * Ancien: "pont-60" → : {type: "pont", variant: "60"}
+       */
+      function normalizeStructure(structureData) {
+        if (typeof structureData === "object" && structureData.type) {
+          return structureData;
+        }
+        if (typeof structureData === "string") {
+          const parts = structureData.split("-");
+          if (parts.length === 1) {
+            return { type: parts[0] };
+          }
+          return { type: parts[0], variant: parts[1] };
+        }
+        return null;
+      }
+
+      /**
+       * Obtient le type de structure (pour les règles de jeu)
+       */
+      function getStructureType(structure) {
+        if (typeof structure === "string") {
+          return structure.split("-")[0];
+        }
+        return structure.type;
+      }
+
+      /**
+       * Obtient la classe CSS pour l'affichage d'une structure
+       */
+      function getStructureCSSClass(structure) {
+        if (typeof structure === "string") {
+          return structure;
+        }
+        if (!structure.variant) {
+          return structure.type;
+        }
+        return `${structure.type}-${structure.variant}`;
+      }
+
+      /**
+       * Obtient les stats effectives d'une cellule (structure ou terrain de base)
+       * Cette fonction centralise la logique de détermination des propriétés à utiliser
+       * @param {Object} cell - La cellule de la carte
+       * @returns {Object} - Objet avec name, defense, attackMod, blocksLOS, canCross
+       */
+      function getEffectiveCellStats(cell) {
+        const baseType = getTerrainType(cell.terrain);
+        const baseTerrain = TERRAINS[baseType] || TERRAINS.plaine;
+
+        // Si la cellule a une structure
+        if (cell.structure) {
+          // Normaliser la structure (supporter ancien format "pont-60" ou  {type: "pont", variant: "60"})
+          const structureType =
+            typeof cell.structure === "string"
+              ? cell.structure.split("-")[0]
+              : cell.structure.type;
+
+          const structure = STRUCTURES[structureType];
+
+          if (structure) {
+            // Si la structure override le mouvement, elle devient le terrain effectif
+            if (structure.overridesMovement) {
+              return {
+                name: structure.name,
+                defense: structure.defense,
+                attackMod: structure.attackMod,
+                blocksLOS: structure.blocksLOS,
+                canCross: true, // Une structure qui override rend toujours traversable
+                moveCost: structure.moveCost, // AJOUT: Coût de mouvement de la structure
+                isStructure: true,
+              };
+            } else {
+              // La structure ajoute juste ses défenses mais n'affecte pas le mouvement
+              //  : Prendre la défense MAXIMALE entre terrain et structure
+              const maxDefense = getMaxDefense(
+                baseTerrain.defense,
+                structure.defense,
+              );
+
+              return {
+                name: structure.name, // Affiche le nom de la structure
+                defense: maxDefense, // Prend la défense maximale
+                attackMod: baseTerrain.attackMod, // Garde les modificateurs du terrain
+                blocksLOS: structure.blocksLOS || baseTerrain.blocksLOS,
+                canCross: null, // Utilise les règles normales du terrain de base
+                moveCost: baseTerrain.moveCost, // AJOUT: Utilise le coût du terrain de base
+                isStructure: true,
+              };
+            }
+          }
+        }
+
+        // Pas de structure, utilise le terrain de base
+        return {
+          name: baseTerrain.name,
+          defense: baseTerrain.defense,
+          attackMod: baseTerrain.attackMod,
+          blocksLOS: baseTerrain.blocksLOS,
+          canCross: null, // Utilise les règles normales
+          moveCost: baseTerrain.moveCost, // AJOUT: Coût de mouvement du terrain
+          isStructure: false,
+        };
+      }
+
+      /**
+       * Compare deux valeurs de défense et retourne la plus élevée
+       * Gère les défenses simples (nombre) et par catégorie (objet)
+       */
+      function getMaxDefense(defenseA, defenseB) {
+        // Si les deux sont des nombres simples
+        if (typeof defenseA === "number" && typeof defenseB === "number") {
+          return Math.max(defenseA, defenseB);
+        }
+
+        // Si l'un est un objet et l'autre un nombre
+        if (typeof defenseA === "object" && typeof defenseB === "number") {
+          const result = {};
+          for (const key in defenseA) {
+            result[key] = Math.max(defenseA[key], defenseB);
+          }
+          return result;
+        }
+
+        if (typeof defenseA === "number" && typeof defenseB === "object") {
+          const result = {};
+          for (const key in defenseB) {
+            result[key] = Math.max(defenseA, defenseB[key]);
+          }
+          return result;
+        }
+
+        // Si les deux sont des objets (défense par catégorie)
+        if (typeof defenseA === "object" && typeof defenseB === "object") {
+          const result = {};
+          const allKeys = new Set([
+            ...Object.keys(defenseA),
+            ...Object.keys(defenseB),
+          ]);
+
+          for (const key of allKeys) {
+            const valA = defenseA[key] ?? defenseA.default ?? 0;
+            const valB = defenseB[key] ?? defenseB.default ?? 0;
+            result[key] = Math.max(valA, valB);
+          }
+
+          return result;
+        }
+
+        // Fallback
+        return defenseA;
+      }
+
+      // ========================================
+      // ÉTAT DU JEU
+      // ========================================
+
+      let gameState = {
+        map: [],
+        currentPlayer: "allies",
+        selectedHex: null,
+        actionMode: null,
+        availableActions: [],
+        specialMove: null, // { type: 'ground-take' | 'breakthrough', fromX, fromY, toX, toY, hasBreakthroughAttacked }
+        savedUnitState: null, //  Pour sauvegarder l'état avant action
+        pendingDiceRoll: null, //
+        diceResults: null, //
+        pendingCounterAttack: null, //
+        counterDiceResults: null, //
+        attackMessage: null, //
+        pendingRetreat: null, //
+        maxActions: { allies: 0, axis: 0 },
+        currentActions: { allies: 0, axis: 0 },
+        medals: { allies: 0, axis: 0 },
+        unitCount: { allies: 0, axis: 0 },
+        unitCountMax: { allies: 0, axis: 0 },
+        factions: { allies: null, axis: null },
+        cards: { allies: [], axis: [] },
+        cardCooldown: { allies: 0, axis: 0 },
+        cardPlayedThisTurn: { allies: false, axis: false },
+        cardCostReduction: 0,
+        diceRollLocked: false,
+      };
+
+      // ========================================
+      // CHARGEMENT DES DONNÉES
+      // ========================================
+
+      async function loadGameData() {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const mapFile = params.get("map");
+
+          const unitsResponse = await fetch("units.json");
+          UNIT_TYPES = await unitsResponse.json();
+
+          const mapResponse = await fetch("map/" + mapFile);
+          MAP_DATA = await mapResponse.json();
+
+          const terrainResponse = await fetch("terrain.json");
+          TERRAIN_DATA = await terrainResponse.json();
+
+          TERRAINS = TERRAIN_DATA.terrains;
+          STRUCTURES = TERRAIN_DATA.structures || {};
+          CONFIG.WIDTH = MAP_DATA.mapConfig.width;
+          CONFIG.HEIGHT = MAP_DATA.mapConfig.height;
+
+          // Fusionner les unités custom de la carte avec units.json
+          if (MAP_DATA.customUnits) {
+            for (const [unitId, unitData] of Object.entries(MAP_DATA.customUnits)) {
+              if (UNIT_TYPES[unitId]) {
+                // L'unité existe déjà : fusionner les propriétés (custom écrase global)
+                UNIT_TYPES[unitId] = { ...UNIT_TYPES[unitId], ...unitData };
+                console.log(`Unité "${unitId}" modifiée par customUnits de la carte`);
+              } else {
+                // Nouvelle unité custom
+                UNIT_TYPES[unitId] = unitData;
+                console.log(`Nouvelle unité custom "${unitId}" ajoutée depuis la carte`);
+              }
+            }
+          }
+
+          // Appliquer la couleur de fond depuis le JSON
+          document.documentElement.style.setProperty(
+            "--map-background-color",
+            MAP_DATA.meta.background,
+          );
+
+          generateLegend();
+          generateMap();
+          // Notifier le système d'objectifs
+          if (window.ObjectivesSystem) {
+            ObjectivesSystem.renderObjectivesPanel();
+          }
+        } catch (error) {
+          console.error("Erreur lors du chargement des données:", error);
+          alert(
+            "Erreur lors du chargement des fichiers de configuration. (fetch)",
+          );
+        }
+      }
+
+      function generateLegend() {
+        const legendContent = document.getElementById("legend-content");
+        legendContent.innerHTML = "";
+
+        const unitTypes = ["infantry", "tank", "artillery"];
+        const unitIcons = {
+          infantry: "🪖",
+          tank: "🛡️",
+          artillery: "🎯",
+        };
+        const unitNames = {
+          infantry: "Inf",
+          tank: "Tank",
+          artillery: "Art",
+        };
+
+        for (const [key, terrain] of Object.entries(TERRAINS)) {
+          const terrainDiv = document.createElement("div");
+          terrainDiv.style.cssText =
+            "margin-bottom: 15px; padding: 10px; background: rgba(139, 115, 85, 0.1); border-radius: 5px;";
+
+          // En-tête avec couleur du terrain
+          const header = document.createElement("div");
+          header.style.cssText =
+            "display: flex; align-items: center; margin-bottom: 8px; font-weight: bold;";
+
+          const color = document.createElement("div");
+          color.className = `legend-color ${terrain.cssClass}`;
+          color.style.marginRight = "10px";
+
+          const name = document.createElement("span");
+          name.textContent = terrain.name;
+          name.style.color = "#d4af37";
+
+          header.appendChild(color);
+          header.appendChild(name);
+          terrainDiv.appendChild(header);
+
+          // Détails par type d'unité
+          const details = document.createElement("div");
+          details.style.cssText = "font-size: 11px; margin-left: 42px;";
+
+          for (const unitType of unitTypes) {
+            const defense =
+              typeof terrain.defense === "object"
+                ? (terrain.defense[unitType] ?? terrain.defense.default)
+                : terrain.defense;
+
+            const attackMod =
+              typeof terrain.attackMod === "object"
+                ? (terrain.attackMod[unitType] ?? terrain.attackMod.default)
+                : terrain.attackMod;
+
+            const line = document.createElement("div");
+            line.style.marginBottom = "3px";
+
+            let text = `${unitIcons[unitType]} ${unitNames[unitType]}: `;
+
+            const parts = [];
+            if (defense !== 0) {
+              parts.push(`+${defense} déf`);
+            }
+            if (attackMod !== 0) {
+              parts.push(`${attackMod} att`);
+            }
+
+            if (parts.length > 0) {
+              text += parts.join(", ");
+              line.style.color = "#c9b999";
+            } else {
+              text += "aucun effet";
+              line.style.color = "#666";
+              line.style.fontStyle = "italic";
+            }
+
+            line.textContent = text;
+            details.appendChild(line);
+          }
+
+          terrainDiv.appendChild(details);
+          legendContent.appendChild(terrainDiv);
+        }
+      }
+
+      // ========================================
+      // GÉNÉRATION DE LA CARTE
+      // ========================================
+
+      function hexCoords(x, y) {
+        const offset = y % 2 === 0 ? 0 : CONFIG.HEX_W / 2;
+        return {
+          left: x * CONFIG.HEX_W + offset,
+          top: y * (CONFIG.HEX_H * 0.75),
+        };
+      }
+
+      // Helper pour extraire le nom de base du terrain (sans rotation)
+      function getBaseTerrainName(terrainName) {
+        // Support ancien format string et  format {type, variant}
+        return getTerrainType(terrainName);
+      }
+
+      function generateMap() {
+        const mapDiv = document.getElementById("map");
+
+        for (let y = 0; y < CONFIG.HEIGHT; y++) {
+          gameState.map[y] = [];
+          for (let x = 0; x < CONFIG.WIDTH; x++) {
+            gameState.map[y][x] = {
+              x,
+              y,
+              terrain: "plaine",
+              structure: null,
+              unit: null,
+            };
+          }
+        }
+
+        MAP_DATA.hexes.forEach((hexData) => {
+          if (hexData.y < CONFIG.HEIGHT && hexData.x < CONFIG.WIDTH) {
+            gameState.map[hexData.y][hexData.x].terrain = hexData.terrain;
+            // Ajouter la structure si elle existe
+            if (hexData.structure) {
+              gameState.map[hexData.y][hexData.x].structure = hexData.structure;
+            }
+          }
+        });
+
+        for (let y = 0; y < CONFIG.HEIGHT; y++) {
+          for (let x = 0; x < CONFIG.WIDTH; x++) {
+            const cell = gameState.map[y][x];
+            const baseTerrainName = getBaseTerrainName(cell.terrain);
+            const terrain = TERRAINS[baseTerrainName];
+
+            if (!terrain) {
+              console.error(
+                `Terrain inconnu: ${cell.terrain} (base: ${baseTerrainName})`,
+              );
+              continue;
+            }
+
+            // Créer un wrapper pour l'hexagone
+            const wrapper = document.createElement("div");
+            wrapper.className = "hex-wrapper";
+            wrapper.dataset.x = x;
+            wrapper.dataset.y = y;
+            wrapper.dataset.terrain = cell.terrain || ''; // Pour que applyEnvironmentEffects() puisse identifier les terrains
+
+            const pos = hexCoords(x, y);
+            wrapper.style.position = "absolute";
+            wrapper.style.left = pos.left + "px";
+            wrapper.style.top = pos.top + "px";
+            wrapper.style.width = CONFIG.HEX_W + "px";
+            wrapper.style.height = CONFIG.HEX_H + "px";
+
+            // Créer l'hexagone lui-même (terrain de base)
+            const div = document.createElement("div");
+            // Utiliser getTerrainCSSClass pour supporter  format {type, variant}
+            div.className = `hex ${getTerrainCSSClass(cell.terrain)}`;
+            div.style.position = "relative";
+            div.style.width = "100%";
+            div.style.height = "100%";
+
+            wrapper.appendChild(div);
+
+            // Créer la couche de structure si elle existe
+            if (cell.structure) {
+              const structureType = getStructureType(cell.structure);
+              if (STRUCTURES[structureType]) {
+                const structureDiv = document.createElement("div");
+                structureDiv.className = `structure ${getStructureCSSClass(cell.structure)}`;
+                div.appendChild(structureDiv);
+              }
+            }
+
+            wrapper.onclick = () => onHexClick(x, y);
+
+            mapDiv.appendChild(wrapper);
+          }
+        }
+
+        if (MAP_DATA.units) {
+          MAP_DATA.units.forEach((unitData) => {
+            placeUnit(
+              unitData.x,
+              unitData.y,
+              unitData.type,
+              unitData.side,
+              unitData.cssClass,
+              unitData.blason,
+            );
+          });
+        }
+
+        // Stocker les factions pour affichage global
+        gameState.factions.allies = MAP_DATA.meta.factions?.allies?.[0] || null;
+        gameState.factions.axis = MAP_DATA.meta.factions?.axis?.[0] || null;
+        // Compter les unités initiales
+        for (let cy = 0; cy < CONFIG.HEIGHT; cy++) {
+          for (let cx = 0; cx < CONFIG.WIDTH; cx++) {
+            const u = gameState.map[cy][cx].unit;
+            if (u) {
+              gameState.unitCount[u.side]++;
+              gameState.unitCountMax[u.side]++;
+            }
+          }
+        }
+        updateScoreDisplay();
+
+        // Charger actions
+        gameState.maxActions.allies = MAP_DATA.mapConfig.actions.allies || 999;
+        gameState.maxActions.axis = MAP_DATA.mapConfig.actions.axis || 999;
+        gameState.currentActions.allies = gameState.maxActions.allies;
+        gameState.currentActions.axis = gameState.maxActions.axis;
+
+        // 1. Modificateurs campagne (modifie MAP_DATA.units, MAP_DATA.cards, etc.)
+        if (window.CampaignSystem) {
+          const { campaignId, mods } = CampaignSystem.readUrlParams();
+          if (campaignId && mods) {
+            CampaignSystem.applyModifiers(mods, gameState, MAP_DATA);
+          }
+        }
+
+        // 2. Résoudre les positions des unités sans coordonnées (_spawnAtEdge)
+        if (window.CampaignSystem) {
+          const reserved = new Set();
+          MAP_DATA.units = (MAP_DATA.units || []).map(u => {
+            if (!u._spawnAtEdge) return u;
+            const isAllies = u.side === 'allies';
+            const rows = isAllies
+              ? [CONFIG.HEIGHT - 1, CONFIG.HEIGHT - 2, CONFIG.HEIGHT - 3]
+              : [0, 1, 2];
+            const freeCells = [];
+            for (const row of rows) {
+              for (let col = 0; col < CONFIG.WIDTH; col++) {
+                const key  = `${col},${row}`;
+                const cell = gameState.map[row]?.[col];
+                if (cell && !cell.unit && !reserved.has(key)) {
+                  freeCells.push({ x: col, y: row, key });
+                }
+              }
+            }
+            if (freeCells.length === 0) {
+              console.warn(`[Campaign] Impossible de placer ${u.type} (${u.side})`);
+              return null;
+            }
+            const firstAvailableRow = freeCells[0].y;
+            const borderCells = freeCells.filter(c => c.y === firstAvailableRow);
+            const picked = borderCells[Math.floor(Math.random() * borderCells.length)];
+            reserved.add(picked.key);
+            return { ...u, x: picked.x, y: picked.y, _spawnAtEdge: false };
+          }).filter(Boolean);
+        }
+
+        // 3. Placer toutes les unités
+        if (MAP_DATA.units) {
+          MAP_DATA.units.forEach((unitData) => {
+            placeUnit(unitData.x, unitData.y, unitData.type, unitData.side, unitData.cssClass, unitData.blason);
+          });
+        }
+
+        // La faction avec le plus de PA commence
+        if (gameState.maxActions.axis > gameState.maxActions.allies) {
+          gameState.currentPlayer = "axis";
+        } else {
+          gameState.currentPlayer = "allies";
+        }
+
+        // 4. Init cartes
+        if (window.CardsAPI) {
+          window.CardsAPI.init();
+        }
+
+        if (window.ObjectivesSystem) {
+          ObjectivesSystem.init(MAP_DATA.meta);
+        }
+
+        refreshDisplay();
+        updateTurnDisplay();
+      }
+
+      function destroyUnit(unit, killerSide) {
+        // Attribuer une médaille au camp qui a détruit l'unité
+        if (killerSide) {
+          gameState.medals[killerSide]++;
+        }
+        // Décrémenter le compteur du camp de l'unité détruite
+        gameState.unitCount[unit.side] = Math.max(0, gameState.unitCount[unit.side] - 1);
+
+        if (window.ObjectivesSystem) {
+          ObjectivesSystem.onUnitKilled(unit, killerSide);
+        }
+        updateScoreDisplay();
+      }
+
+      function updateScoreDisplay() {
+        const fa = gameState.factions.allies;
+        const fx = gameState.factions.axis;
+        // Icônes faction
+        ["allies", "axis"].forEach(side => {
+          const faction = gameState.factions[side];
+          const src = faction ? `units/factions/${faction}.png` : "";
+          const scoreIcon = document.getElementById(`score-icon-${side}`);
+          const unitsIcon = document.getElementById(`units-icon-${side}`);
+          if (scoreIcon) scoreIcon.src = src;
+          if (unitsIcon) unitsIcon.src = src;
+        });
+
+        document.getElementById("score-allies").textContent = `🏅 ${gameState.medals.allies}`;
+        document.getElementById("score-axis").textContent   = `🏅 ${gameState.medals.axis}`;
+        document.getElementById("units-allies").textContent = `${gameState.unitCount.allies}/${gameState.unitCountMax.allies}`;
+        document.getElementById("units-axis").textContent   = `${gameState.unitCount.axis}/${gameState.unitCountMax.axis}`;
+
+        if (window.ObjectivesSystem) {
+          ObjectivesSystem.checkMedalVictory();
+        }
+      }
+
+      function placeUnit(x, y, type, side, cssClass, blason) {
+        const unitTemplate = UNIT_TYPES[type];
+        if (!unitTemplate) {
+          console.error(`Type d'unité inconnu: ${type}`);
+          return;
+        }
+
+        // Calculer automatiquement la portée depuis damageByRange
+        const calculatedRange = unitTemplate.damageByRange.length - 1;
+
+        // Calculer automatiquement canMoveAndAttack
+        const canMoveAndAttack = unitTemplate.movementWithAttack > 0;
+
+        const faction = MAP_DATA.meta.factions?.[side]?.[0] || null;
+
+        const unit = {
+          type: type,
+          category: unitTemplate.category,
+          name: unitTemplate.name,
+          shortName: unitTemplate.shortName,
+          cssClass: cssClass || type,
+          blason: blason || null,
+          side: side,
+          faction: faction,
+          hp: unitTemplate.hp,
+          currentHp: unitTemplate.hp,
+          range: calculatedRange,
+          movementWithAttack: unitTemplate.movementWithAttack,
+          movementWithoutAttack: unitTemplate.movementWithoutAttack,
+          canMoveAndAttack: canMoveAndAttack,
+          damageByRange: unitTemplate.damageByRange,
+          counterDamageByRange: unitTemplate.counterDamageByRange,
+          needsLOS: unitTemplate.needsLOS,
+          cannotCross: unitTemplate.cannotCross || [],
+          mustStopOn: unitTemplate.mustStopOn || [],
+          mustStopAndCannotFight: unitTemplate.mustStopAndCannotFight || [],
+          hasMoved: false,
+          hasAttacked: false,
+          dice: unitTemplate.dice,
+          ctnDice: unitTemplate.ctnDice,
+          actionCost: unitTemplate.actionCost,
+          commandement: unitTemplate.commandement || 0,
+          retreatDistance: unitTemplate.retreatDistance || 1,
+          renfort: unitTemplate.renfort || null,
+          renforcementsGiven: unitTemplate.renfort
+            ? Object.fromEntries(
+                Object.keys(unitTemplate.renfort).map((k) => [k, 0]),
+              )
+            : {},
+          builtStructures: [],
+        };
+
+        gameState.map[y][x].unit = unit;
+        //console.log(`Unité placée: ${unit.name} (${side}) en (${x}, ${y}) - Portée: ${calculatedRange}, Peut bouger+attaquer: ${canMoveAndAttack}`,);
+      }
+
+      // ========================================
+      // AFFICHAGE
+      // ========================================
+
+      function refreshDisplay() {
+        // Mise à jour actions
+        const current = gameState.currentActions[gameState.currentPlayer];
+        const max = gameState.maxActions[gameState.currentPlayer];
+        document.getElementById("action-counter").textContent =
+          `${current}/${max}`;
+
+        // Calculer la zone de commandement de l'unité sélectionnée
+        let commandZone = null;
+        if (gameState.selectedHex) {
+          const selectedCell =
+            gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+          if (selectedCell.unit && selectedCell.unit.commandement > 0) {
+            commandZone = {
+              x: gameState.selectedHex.x,
+              y: gameState.selectedHex.y,
+              range: selectedCell.unit.commandement,
+            };
+          }
+        }
+
+        document.querySelectorAll(".hex-wrapper").forEach((wrapper) => {
+          const x = parseInt(wrapper.dataset.x);
+          const y = parseInt(wrapper.dataset.y);
+          const cell = gameState.map[y][x];
+          const baseTerrainName = getBaseTerrainName(cell.terrain);
+          const terrain = TERRAINS[baseTerrainName];
+
+          const div = wrapper.querySelector(".hex");
+          div.innerHTML = "";
+          // Utiliser getTerrainCSSClass pour supporter  format {type, variant}
+          div.className = `hex ${getTerrainCSSClass(cell.terrain)}`;
+
+          // Ajouter le filtre vert si dans la zone de commandement
+          if (
+            commandZone &&
+            !(x === commandZone.x && y === commandZone.y) &&
+            getDistance(commandZone.x, commandZone.y, x, y) <= commandZone.range
+          ) {
+            div.classList.add("command-range");
+          }
+
+          // Recréer la couche de structure si elle existe
+          if (cell.structure) {
+            const structureType = getStructureType(cell.structure);
+            if (STRUCTURES[structureType]) {
+              const structureDiv = document.createElement("div");
+              structureDiv.className = `structure ${getStructureCSSClass(cell.structure)}`;
+              div.appendChild(structureDiv);
+            }
+          }
+
+          // Supprimer les anciens damage-labels du wrapper
+          wrapper
+            .querySelectorAll(".damage-label")
+            .forEach((label) => label.remove());
+
+          if (cell.unit) {
+            const unitDiv = document.createElement("div");
+            unitDiv.className = `unit unit-${cell.unit.side}`;
+            if (cell.unit.hasMoved || cell.unit.hasAttacked) {
+              unitDiv.classList.add("moved");
+            }
+
+            if (cell.unit.blason) {
+              const blasonImg = document.createElement("img");
+              blasonImg.src = `units/blasons/${cell.unit.blason}.png`;
+              blasonImg.className = "unit-blason";
+              unitDiv.appendChild(blasonImg);
+            }
+
+            const typeSpan = document.createElement("div");
+            typeSpan.textContent = cell.unit.shortName;
+            unitDiv.appendChild(typeSpan);
+
+            const hpSpan = document.createElement("div");
+            hpSpan.className = "unit-hp";
+            hpSpan.textContent = `HP: ${cell.unit.currentHp}/${cell.unit.hp}`;
+            unitDiv.appendChild(hpSpan);
+
+            // Badge bouclier si présent
+            if (cell.unit.shieldBonus > 0) {
+              const shieldBadge = document.createElement("div");
+              shieldBadge.className = "unit-shield-badge";
+              shieldBadge.textContent = `${cell.unit.shieldBonus}`;
+              shieldBadge.style.cssText = `
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background: linear-gradient(135deg, #4a90e2, #2e5f9e);
+                color: white;
+                font-size: 10px;
+                font-weight: bold;
+                padding: 2px 5px;
+                border-radius: 4px;
+                border: 1px solid #fff;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+                z-index: 10;
+              `;
+              unitDiv.appendChild(shieldBadge);
+            }
+
+            div.appendChild(unitDiv);
+          }
+
+          if (
+            gameState.selectedHex &&
+            gameState.selectedHex.x === x &&
+            gameState.selectedHex.y === y
+          ) {
+            div.classList.add("selected");
+          }
+
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y,
+          );
+          if (action) {
+            if (action.type === "move") {
+              div.classList.add("movable");
+            } else if (action.type === "attack") {
+              div.classList.add("attackable");
+            } else if (
+              action.type === "cut-target" ||
+              action.type === "demine-target"
+            ) {
+              div.classList.add("selectable-target");
+            } else if (action.type === "retreat") {
+              div.classList.add("retreat-hex");
+            } else if (action.type === "reinforce") {
+              div.classList.add("selectable-target");
+            } else if (action.type === "card-target") {
+              div.classList.add("card-target");
+            }
+
+            div.classList.add(
+              action.type === "move" ? "movable" : "attackable",
+            );
+            // Afficher les dégâts prévus pour les attaques - dans le WRAPPER, pas dans l'hexagone
+            if (action.type === "attack" && action.expectedDamage) {
+              const damageLabel = document.createElement("div");
+              damageLabel.className = "damage-label";
+              damageLabel.textContent = `${action.expectedDamage}`;
+              damageLabel.style.cssText = `
+                    position: absolute;
+                    top: 2px;
+                    right: 2px;
+                    background: rgba(226, 74, 74, 0.9);
+                    color: white;
+                    font-weight: bold;
+                    font-size: 12px;
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    border: 1px solid #fff;
+                    z-index: 100;
+                    pointer-events: none;
+                `;
+              wrapper.appendChild(damageLabel); // Ajouter au wrapper, pas à l'hexagone
+            }
+          }
+        });
+        if (window.AnimSystem) {
+          AnimSystem.applyEnvironmentEffects();
+        }
+      }
+
+      function updateTurnDisplay() {
+        const display = document.getElementById("current-player");
+        const side = gameState.currentPlayer;
+        const faction = gameState.factions[side];
+        const label = side === "allies" ? "ALLIÉS" : "AXE";
+        display.className = `turn-display turn-${side}`;
+        if (faction) {
+          display.innerHTML = `<img src="units/factions/${faction}.png" class="faction-icon" style="width:22px;height:22px;vertical-align:middle;margin-right:6px"> ${label}`;
+        } else {
+          display.textContent = gameState.currentPlayer === "allies" ? "⭐ ALLIÉS" : "⚡ AXE";
+        }
+      }
+
+      function getDamageDisplay(damageByRange) {
+        const damages = [];
+        for (let i = 1; i < damageByRange.length; i++) {
+          if (damageByRange[i] > 0) {
+            damages.push(`${damageByRange[i]}`);
+          }
+        }
+        return damages.length > 0 ? damages.join(", ") : "Aucun";
+      }
+
+      function getDefenseValue(terrain, unitType, unitCategory) {
+        if (typeof terrain.defense === "object") {
+          // Chercher d'abord le type précis, puis la catégorie, puis default
+          return (
+            terrain.defense[unitType] ??
+            terrain.defense[unitCategory] ??
+            terrain.defense.default
+          );
+        }
+        return terrain.defense;
+      }
+
+      function updateInfoPanel() {
+        if (!gameState.selectedHex) {
+          clearInfoPanel();
+          return;
+        }
+
+
+        const cell =
+          gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+        // Utiliser getEffectiveCellStats pour obtenir le bon nom
+        const effectiveStats = getEffectiveCellStats(cell);
+
+        // Mise à jour des informations de base
+        document.getElementById("hex-coords").textContent =
+          `(${cell.x}, ${cell.y})`;
+        document.getElementById("hex-terrain").textContent =
+          effectiveStats.name;
+
+        const defenseDetails = document.getElementById("hex-defense-details");
+        defenseDetails.innerHTML = ""; // On vide le contenu précédent
+
+        const unitTypes = ["infantry", "tank", "artillery"];
+        const unitIcons = { infantry: "🪖", tank: "🛡️", artillery: "🎯" };
+        const unitNames = { infantry: "Inf", tank: "Tank", artillery: "Art" };
+
+        unitTypes.forEach((unitType) => {
+          // On récupère la défense et l'attaque effectives (gère structure + terrain)
+          const defense =
+            typeof effectiveStats.defense === "object"
+              ? (effectiveStats.defense[unitType] ??
+                effectiveStats.defense.default)
+              : effectiveStats.defense;
+
+          const attackMod =
+            typeof effectiveStats.attackMod === "object"
+              ? (effectiveStats.attackMod[unitType] ??
+                effectiveStats.attackMod.default)
+              : effectiveStats.attackMod;
+
+          const line = document.createElement("div");
+          line.style.marginBottom = "3px";
+
+          let text = `${unitIcons[unitType]} ${unitNames[unitType]}: `;
+          const parts = [];
+
+          if (defense !== 0) parts.push(`+${defense} déf`);
+          if (attackMod !== 0) parts.push(`${attackMod} att`);
+
+          if (parts.length > 0) {
+            text += parts.join(", ");
+            line.style.color = "#c9b999";
+          } else {
+            text += "aucun effet";
+            line.style.color = "#666";
+            line.style.fontStyle = "italic";
+          }
+
+          line.textContent = text;
+          defenseDetails.appendChild(line);
+        });
+
+        if (cell.unit) {
+          const unit = cell.unit;
+          const isFriendly = unit.side === gameState.currentPlayer;
+
+          const effectiveCost = isFriendly
+            ? getEffectiveActionCost(unit, cell.x, cell.y)
+            : unit.actionCost || 1;
+
+          const canAct =
+            isFriendly &&
+            !unit.hasMoved &&
+            !unit.hasAttacked &&
+            gameState.currentActions[gameState.currentPlayer] >= effectiveCost && //;
+            gameState.actionMode === null;  // AJOUT - désactiver si un mode est en cours
+
+          if (
+            gameState.currentActions[gameState.currentPlayer] < effectiveCost
+          ) {
+            document.getElementById("move-btn").disabled = true;
+            document.getElementById("move-btn").title =
+              "Pas assez de points d'action";
+          }
+
+          // Afficher la carte d'unité
+          const unitCard = document.getElementById("unit-card");
+          unitCard.style.display = "block";
+
+          // Image de l'unité
+          const unitImage = document.getElementById("unit-card-image");
+          const cssClass = unit.cssClass || unit.type;
+          unitImage.style.backgroundImage = `url('units/${unit.category}/${cssClass}.png')`;
+
+          // Nom et faction
+          document.getElementById("unit-card-name").textContent = unit.name;
+          const factionIcon = document.getElementById("unit-card-faction");
+          factionIcon.src = `units/factions/${unit.faction}.png`;
+          factionIcon.alt = unit.side;
+
+          // Points de vie (barre + texte)
+          const hpPercent = (unit.currentHp / unit.hp) * 100;
+          document.getElementById("unit-card-hp-bar").style.width =
+            `${hpPercent}%`;
+          document.getElementById("unit-card-hp-text").textContent =
+            `${unit.currentHp}/${unit.hp}`;
+
+          // Dégâts
+          const damages = unit.damageByRange.filter((d) => d > 0).join(", ");
+          document.getElementById("unit-card-damage").textContent =
+            damages || "-";
+
+          // Contre-attaque
+          const counters = unit.counterDamageByRange
+            .filter((d) => d > 0)
+            .join(", ");
+          document.getElementById("unit-card-counter").textContent =
+            counters || "Aucune";
+
+          // Portée
+          document.getElementById("unit-card-range").textContent =
+            unit.range || "-";
+
+          // Mouvement
+          document.getElementById("unit-card-move").textContent =
+            `${Math.floor(unit.movementWithAttack / 4)}/${Math.floor(unit.movementWithoutAttack / 4)}`;
+
+          // Action cost
+          document.getElementById("unit-card-actionCost").textContent =
+            isFriendly
+              ? `${effectiveCost}${effectiveCost < unit.actionCost ? ` (base ${unit.actionCost})` : ``}`
+              : `${unit.actionCost}`;
+
+          if (unit.dice) {
+            // [inf, tank, tous, retraite, manque]
+            const diceSum = unit.dice.reduce((a, b) => a + b, 0);
+            const dicePercents = unit.dice.map((d) =>
+              Math.round((d / diceSum) * 100),
+            );
+
+            document.getElementById("dice-stat-inf").textContent =
+              dicePercents[0];
+            document.getElementById("dice-stat-tank").textContent =
+              dicePercents[1];
+            document.getElementById("dice-stat-tous").textContent =
+              dicePercents[2];
+            document.getElementById("dice-stat-retraite").textContent =
+              dicePercents[3];
+            document.getElementById("dice-stat-manque").textContent =
+              dicePercents[4];
+          }
+
+          //  : Statistiques de dés de contre-attaque (si l'unité peut contre-attaquer)
+          const counterSection = document.getElementById("counter-dice-stats");
+          if (unit.ctnDice && unit.counterDamageByRange.some((d) => d > 0)) {
+            counterSection.style.display = "block";
+            const ctnSum = unit.ctnDice.reduce((a, b) => a + b, 0);
+            const ctnPercents = unit.ctnDice.map((d) =>
+              Math.round((d / ctnSum) * 100),
+            );
+
+            document.getElementById("dice-ctn-inf").textContent =
+              ctnPercents[0];
+            document.getElementById("dice-ctn-tank").textContent =
+              ctnPercents[1];
+            document.getElementById("dice-ctn-tous").textContent =
+              ctnPercents[2];
+            document.getElementById("dice-ctn-retraite").textContent =
+              ctnPercents[3];
+            document.getElementById("dice-ctn-manque").textContent =
+              ctnPercents[4];
+          } else {
+            counterSection.style.display = "none";
+          }
+
+          // Statut
+          const statusElem = document.getElementById("unit-card-status");
+          if (unit.hasMoved && unit.hasAttacked) {
+            statusElem.textContent = "A déjà agi";
+            statusElem.style.background = "rgba(100, 100, 100, 0.3)";
+            statusElem.style.borderColor = "#666";
+            statusElem.style.color = "#999";
+          } else if (unit.hasMoved) {
+            statusElem.textContent = "A déjà bougé";
+            statusElem.style.background = "rgba(74, 144, 226, 0.2)";
+            statusElem.style.borderColor = "#4a90e2";
+            statusElem.style.color = "#4a90e2";
+          } else if (unit.hasAttacked) {
+            statusElem.textContent = "A déjà attaqué";
+            statusElem.style.background = "rgba(226, 74, 74, 0.2)";
+            statusElem.style.borderColor = "#e24a4a";
+            statusElem.style.color = "#e24a4a";
+          } else {
+            statusElem.textContent = "Peut agir";
+            statusElem.style.background = "rgba(74, 226, 74, 0.2)";
+            statusElem.style.borderColor = "#4ae24a";
+            statusElem.style.color = "#4ae24a";
+          }
+
+          // Activer les boutons si l'unité est amie et peut agir
+          // Exception : si canDoubleAttack, seul le bouton attaque est actif
+          const canAttackOnly = isFriendly && unit.canDoubleAttack && !unit.hasAttacked;
+
+          document.getElementById("move-btn").disabled = canAttackOnly ? true : !canAct;
+          document.getElementById("move-btn").textContent =
+            `🎯 Déplacer (${Math.floor(unit.movementWithoutAttack / 4)} cases)`;
+
+          document.getElementById("move-attack-btn").disabled = canAttackOnly ? true : (!canAct || !unit.canMoveAndAttack);
+          document.getElementById("move-attack-btn").textContent =
+            `🏃⚔️ Déplacer (${Math.floor(unit.movementWithAttack / 4)}) + Attaquer`;
+
+          document.getElementById("attack-btn").disabled = canAttackOnly ? false : !canAct;
+          document.getElementById("cancel-btn").disabled =
+            gameState.actionMode === null || gameState.actionMode === "retreat";
+
+
+        } else {
+          // Pas d'unité : masquer la carte
+          document.getElementById("unit-card").style.display = "none";
+          document.getElementById("move-btn").disabled = true;
+          document.getElementById("move-attack-btn").disabled = true;
+          document.getElementById("attack-btn").disabled = true;
+          document.getElementById("cancel-btn").disabled =
+            gameState.actionMode === null || gameState.actionMode === "retreat";
+        }
+
+        // Afficher/masquer les boutons spéciaux
+        if (gameState.specialMove) {
+          if (gameState.specialMove.type === "ground-take") {
+            document.getElementById("ground-take-btn").style.display = "block";
+            document.getElementById("breakthrough-btn").style.display = "none";
+          } else if (gameState.specialMove.type === "breakthrough") {
+            document.getElementById("ground-take-btn").style.display = "none";
+            document.getElementById("breakthrough-btn").style.display = "block";
+          }
+        } else {
+          document.getElementById("ground-take-btn").style.display = "none";
+          document.getElementById("breakthrough-btn").style.display = "none";
+        }
+
+        // ===  BOUTON COUPER BARBELÉS ===
+        // Vérifier si l'infanterie peut couper des barbelés adjacents
+        let cutWireBtn = document.getElementById("cut-wire-btn");
+        if (!cutWireBtn) {
+          // Créer le bouton s'il n'existe pas
+          cutWireBtn = document.createElement("button");
+          cutWireBtn.id = "cut-wire-btn";
+          cutWireBtn.className = "action-btn special";
+          cutWireBtn.textContent = "✂️ Couper Barbelés";
+          cutWireBtn.style.display = "none";
+          document.getElementById("actions").appendChild(cutWireBtn);
+        }
+
+        cutWireBtn.style.display = "none";
+
+        // Bouton déminer
+        let demineBtn = document.getElementById("demine-btn");
+        if (!demineBtn) {
+          demineBtn = document.createElement("button");
+          demineBtn.id = "demine-btn";
+          demineBtn.className = "action-btn special";
+          demineBtn.style.background =
+            "linear-gradient(145deg, #d4a737, #b89420)";
+          demineBtn.textContent = "💣 Déminer";
+          demineBtn.style.display = "none";
+          document.getElementById("actions").appendChild(demineBtn);
+        }
+        demineBtn.style.display = "none";
+
+        // === BOUTONS CONSTRUIRE (dynamiques, un par structure constructible) ===
+        // Masquer tous les boutons construire existants
+        document
+          .querySelectorAll("[id^='build-btn-']")
+          .forEach((btn) => (btn.style.display = "none"));
+
+        document
+          .querySelectorAll("[id^='reinforce-btn-']")
+          .forEach((btn) => (btn.style.display = "none"));
+
+        if (
+          cell.unit &&
+          cell.unit.side === gameState.currentPlayer &&
+          !cell.unit.hasAttacked
+        ) {
+          const neighbors = getNeighbors(
+            gameState.selectedHex.x,
+            gameState.selectedHex.y,
+          );
+          let cuttableTargets = [];
+          let deminableTargets = [];
+
+          for (const neighbor of neighbors) {
+            const neighborCell = gameState.map[neighbor.y][neighbor.x];
+            if (neighborCell.structure) {
+              const structureType = getStructureType(neighborCell.structure);
+              const structure = STRUCTURES[structureType];
+
+              // Vérifier si l'infanterie peut couper
+              if (
+                cell.unit.category === "infantry" &&
+                structure &&
+                structure.cuttable
+              ) {
+                cuttableTargets.push({
+                  x: neighbor.x,
+                  y: neighbor.y,
+                  name: structure.name,
+                });
+              }
+
+              // Vérifier si l'unité peut déminer
+              if (structure && structure.trap && structure.crushableBy) {
+                const canDemine =
+                  structure.crushableBy.includes(cell.unit.category) ||
+                  structure.crushableBy.includes(cell.unit.type);
+                if (canDemine) {
+                  deminableTargets.push({
+                    x: neighbor.x,
+                    y: neighbor.y,
+                    name: structure.name,
+                  });
+                }
+              }
+            }
+          }
+
+          // Gérer le bouton couper
+          if (cuttableTargets.length > 0) {
+            cutWireBtn.style.display = "block";
+            if (cuttableTargets.length === 1) {
+              cutWireBtn.onclick = () =>
+                cutWire(cuttableTargets[0].x, cuttableTargets[0].y);
+            } else {
+              // Plusieurs cibles : activer le mode sélection
+              cutWireBtn.onclick = () => {
+                gameState.actionMode = "cut-wire";
+                gameState.availableActions = cuttableTargets.map((t) => ({
+                  x: t.x,
+                  y: t.y,
+                  type: "cut-target",
+                  name: t.name,
+                }));
+                refreshDisplay();
+                updateInfoPanel();
+              };
+            }
+          }
+
+          // Gérer le bouton déminer
+          if (deminableTargets.length > 0) {
+            demineBtn.style.display = "block";
+            if (deminableTargets.length === 1) {
+              demineBtn.onclick = () =>
+                demine(deminableTargets[0].x, deminableTargets[0].y);
+            } else {
+              // Plusieurs cibles : activer le mode sélection
+              demineBtn.onclick = () => {
+                gameState.actionMode = "demine";
+                gameState.availableActions = deminableTargets.map((t) => ({
+                  x: t.x,
+                  y: t.y,
+                  type: "demine-target",
+                  name: t.name,
+                }));
+                refreshDisplay();
+                updateInfoPanel();
+              };
+            }
+          }
+
+          // Gérer les boutons construire
+          const currentCell =
+            gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+          if (!currentCell.structure) {
+            const terrainType = getTerrainType(currentCell.terrain);
+
+            for (const [structureKey, structure] of Object.entries(
+              STRUCTURES,
+            )) {
+              if (!structure.buildableBy) continue;
+              const canBuild =
+                structure.buildableBy.includes(cell.unit.category) ||
+                structure.buildableBy.includes(cell.unit.type);
+              if (!canBuild) continue;
+              if (cell.unit.builtStructures.includes(structureKey)) continue;
+              const compatibleTerrain =
+                !structure.buildableOn ||
+                structure.buildableOn.includes(terrainType);
+              if (!compatibleTerrain) continue;
+
+              // Créer le bouton s'il n'existe pas encore
+              const btnId = `build-btn-${structureKey}`;
+              let btn = document.getElementById(btnId);
+              if (!btn) {
+                btn = document.createElement("button");
+                btn.id = btnId;
+                btn.className = "action-btn special";
+                btn.style.background =
+                  "linear-gradient(145deg, #EA7500, #BC5E00)";
+                document.getElementById("actions").appendChild(btn);
+              }
+              btn.textContent = `🏗️ Construire ${structure.name}`;
+              btn.style.display = "block";
+              btn.onclick = () => buildStructure(structureKey);
+            }
+          }
+
+          // Gérer les boutons renfort
+          if (cell.unit.renfort) {
+            for (const [unitType, maxHp] of Object.entries(cell.unit.renfort)) {
+              const alreadyGiven = cell.unit.renforcementsGiven[unitType] || 0;
+              if (alreadyGiven >= maxHp) continue; // Quota épuisé pour ce type
+
+              // Chercher les unités alliées de ce type à portée 1 (adjacentes) qui ont perdu des HP
+              const reinforceable = [];
+              const neighbors = getNeighbors(
+                gameState.selectedHex.x,
+                gameState.selectedHex.y,
+              );
+              // Inclure aussi la case actuelle
+              const allCells = [
+                ...neighbors,
+                { x: gameState.selectedHex.x, y: gameState.selectedHex.y },
+              ];
+
+              for (const pos of allCells) {
+                const targetCell = gameState.map[pos.y][pos.x];
+                if (
+                  targetCell.unit &&
+                  targetCell.unit !== cell.unit &&
+                  targetCell.unit.side === cell.unit.side &&
+                  targetCell.unit.type === unitType &&
+                  targetCell.unit.currentHp < targetCell.unit.hp
+                ) {
+                  reinforceable.push({
+                    x: pos.x,
+                    y: pos.y,
+                    unit: targetCell.unit,
+                  });
+                }
+              }
+
+              if (reinforceable.length === 0) continue;
+
+              const remaining = maxHp - alreadyGiven;
+              const unitName = UNIT_TYPES[unitType]?.name || unitType;
+              const btnId = `reinforce-btn-${unitType}`;
+              let btn = document.getElementById(btnId);
+              if (!btn) {
+                btn = document.createElement("button");
+                btn.id = btnId;
+                btn.className = "action-btn special";
+                btn.style.background =
+                  "linear-gradient(145deg, #B4E5A2, #8ED973)";
+                document.getElementById("actions").appendChild(btn);
+              }
+              btn.textContent = `🔨 Renforcer ${unitName} (+1 HP, reste ${remaining})`;
+              btn.style.display = "block";
+
+              if (reinforceable.length === 1) {
+                btn.onclick = () =>
+                  reinforceUnit(
+                    unitType,
+                    reinforceable[0].x,
+                    reinforceable[0].y,
+                  );
+              } else {
+                btn.onclick = () => {
+                  gameState.actionMode = "reinforce";
+                  gameState.availableActions = reinforceable.map((r) => ({
+                    x: r.x,
+                    y: r.y,
+                    type: "reinforce",
+                    unitType,
+                  }));
+                  refreshDisplay();
+                  updateInfoPanel();
+                };
+              }
+            }
+          }
+        }
+        // === FIN  ===
+
+        // Gérer les boutons spéciaux (prise de terrain / percée)
+        const groundTakeBtn = document.getElementById("ground-take-btn");
+        const breakthroughBtn = document.getElementById("breakthrough-btn");
+
+        if (gameState.specialMove) {
+          if (gameState.specialMove.type === "ground-take") {
+            groundTakeBtn.style.display = "block";
+            breakthroughBtn.style.display = "none";
+            groundTakeBtn.disabled = false;
+          } else if (gameState.specialMove.type === "breakthrough") {
+            groundTakeBtn.style.display = "none";
+            breakthroughBtn.style.display = "block";
+            breakthroughBtn.disabled = false;
+          }
+        } else {
+          groundTakeBtn.style.display = "none";
+          breakthroughBtn.style.display = "none";
+        }
+
+        document.getElementById("cancel-btn").disabled =
+          (gameState.actionMode === null && !gameState.specialMove) ||
+          gameState.actionMode === "retreat";
+        
+        // Notifier le système d'objectifs
+        if (window.ObjectivesSystem) {
+          ObjectivesSystem.renderObjectivesPanel();
+        }
+      }
+
+      function clearInfoPanel() {
+        document.getElementById("hex-coords").textContent = "-";
+        document.getElementById("hex-terrain").textContent = "-";
+
+        // Masquer la carte d'unité
+        const unitCard = document.getElementById("unit-card");
+        if (unitCard) {
+          unitCard.style.display = "none";
+        }
+
+        document.getElementById("move-btn").disabled = true;
+        document.getElementById("move-attack-btn").disabled = true;
+        document.getElementById("attack-btn").disabled = true;
+        document.getElementById("cancel-btn").disabled = true;
+        document
+          .querySelectorAll("[id^='build-btn-']")
+          .forEach((btn) => (btn.style.display = "none"));
+        document
+          .querySelectorAll("[id^='reinforce-btn-']")
+          .forEach((btn) => (btn.style.display = "none"));
+      }
+
+      // ========================================
+      // LOGIQUE DE JEU
+      // ========================================
+
+      /**
+       * Retourne le coût en PA effectif pour une unité,
+       * en tenant compte du bonus de commandement allié à portée.
+       * Le coût minimum est 1 (jamais gratuit).
+       */
+      function getEffectiveActionCost(unit, x, y) {
+        let cost = unit.actionCost || 1;
+        // Bonus de commandement allié
+        for (let cy = 0; cy < CONFIG.HEIGHT; cy++) {
+          for (let cx = 0; cx < CONFIG.WIDTH; cx++) {
+            const other = gameState.map[cy][cx].unit;
+            if (
+              other &&
+              other !== unit &&
+              other.side === unit.side &&
+              other.commandement > 0
+            ) {
+              if (getDistance(x, y, cx, cy) <= other.commandement) {
+                cost = Math.max(1, cost - 1);
+                break; // Un seul bonus de commandement max
+              }
+            }
+          }
+        }
+        // Réduction de coût par carte (reduce_cost)
+        const cardReduction = gameState.cardCostReduction || 0;
+        cost = Math.max(1, cost - cardReduction);
+
+        return cost;
+      }
+
+      function consumeActionPoints(unit) {
+        let ux = 0,
+          uy = 0;
+        outer: for (let cy = 0; cy < CONFIG.HEIGHT; cy++) {
+          for (let cx = 0; cx < CONFIG.WIDTH; cx++) {
+            if (gameState.map[cy][cx].unit === unit) {
+              ux = cx;
+              uy = cy;
+              break outer;
+            }
+          }
+        }
+        const cost = getEffectiveActionCost(unit, ux, uy);
+        const player = gameState.currentPlayer;
+        gameState.currentActions[player] -= cost;
+        console.log(
+          `${unit.name} utilise ${cost} PA (base: ${unit.actionCost || 1}). Reste: ${gameState.currentActions[player]}/${gameState.maxActions[player]}`,
+        );
+        updateInfoPanel();
+      }
+
+      function getDistance(x1, y1, x2, y2) {
+        const toCube = (x, y) => {
+          const cx = x - Math.floor(y / 2);
+          const cz = y;
+          const cy = -cx - cz;
+          return { cx, cy, cz };
+        };
+
+        const a = toCube(x1, y1);
+        const b = toCube(x2, y2);
+
+        return Math.max(
+          Math.abs(a.cx - b.cx),
+          Math.abs(a.cy - b.cy),
+          Math.abs(a.cz - b.cz),
+        );
+      }
+
+      function hasLineOfSight(x1, y1, x2, y2) {
+        // Vérifier la ligne de vue sur grille hexagonale
+        const distance = getDistance(x1, y1, x2, y2);
+
+        if (distance <= 1) {
+          // Adjacent ou même case, toujours LOS
+          return true;
+        }
+
+        // Pour chaque distance entre l'attaquant et la cible
+        // on va vérifier toutes les cases qui pourraient bloquer la LOS
+        for (let d = 1; d < distance; d++) {
+          // Parcourir toutes les cases de la carte pour trouver celles à distance d de l'attaquant
+          // ET qui sont "entre" l'attaquant et la cible
+          for (let y = 0; y < CONFIG.HEIGHT; y++) {
+            for (let x = 0; x < CONFIG.WIDTH; x++) {
+              const distFromStart = getDistance(x1, y1, x, y);
+              const distToEnd = getDistance(x, y, x2, y2);
+
+              // Si cette case est sur le chemin (distance totale = distance originale)
+              if (
+                distFromStart === d &&
+                distFromStart + distToEnd === distance
+              ) {
+                const cell = gameState.map[y][x];
+                const terrain = TERRAINS[getBaseTerrainName(cell.terrain)];
+
+                // Un terrain bloque la LOS s'il est ENTRE l'attaquant et la cible
+                if (terrain.blocksLOS) {
+                  return false;
+                }
+
+                // Une unité bloque la LOS
+                if (cell.unit) {
+                  return false;
+                }
+              }
+            }
+          }
+        }
+
+        return true;
+      }
+
+      function getNeighbors(x, y) {
+        const neighbors = [];
+        const isEvenRow = y % 2 === 0;
+
+        const directions = isEvenRow
+          ? [
+              [-1, -1],
+              [0, -1],
+              [-1, 0],
+              [1, 0],
+              [-1, 1],
+              [0, 1],
+            ]
+          : [
+              [0, -1],
+              [1, -1],
+              [-1, 0],
+              [1, 0],
+              [0, 1],
+              [1, 1],
+            ];
+
+        for (const [dx, dy] of directions) {
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx >= 0 && nx < CONFIG.WIDTH && ny >= 0 && ny < CONFIG.HEIGHT) {
+            neighbors.push({ x: nx, y: ny });
+          }
+        }
+
+        return neighbors;
+      }
+
+      function getRetreatHexes(x, y, unit, maxDistance = 1) {
+        // Vérifier si l'unité est bloquée dans sa case actuelle par une structure (ex: bunker)
+        const currentCell = gameState.map[y][x];
+        if (currentCell.structure) {
+          const currentStructureType = getStructureType(currentCell.structure);
+          const currentStructure = STRUCTURES[currentStructureType];
+          if (
+            currentStructure &&
+            currentStructure.impassableFor &&
+            currentStructure.impassableFor.includes(unit.category)
+          ) {
+            return [];
+          }
+        }
+
+        const retreatDirection = unit.side === "allies" ? 1 : -1;
+        const allRetreatHexes = [];
+        const visited = new Set();
+        let currentLayer = [{ x, y }];
+        visited.add(`${x},${y}`);
+
+        // Explorer couche par couche jusqu'à maxDistance
+        for (let dist = 1; dist <= maxDistance; dist++) {
+          const nextLayer = [];
+
+          for (const pos of currentLayer) {
+            const neighbors = getNeighbors(pos.x, pos.y);
+
+            for (const neighbor of neighbors) {
+              const key = `${neighbor.x},${neighbor.y}`;
+              if (visited.has(key)) continue;
+
+              const deltaY = neighbor.y - pos.y;
+
+              // Vérifier direction de retraite (vers le bas pour allies, vers le haut pour axis)
+              if (
+                (retreatDirection === 1 && deltaY > 0) ||
+                (retreatDirection === -1 && deltaY < 0)
+              ) {
+                const cell = gameState.map[neighbor.y][neighbor.x];
+                const terrainType = getTerrainType(cell.terrain);
+                const effectiveStats = getEffectiveCellStats(cell);
+
+                let canCross = true;
+                if (unit.cannotCross && unit.cannotCross.includes(terrainType)) {
+                  canCross = effectiveStats.canCross === true;
+                }
+                // Vérifier si la structure de destination est impassable pour cette unité
+                if (cell.structure) {
+                  const destStructureType = getStructureType(cell.structure);
+                  const destStructure = STRUCTURES[destStructureType];
+                  if (
+                    destStructure &&
+                    destStructure.impassableFor &&
+                    destStructure.impassableFor.includes(unit.category)
+                  ) {
+                    canCross = false;
+                  }
+                }
+
+                if (canCross && !cell.unit) {
+                  visited.add(key);
+                  allRetreatHexes.push(neighbor);
+                  nextLayer.push(neighbor);
+                }
+              }
+            }
+          }
+
+          currentLayer = nextLayer;
+          if (currentLayer.length === 0) break; // Plus de cases accessibles
+        }
+
+        return allRetreatHexes;
+      }
+
+      /**
+       * Calcule le coût de mouvement pour entrer dans une case donnée
+       * @param {Object} cell - La cellule cible
+       * @param {string} unitCategory - Catégorie de l'unité (infantry, tank, artillery, etc.)
+       * @returns {number} Le coût en points de mouvement (échelle x4)
+       */
+      function getMovementCost(cell, unitCategory, unitType) {
+        const effectiveStats = getEffectiveCellStats(cell);
+
+        if (effectiveStats.moveCost !== undefined) {
+          const moveCost = effectiveStats.moveCost;
+
+          if (typeof moveCost === "object") {
+            const cost =
+              moveCost[unitType] ??
+              moveCost[unitCategory] ??
+              moveCost.default ??
+              4;
+              // console.log(`[MoveCost] Terrain: ${effectiveStats.name}, Catégorie: ${unitCategory}, Type: ${unitType}, Coût: ${cost} (objet)`);
+            return cost;
+          }
+          // Si c'est un nombre simple
+          // console.log(`[MoveCost] Terrain: ${effectiveStats.name}, Coût: ${moveCost} (nombre)`);
+          return moveCost;
+        }
+        // Valeur par défaut si pas de moveCost défini
+        // console.log(`[MoveCost] Terrain: ${effectiveStats.name}, Coût: 4 (défaut - ATTENTION: moveCost non défini!)`);
+        return 4;
+      }
+
+      function findMovableHexes(x, y, maxMovement) {
+        const unit = gameState.map[y][x].unit;
+        if (!unit) return [];
+
+        const movable = [];
+        const visited = new Set();
+        visited.add(`${x},${y}`);
+
+        // Queue: {x, y, remainingMovement, canAttackAfter}
+        const queue = [
+          { x, y, remainingMovement: maxMovement, canAttackAfter: true },
+        ];
+
+        while (queue.length > 0) {
+          const current = queue.shift();
+
+          for (const neighbor of getNeighbors(current.x, current.y)) {
+            const key = `${neighbor.x},${neighbor.y}`;
+            if (visited.has(key)) continue;
+
+            const targetCell = gameState.map[neighbor.y][neighbor.x];
+
+            // Ne peut pas aller sur une case occupée
+            if (targetCell.unit) continue;
+
+            const effectiveStats = getEffectiveCellStats(targetCell);
+            const terrainType = getTerrainType(targetCell.terrain);
+
+            //  : Vérifier si la structure bloque cette catégorie d'unité
+            if (targetCell.structure) {
+              const structureType = getStructureType(targetCell.structure);
+              const structure = STRUCTURES[structureType];
+
+              if (
+                structure &&
+                structure.impassableFor &&
+                structure.impassableFor.includes(unit.category)
+              ) {
+                // AJOUT : Vérifier si l'unité peut écraser (crushableBy)
+                const canCrush =
+                  structure.crushableBy &&
+                  (structure.crushableBy.includes(unit.category) ||
+                    structure.crushableBy.includes(unit.type));
+
+                if (!canCrush) {
+                  continue; // Bloqué ET ne peut pas écraser → skip
+                }
+                // Si canCrush = true, on continue normalement (l'unité écrasera en executeMove)
+              }
+            }
+
+            // Si une structure override le mouvement et rend traversable
+            if (effectiveStats.canCross === true) {
+              // Le terrain est traversable grâce à la structure
+              const moveCost = getMovementCost(targetCell, unit.category, unit.type);
+              const newRemainingMovement = current.remainingMovement - moveCost;
+
+              if (newRemainingMovement < 0) continue;
+
+              visited.add(key);
+
+              // Ajouter à la liste des cases accessibles
+              movable.push({
+                x: neighbor.x,
+                y: neighbor.y,
+                type: "move",
+                canAttackAfter: current.canAttackAfter,
+              });
+
+              // Vérifier si la structure force l'arrêt même avec overridesMovement
+              const structureType = getStructureType(targetCell.structure);
+              const structure = STRUCTURES[structureType];
+              const mustStopOnStructure = structure && structure.mustStopOn;
+
+              // Continuer l'exploration si mouvement restant
+              if (newRemainingMovement > 0 && !mustStopOnStructure) {
+                queue.push({
+                  x: neighbor.x,
+                  y: neighbor.y,
+                  remainingMovement: newRemainingMovement,
+                  canAttackAfter: current.canAttackAfter,
+                });
+              }
+              continue;
+            }
+
+            // Sinon, vérifier les règles normales du terrain
+            // Vérifier si le terrain est infranchissable
+            if (unit.cannotCross.includes(terrainType)) continue;
+
+            // Calculer le coût de mouvement selon le terrain et la catégorie d'unité
+            const moveCost = getMovementCost(targetCell, unit.category, unit.type);
+            const newRemainingMovement = current.remainingMovement - moveCost;
+
+            // Pas assez de mouvement
+            if (newRemainingMovement < 0) continue;
+
+            visited.add(key);
+
+            // Vérifier si le terrain force l'arrêt
+            let mustStop =
+              unit.mustStopOn.includes(terrainType) ||
+              unit.mustStopAndCannotFight.includes(terrainType);
+
+            //  : Vérifier si la structure force l'arrêt
+            if (targetCell.structure) {
+              const structureType = getStructureType(targetCell.structure);
+              const structure = STRUCTURES[structureType];
+              if (structure && structure.mustStopOn) {
+                mustStop = true;
+              }
+            }
+
+            // Vérifier si on peut attaquer après avoir traversé ce terrain
+            const canAttackAfter =
+              current.canAttackAfter &&
+              !unit.mustStopAndCannotFight.includes(terrainType);
+
+            // Ajouter à la liste des cases accessibles
+            movable.push({
+              x: neighbor.x,
+              y: neighbor.y,
+              type: "move",
+              canAttackAfter: canAttackAfter,
+            });
+
+            // Si le terrain ne force pas l'arrêt et qu'il reste du mouvement, continuer l'exploration
+            if (!mustStop && newRemainingMovement > 0) {
+              queue.push({
+                x: neighbor.x,
+                y: neighbor.y,
+                remainingMovement: newRemainingMovement,
+                canAttackAfter: canAttackAfter,
+              });
+            }
+          }
+        }
+
+        return movable;
+      }
+
+      function findAttackableHexes(x, y, unit) {
+        const attackable = [];
+        const attackerStats = getEffectiveCellStats(gameState.map[y][x]);
+
+        for (let ty = 0; ty < CONFIG.HEIGHT; ty++) {
+          for (let tx = 0; tx < CONFIG.WIDTH; tx++) {
+            if (tx === x && ty === y) continue;
+
+            const cell = gameState.map[ty][tx];
+
+            // Vérifier qu'il y a un ennemi
+            if (!cell.unit || cell.unit.side === unit.side) continue;
+
+            const dist = getDistance(x, y, tx, ty);
+
+            // Vérifier si l'unité peut infliger des dégâts à cette distance
+            const baseDamage = unit.damageByRange[dist] || 0;
+            if (baseDamage === 0) continue;
+
+            // Vérifier la ligne de vue si nécessaire
+            if (unit.needsLOS && !hasLineOfSight(x, y, tx, ty)) continue;
+
+            // Calculer les dégâts finaux pour savoir si l'attaque est possible
+            const defenderStats = getEffectiveCellStats(cell);
+            const attackMod = getAttackModValue(
+              attackerStats.attackMod,
+              unit.category,
+              unit.type,
+            );
+            const defenseValue = getDefenseValueForUnit(
+              defenderStats.defense,
+              unit.category,
+              unit.type,
+            );
+            const finalDamage = baseDamage + attackMod - defenseValue;
+
+            // Ne proposer l'attaque que si elle peut infliger des dégâts
+            if (finalDamage > 0) {
+              attackable.push({
+                x: tx,
+                y: ty,
+                type: "attack",
+                expectedDamage: finalDamage,
+              });
+            }
+          }
+        }
+
+        return attackable;
+      }
+
+      function onHexClick(x, y) {
+        // Déléguer au système de cartes si en mode ciblage
+        if (gameState.actionMode === "card-targeting") {
+          if (window.CardsAPI) window.CardsAPI.handleHexClick(x, y);
+          return;
+        }
+
+        const cell = gameState.map[y][x];
+
+        // 1. GESTION DES ACTIONS SPÉCIALES EN COURS (Prise de terrain / Percée)
+        if (gameState.specialMove) {
+          const { fromX, fromY, toX, toY } = gameState.specialMove;
+
+          // Si clic sur la destination -> on laisse les boutons disponibles
+          if (x === toX && y === toY) return;
+
+          // Si clic sur l'unité qui vient d'agir (position de départ) -> ANNULER le mouvement spécial
+          if (x === fromX && y === fromY) {
+            console.log(
+              "Validation de la position actuelle, fin du mouvement spécial.",
+            );
+
+            // On nettoie tout proprement
+            gameState.specialMove = null;
+            gameState.savedUnitState = null;
+            gameState.actionMode = null;
+            gameState.availableActions = [];
+
+            refreshDisplay();
+            updateInfoPanel();
+            return; // On stoppe le traitement du clic ici
+          }
+
+          // Sinon, on continue normalement (permet d'attaquer après une percée)
+        }
+
+        // Gérer le mode stranded (move-attack sans cible : clic sur l'unité pour valider)
+        if (gameState.actionMode === "stranded") {
+          if (x === gameState.selectedHex?.x && y === gameState.selectedHex?.y) {
+            // Clic sur l'unité déplacée → valider définitivement
+            const u = gameState.map[y][x].unit;
+            if (u) u.hasAttacked = true;
+            gameState.savedUnitState = null;
+            gameState.actionMode = null;
+            gameState.availableActions = [];
+            refreshDisplay();
+            updateInfoPanel();
+          }
+          // Tout autre clic est ignoré
+          return;
+        }
+
+        // Gérer le mode coupe de barbelés
+        if (gameState.actionMode === "cut-wire") {
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y,
+          );
+          if (action) {
+            cutWire(x, y);
+          }
+          return;
+        }
+        // Gérer le mode renfort
+        else if (gameState.actionMode === "reinforce") {
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y,
+          );
+          if (action) {
+            reinforceUnit(action.unitType, x, y);
+          }
+          return;
+        }
+        // Gérer le mode déminage
+        else if (gameState.actionMode === "demine") {
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y,
+          );
+          if (action) {
+            demine(x, y);
+          }
+          return;
+        }
+
+        // Gérer le mode retraite
+        else if (gameState.actionMode === "retreat") {
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y,
+          );
+          if (action) {
+            executeRetreat(x, y);
+          }
+          return;
+        } else if (
+          gameState.actionMode === "move" ||
+          gameState.actionMode === "move-attack"
+        ) {
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y && a.type === "move",
+          );
+          if (action) {
+            executeMove(
+              gameState.selectedHex.x,
+              gameState.selectedHex.y,
+              x,
+              y,
+              gameState.actionMode === "move-attack",
+            );
+          }
+          return;
+        } else if (gameState.actionMode === "attack") {
+          const action = gameState.availableActions.find(
+            (a) => a.x === x && a.y === y && a.type === "attack",
+          );
+          if (action && !gameState.diceRollLocked) {
+            gameState.diceRollLocked = true;
+            executeAttack(
+              gameState.selectedHex.x,
+              gameState.selectedHex.y,
+              x,
+              y,
+            );
+          }
+          return;
+        }
+
+        gameState.selectedHex = { x, y };
+        gameState.availableActions = [];
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function executeMove(fromX, fromY, toX, toY, willAttackAfter) {
+        const unit = gameState.map[fromY][fromX].unit;
+        const targetTerrain = gameState.map[toY][toX].terrain;
+        const terrainType = getTerrainType(targetTerrain);
+
+        console.log(`\n=== DÉPLACEMENT ===`);
+        console.log(`Unité: ${unit.name} (${unit.side})`);
+        console.log(`De: (${fromX}, ${fromY}) vers (${toX}, ${toY})`);
+        console.log(`Terrain d'arrivée: ${terrainType}`);
+        console.log(
+          `Type de mouvement: ${willAttackAfter ? "Mouvement + Attaque" : "Mouvement seul"}`,
+        );
+
+
+        gameState.map[toY][toX].unit = unit;
+        gameState.map[fromY][fromX].unit = null;
+        gameState._movementAnimating = true; // bloquer refreshDisplay
+
+        gameState.selectedHex = { x: toX, y: toY };
+
+        // ===  : GESTION DES STRUCTURES SPÉCIALES ===
+        const targetCell = gameState.map[toY][toX];
+
+        // 1. Vérifier si c'est un piège (mine)
+        if (targetCell.structure) {
+          const structureType = getStructureType(targetCell.structure);
+          const structure = STRUCTURES[structureType];
+          
+          if (structure && structure.trap) {
+            const minDamage = structure.trapDamage[0];
+            const maxDamage = structure.trapDamage[1];
+            const damage =
+              Math.floor(Math.random() * (maxDamage - minDamage + 1)) +
+              minDamage;
+
+            unit.currentHp -= damage;
+
+            let trapMessage = `⚠️ ${unit.name} déclenche une ${structure.name} : ${damage} dégâts!`;
+
+            if (unit.currentHp <= 0) {
+              unit.currentHp = 0;
+              destroyUnit(unit, null);
+              gameState.map[toY][toX].unit = null;
+              trapMessage += ` ${unit.name} détruite!`;
+            }
+
+            console.log(trapMessage);
+            showCombatLog(trapMessage);
+            targetCell.structure = null;
+            unit.hasMoved = true;
+            unit.hasAttacked = true;
+            gameState.actionMode = null;
+            gameState.availableActions = [];
+            gameState.specialMove = null;
+
+            // Animer puis rafraîchir
+            if (window.AnimSystem) {
+              AnimSystem.playMoveAnimation([{x: fromX, y: fromY}, {x: toX, y: toY}], () => {
+                // Impact de mine sur la case d'arrivée
+                if (damage > 0) {
+                  const center = AnimSystem.getHexCenter(toX, toY);
+                  if (center) {
+                    AnimSystem.explosion(center.x, center.y, 'large');
+                    AnimSystem.floatingText(center.x, center.y - 20, `-${damage}`, 'damage-hit');
+                  }
+                }
+                refreshDisplay();
+                updateInfoPanel();
+              });
+            } else {
+              refreshDisplay();
+              updateInfoPanel();
+            }
+            return;
+          }
+
+          // 2. Vérifier si l'unité peut écraser la structure (barbelés/obstacle)
+          if (structure && structure.crushableBy) {
+            const canCrush =
+              structure.crushableBy.includes(unit.category) ||
+              structure.crushableBy.includes(unit.type);
+
+            if (canCrush) {
+              console.log(`${unit.name} enlève ${structure.name}!`);
+              showCombatLog(`${unit.name} enlève ${structure.name}!`);
+              targetCell.structure = null;
+              unit.hasMoved = true;
+              unit.hasAttacked = true;
+              gameState.savedUnitState = null;
+              gameState.actionMode = null;
+              gameState.availableActions = [];
+              gameState.specialMove = null;
+
+              // Animer puis rafraîchir
+              if (window.AnimSystem) {
+                AnimSystem.playMoveAnimation([{x: fromX, y: fromY}, {x: toX, y: toY}], () => {
+                  refreshDisplay();
+                  updateInfoPanel();
+                });
+              } else {
+                refreshDisplay();
+                updateInfoPanel();
+              }
+              return;
+            }
+          }
+        }
+        // === FIN  ===
+
+        // Vérifier si on peut attaquer après le déplacement
+        const action = gameState.availableActions.find(
+          (a) => a.x === toX && a.y === toY,
+        );
+        const canAttackAfter = action ? action.canAttackAfter : false;
+
+        if (willAttackAfter && canAttackAfter) {
+          console.log(`L'unité peut attaquer après son déplacement`);
+
+          // Chercher les cibles attaquables
+          const attackableTargets = findAttackableHexes(toX, toY, unit);
+          console.log(`Cibles attaquables: ${attackableTargets.length}`);
+
+          if (attackableTargets.length > 0) {
+            // Il y a des cibles, proposer l'attaque
+            gameState.actionMode = "attack";
+            gameState.availableActions = attackableTargets;
+          } else {
+            // Pas de cibles : laisser annuler, valider par clic sur l'unité
+            console.log(
+              `${unit.name} n'a aucune cible à attaquer après son déplacement`,
+            );
+            unit.hasMoved = true;
+            gameState.actionMode = "stranded";
+            gameState.availableActions = [];
+            // savedUnitState conservé → Annuler reste disponible
+          }
+        } else {
+          if (willAttackAfter && !canAttackAfter) {
+            console.log(
+              `L'unité ne peut pas attaquer après avoir traversé ce terrain (${terrainType})`,
+            );
+          }
+          unit.hasMoved = true;
+          unit.hasAttacked = true;
+          gameState.savedUnitState = null;
+          // Ne pas appeler cancelAction() ici — on laisse l'animation finir d'abord
+          gameState.actionMode = null;
+          gameState.availableActions = [];
+          gameState.specialMove = null;
+        }
+
+        if (window.AnimSystem) {
+          AnimSystem.playMoveAnimation([{x: fromX, y: fromY}, {x: toX, y: toY}], () => {
+            refreshDisplay();
+            updateInfoPanel();
+          });
+        } else {
+          refreshDisplay();
+          updateInfoPanel();
+        }
+      }
+
+      // ========================================
+      // SYSTÈME DE COMBAT DATA-DRIVEN
+      // ========================================
+
+      function calculateDamage(unit, distance) {
+        if (distance < 1 || distance >= unit.damageByRange.length) {
+          return 0;
+        }
+        return unit.damageByRange[distance] || 0;
+      }
+
+      function calculateCounterDamage(unit, distance, fromX, fromY, toX, toY) {
+        if (distance < 1 || distance >= unit.counterDamageByRange.length) {
+          return 0;
+        }
+        const dmg = unit.counterDamageByRange[distance] || 0;
+        if (dmg === 0) return 0;
+
+        // AJOUT : Vérifier la ligne de mire si nécessaire
+        if (unit.needsLOS && !hasLineOfSight(fromX, fromY, toX, toY)) {
+          console.log(
+            `${unit.name} ne peut pas contre-attaquer : pas de ligne de mire`,
+          );
+          return 0;
+        }
+
+        return Math.max(dmg, 1);
+      }
+
+      function getAttackModValue(
+        attackModData,
+        attackerCategory,
+        attackerType,
+      ) {
+        if (typeof attackModData === "object") {
+          return (
+            attackModData[attackerType] ??
+            attackModData[attackerCategory] ??
+            attackModData.default
+          );
+        }
+        return attackModData;
+      }
+
+      function getDefenseValueForUnit(
+        defenseData,
+        attackerCategory,
+        attackerType,
+      ) {
+        if (typeof defenseData === "object") {
+          return (
+            defenseData[attackerType] ??
+            defenseData[attackerCategory] ??
+            defenseData.default
+          );
+        }
+        return defenseData;
+      }
+
+      function showDiceRoll(numDice, attacker) {
+        console.log(`Lancement de ${numDice} dés pour ${attacker.name}`);
+
+        // Récupérer les probabilités de dés de l'unité
+        const diceProbs = attacker.dice || [0, 0, 0, 0, 100]; // [inf, tank, art, tous, retraite, manqué]
+
+        // Afficher le popup
+        const popup = document.getElementById("dice-popup");
+        const container = document.getElementById("dice-container");
+        popup.style.display = "flex";
+        container.innerHTML = "";
+
+        // Résultats
+        const results = { inf: 0, tank: 0, tous: 0, retraite: 0, manque: 0 };
+
+        // Lancer chaque dé
+        for (let i = 0; i < numDice; i++) {
+          setTimeout(() => {
+            // Déterminer le résultat du dé
+            const roll = Math.random() * 100;
+            let result;
+
+            if (roll < diceProbs[0]) {
+              result = "inf";
+            } else if (roll < diceProbs[0] + diceProbs[1]) {
+              result = "tank";
+            } else if (roll < diceProbs[0] + diceProbs[1] + diceProbs[2]) {
+              result = "tous";
+            } else if (
+              roll <
+              diceProbs[0] + diceProbs[1] + diceProbs[2] + diceProbs[3]
+            ) {
+              result = "retraite";
+            } else {
+              result = "manque";
+            }
+
+            results[result]++;
+
+            // Créer le dé visuel
+            const diceDiv = document.createElement("div");
+            diceDiv.className = "dice";
+            diceDiv.innerHTML = `<img src="units/imgDice/${result}.png" alt="${result}">`;
+            container.appendChild(diceDiv);
+
+            // Mettre à jour les compteurs
+            updateDiceResults(results);
+          }, i * 150); // Décalage de 150ms entre chaque dé
+        }
+
+        // Sauvegarder les résultats pour l'application
+        gameState.diceResults = results;
+      }
+
+      function updateDiceResults(results) {
+        document.getElementById("dice-result-inf").textContent = results.inf;
+        document.getElementById("dice-result-tank").textContent = results.tank;
+        document.getElementById("dice-result-tous").textContent = results.tous;
+        document.getElementById("dice-result-retraite").textContent =
+          results.retraite;
+        document.getElementById("dice-result-manque").textContent =
+          results.manque;
+      }
+
+      document.getElementById("dice-apply-btn").onclick = () => {
+        const popup = document.getElementById("dice-popup");
+        popup.style.display = "none";
+
+        // Appliquer les résultats des dés
+        applyDiceResults();
+      };
+
+      function applyDiceResults() {
+        if (!gameState.pendingDiceRoll || !gameState.diceResults) {
+          console.error("Pas de lancement de dés en attente");
+          return;
+        }
+        gameState.diceRollLocked = false;
+
+        const {
+          attackerX,
+          attackerY,
+          defenderX,
+          defenderY,
+          attacker,
+          defender,
+          distance,
+        } = gameState.pendingDiceRoll;
+        const results = gameState.diceResults;
+
+        // Calculer les touches
+        let hits = 0;
+
+        // Infantry hits
+        if (defender.category === "infantry") {
+          hits += results.inf;
+        }
+
+        // Tank hits
+        if (defender.category === "tank") {
+          hits += results.tank;
+        }
+
+        // Touches "tous" (touche n'importe quelle catégorie)
+        hits += results.tous;
+
+        //  : Créer le message de combat AVANT la gestion des retraites
+        let combatMessage = `${attacker.name} lance ${gameState.pendingDiceRoll.numDice} dés : ${hits} touches !`;
+
+        // Animation d'attaque — les variables correctes sont déjà déstructurées plus haut
+        if (window.AnimSystem) {
+          AnimSystem.playAttackAnimation(
+            attackerX, attackerY,
+            defenderX, defenderY,
+            attacker.type,
+            attacker.category,
+            hits,
+            results.retraite > 0,
+            null
+          );
+        }
+
+        //  : Gérer les retraites
+        let retreatFlags = results.retraite;
+
+        // Vérifier si le terrain/structure ignore des drapeaux
+        const defenderCell = gameState.map[defenderY][defenderX];
+        const defenderTerrain = TERRAINS[getTerrainType(defenderCell.terrain)];
+        let ignoreRetreat = defenderTerrain?.ignoreRetreat || 0;
+
+        if (defenderCell.structure) {
+          const structureType = getStructureType(defenderCell.structure);
+          const structure = STRUCTURES[structureType];
+          ignoreRetreat += structure?.ignoreRetreat || 0;
+        }
+
+        retreatFlags = Math.max(0, retreatFlags - ignoreRetreat);
+
+        if (retreatFlags > 0) {
+          console.log(
+            `${retreatFlags} drapeaux de retraite (${ignoreRetreat} ignorés)`,
+          );
+
+          //  : Vérifier si l'unité sera détruite par les dégâts normaux
+          if (defender.currentHp - hits <= 0) {
+            console.log(
+              `${defender.name} sera détruit par les dégâts → pas de retraite`,
+            );
+            // Pas de retraite, l'unité va mourir de toute façon
+          } else {
+            // L'unité survit aux dégâts normaux, vérifier si elle peut recule
+
+            const retreatDistance = defender.retreatDistance || 1;
+            const availableRetreatHexes = getRetreatHexes(
+              defenderX,
+              defenderY,
+              defender,
+              retreatDistance,
+            );
+
+            if (availableRetreatHexes.length === 0) {
+              // Pas de retraite possible → dégâts supplémentaires
+              console.log(
+                `${defender.name} ne peut pas reculer → ${retreatFlags} dégâts supplémentaires`,
+              );
+              hits += retreatFlags;
+              combatMessage = `${attacker.name} lance ${gameState.pendingDiceRoll.numDice} dés : ${hits} touches !`; // Mettre à jour le message
+            } else {
+              // Sauvegarder le contexte pour la retraite
+              gameState.pendingRetreat = {
+                unit: defender,
+                fromX: defenderX,
+                fromY: defenderY,
+                initialDefenderX: defenderX, // AJOUT : Position initiale
+                initialDefenderY: defenderY, // AJOUT : Position initiale
+                attackerX: attackerX,
+                attackerY: attackerY,
+                attacker: attacker,
+                retreatFlags: retreatFlags,
+                hits: hits,
+                distance: gameState.pendingDiceRoll.distance,
+                combatMessage: combatMessage,
+              };
+
+              // Afficher les hexagones de retraite disponibles
+              gameState.actionMode = "retreat";
+              gameState.availableActions = availableRetreatHexes.map((h) => ({
+                x: h.x,
+                y: h.y,
+                type: "retreat",
+              }));
+
+              // Nettoyer les états de dés
+              gameState.pendingDiceRoll = null;
+              gameState.diceResults = null;
+
+              showCombatLog(
+                `${defender.name} doit reculer ! Choisissez une case.`,
+              );
+              refreshDisplay();
+              updateInfoPanel();
+              return; // On sort, la retraite sera gérée dans onHexClick
+            }
+          }
+        }
+
+        // Appliquer les dégâts (bouclier d'abord, puis HP)
+        console.log(`Application de ${hits} touches sur ${defender.name}`);
+        const shield = defender.shieldBonus || 0;
+        if (shield > 0) {
+          const shieldDamage = Math.min(shield, hits);
+          defender.shieldBonus -= shieldDamage;
+          const remainingDamage = hits - shieldDamage;
+          defender.currentHp -= remainingDamage;
+          console.log(`Bouclier absorbe ${shieldDamage} dégâts, ${remainingDamage} sur HP`);
+          if (defender.shieldBonus <= 0) {
+            defender.shieldBonus = 0;
+            defender.shieldTurns = 0;
+          }
+        } else {
+          defender.currentHp -= hits;
+        }
+
+        // Vérifier si le défenseur est détruit
+        if (defender.currentHp <= 0) {
+          destroyUnit(defender, attacker.side);
+          gameState.map[defenderY][defenderX].unit = null;
+          combatMessage += ` ${defender.name} détruite!`;
+          console.log(`${defender.name} détruite!`);
+
+          // === GESTION PERCÉE / PRISE DE TERRAIN ===
+          const distance = gameState.pendingDiceRoll.distance;
+          const isMelee = distance === 1; // Corps à corps
+          const isInfantry = attacker.category === "infantry";
+          const isTank = attacker.category === "tank";
+          const isBreakthroughAttack =
+            gameState.specialMove &&
+            gameState.specialMove.type === "breakthrough" &&
+            gameState.specialMove.hasBreakthroughAttacked;
+
+          if (isMelee) {
+            // Vérifier si l'unité peut entrer sur le terrain
+            const targetCell = gameState.map[defenderY][defenderX];
+            const terrainType = getTerrainType(targetCell.terrain);
+
+            // 1. Vérifier cannotCross (sauf si une structure override le mouvement)
+            const targetEffectiveStats = getEffectiveCellStats(targetCell);
+            if (attacker.cannotCross.includes(terrainType) && !targetEffectiveStats.canCross) {
+              console.log(`${attacker.name} ne peut pas entrer sur ${terrainType} (cannotCross)`);
+              showCombatLog(combatMessage);
+              cancelAction();
+              refreshDisplay();
+              updateInfoPanel();
+              return;
+            }
+
+            /* Normalement ça n'arrive pas 
+            // Bloquer prise de terrain sur mines
+            if (targetCell.structure) {
+              const structureType = getStructureType(targetCell.structure);
+              const structure = STRUCTURES[structureType];
+              if (structure?.trap) {
+                console.log(`Pas de prise de terrain sur mines`);
+                showCombatLog(combatMessage);
+                cancelAction();
+                refreshDisplay();
+                updateInfoPanel();
+                return;
+              }
+            }*/
+            // 2. Vérifier si une structure bloque cette unité
+            if (targetCell.structure) {
+              const structureType = getStructureType(targetCell.structure);
+              const structure = STRUCTURES[structureType];
+
+              // Vérifier si structure bloque ET si l'unité ne peut pas l'écraser
+              if (
+                structure &&
+                structure.impassableFor &&
+                structure.impassableFor.includes(attacker.category)
+              ) {
+                const canCrush =
+                  structure.crushableBy &&
+                  (structure.crushableBy.includes(attacker.category) ||
+                    structure.crushableBy.includes(attacker.type));
+
+                if (!canCrush) {
+                  console.log(
+                    `${attacker.name} ne peut pas entrer (structure ${structureType} bloque)`,
+                  );
+                  // Pas de prise de terrain possible
+                  showCombatLog(combatMessage);
+                  cancelAction();
+                  refreshDisplay();
+                  updateInfoPanel();
+                  return;
+                }
+              }
+            }
+
+            // L'unité peut entrer sur le terrain
+            if (isInfantry && !isBreakthroughAttack) {
+              // Prise de terrain possible pour infanterie
+              console.log(`Prise de terrain possible pour ${attacker.name}`);
+              gameState.specialMove = {
+                type: "ground-take",
+                fromX: attackerX,
+                fromY: attackerY,
+                toX: defenderX,
+                toY: defenderY,
+              };
+
+              gameState.availableActions = []; // Effacer les hexagones rouges
+              // Nettoyer les états de dés mais garder specialMove
+              gameState.pendingDiceRoll = null;
+              gameState.diceResults = null;
+              // On ne nettoie PAS savedUnitState ici car on peut encore annuler
+
+              showCombatLog(combatMessage);
+              refreshDisplay();
+              updateInfoPanel();
+              return;
+            } else if (isTank && !isBreakthroughAttack) {
+              // Vérifier si le tank peut attaquer depuis ce terrain
+              const canAttackFromTerrain =
+                !attacker.mustStopAndCannotFight.includes(terrainType);
+
+              if (canAttackFromTerrain) {
+                // Première percée de blindé possible (avec attaque)
+                console.log(`Percée de blindé possible pour ${attacker.name}`);
+                gameState.specialMove = {
+                  type: "breakthrough",
+                  fromX: attackerX,
+                  fromY: attackerY,
+                  toX: defenderX,
+                  toY: defenderY,
+                  hasBreakthroughAttacked: false,
+                };
+              } else {
+                // Ne peut pas attaquer depuis ce terrain → simple prise de terrain
+                console.log(
+                  `${attacker.name} ne peut pas attaquer depuis ${terrainType} → Prise de terrain simple`,
+                );
+                gameState.specialMove = {
+                  type: "ground-take",
+                  fromX: attackerX,
+                  fromY: attackerY,
+                  toX: defenderX,
+                  toY: defenderY,
+                };
+              }
+
+              gameState.availableActions = []; // Effacer les hexagones rouges
+              // Nettoyer les états de dés mais garder specialMove
+              gameState.pendingDiceRoll = null;
+              gameState.diceResults = null;
+              // On ne nettoie PAS savedUnitState ici car on peut encore annuler
+
+              showCombatLog(combatMessage);
+              refreshDisplay();
+              updateInfoPanel();
+              return;
+            } else if (isTank && isBreakthroughAttack) {
+              // Deuxième prise de terrain après percée
+              console.log(
+                `Deuxième prise de terrain possible après percée pour ${attacker.name}`,
+              );
+              gameState.specialMove = {
+                type: "breakthrough",
+                fromX: attackerX,
+                fromY: attackerY,
+                toX: defenderX,
+                toY: defenderY,
+                hasBreakthroughAttacked: true,
+              };
+
+              // Nettoyer les états de dés mais garder specialMove
+              gameState.pendingDiceRoll = null;
+              gameState.diceResults = null;
+
+              showCombatLog(combatMessage);
+              refreshDisplay();
+              updateInfoPanel();
+              return;
+            }
+          }
+          // Fin de la gestion percée/prise de terrain
+        }
+
+        // Contre-attaque (si le défenseur survit)
+        if (defender.currentHp > 0) {
+          const counterDamage = calculateCounterDamage(
+            defender,
+            distance,
+            defenderX,
+            defenderY,
+            attackerX,
+            attackerY,
+          );
+          console.log(
+            `Contre-attaque possible: ${counterDamage > 0 ? counterDamage + " dégâts" : "Non"}`,
+          );
+
+          if (counterDamage > 0) {
+            //  : Sauvegarder le message d'attaque pour l'afficher après la contre-attaque
+            gameState.attackMessage = combatMessage;
+
+            // Sauvegarder le contexte pour la contre-attaque
+            gameState.pendingCounterAttack = {
+              attackerX: defenderX, // Le défenseur devient l'attaquant
+              attackerY: defenderY,
+              defenderX: attackerX, // L'attaquant devient le défenseur
+              defenderY: attackerY,
+              attacker: defender,
+              defender: attacker,
+              numDice: counterDamage,
+              distance: distance,
+            };
+
+            // Lancer les dés de contre-attaque
+            showCounterDiceRoll(counterDamage, defender);
+            return; // On sort, les résultats seront appliqués après le popup de contre-attaque
+          } else {
+            combatMessage += `. ${defender.name} ne peut pas contre-attaquer.`;
+          }
+        }
+
+        // Nettoyer
+        gameState.pendingDiceRoll = null;
+        gameState.diceResults = null;
+        gameState.savedUnitState = null;
+
+        showCombatLog(combatMessage);
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function showCounterDiceRoll(numDice, defender) {
+        console.log(
+          `Lancement de ${numDice} dés de contre-attaque pour ${defender.name}`,
+        );
+
+        // Récupérer les probabilités de dés de contre-attaque
+        const diceProbs = defender.ctnDice || [0, 0, 0, 0, 100];
+
+        // Afficher le popup
+        const popup = document.getElementById("dice-popup");
+        const container = document.getElementById("dice-container");
+        document.getElementById("dice-popup-title").textContent =
+          `Contre-attaque de ${defender.name}`;
+        popup.style.display = "flex";
+        container.innerHTML = "";
+
+        // Résultats
+        const results = { inf: 0, tank: 0, tous: 0, retraite: 0, manque: 0 };
+
+        // Lancer chaque dé
+        for (let i = 0; i < numDice; i++) {
+          setTimeout(() => {
+            // Déterminer le résultat du dé
+            const roll = Math.random() * 100;
+            let result;
+
+            if (roll < diceProbs[0]) {
+              result = "inf";
+            } else if (roll < diceProbs[0] + diceProbs[1]) {
+              result = "tank";
+            } else if (roll < diceProbs[0] + diceProbs[1] + diceProbs[2]) {
+              result = "tous";
+            } else if (
+              roll <
+              diceProbs[0] + diceProbs[1] + diceProbs[2] + diceProbs[3]
+            ) {
+              result = "retraite";
+            } else {
+              result = "manque";
+            }
+
+            results[result]++;
+
+            // Créer le dé visuel
+            const diceDiv = document.createElement("div");
+            diceDiv.className = "dice";
+            diceDiv.innerHTML = `<img src="units/imgDice/${result}.png" alt="${result}">`;
+            container.appendChild(diceDiv);
+
+            // Mettre à jour les compteurs
+            updateDiceResults(results);
+          }, i * 150);
+        }
+
+        // Sauvegarder les résultats
+        gameState.counterDiceResults = results;
+
+        // Changer le bouton pour appliquer la contre-attaque
+        const applyBtn = document.getElementById("dice-apply-btn");
+        applyBtn.onclick = () => {
+          const popup = document.getElementById("dice-popup");
+          popup.style.display = "none";
+          applyCounterDiceResults();
+
+          // Remettre le onclick original pour les prochaines attaques
+          applyBtn.onclick = () => {
+            popup.style.display = "none";
+            applyDiceResults();
+          };
+
+          // Remettre le titre original
+          document.getElementById("dice-popup-title").textContent =
+            "Lancement des dés";
+        };
+      }
+
+      function applyCounterDiceResults() {
+        if (!gameState.pendingCounterAttack || !gameState.counterDiceResults) {
+          console.error("Pas de contre-attaque en attente");
+          return;
+        }
+
+        const {
+          attackerX,
+          attackerY,
+          defenderX,
+          defenderY,
+          attacker,
+          defender,
+        } = gameState.pendingCounterAttack;
+        const results = gameState.counterDiceResults;
+
+        // Calculer les touches
+        let hits = 0;
+
+        if (defender.category === "infantry") hits += results.inf;
+        if (defender.category === "tank") hits += results.tank;
+        hits += results.tous;
+
+        // Animation contre-attaque (attacker/defender sont inversés dans pendingCounterAttack)
+        if (window.AnimSystem) {
+          AnimSystem.playAttackAnimation(
+            attackerX, attackerY,
+            defenderX, defenderY,
+            attacker.type,
+            attacker.category,
+            hits,
+            false,
+            null
+          );
+        }
+
+        // Appliquer les dégâts (bouclier d'abord, puis HP)
+        console.log(`Contre-attaque: ${hits} touches sur ${defender.name}`);
+        const shield = defender.shieldBonus || 0;
+        if (shield > 0) {
+          const shieldDamage = Math.min(shield, hits);
+          defender.shieldBonus -= shieldDamage;
+          const remainingDamage = hits - shieldDamage;
+          defender.currentHp -= remainingDamage;
+          console.log(`Bouclier absorbe ${shieldDamage} dégâts, ${remainingDamage} sur HP`);
+          if (defender.shieldBonus <= 0) {
+            defender.shieldBonus = 0;
+            defender.shieldTurns = 0;
+          }
+        } else {
+          defender.currentHp -= hits;
+        }
+
+        let combatMessage = gameState.attackMessage || "";
+        combatMessage += `. ${attacker.name} contre-attaque : ${gameState.pendingCounterAttack.numDice} dés, ${hits} touches !`;
+
+        if (defender.currentHp <= 0) {
+          destroyUnit(defender, attacker.side);
+          gameState.map[defenderY][defenderX].unit = null;
+          combatMessage += ` ${defender.name} détruite!`;
+        }
+
+        // Nettoyer
+        gameState.pendingDiceRoll = null;
+        gameState.diceResults = null;
+        gameState.pendingCounterAttack = null;
+        gameState.counterDiceResults = null;
+        gameState.attackMessage = null;
+        gameState.savedUnitState = null;
+
+        showCombatLog(combatMessage);
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function executeAttack(fromX, fromY, toX, toY) {
+        const attacker = gameState.map[fromY][fromX].unit;
+        const defender = gameState.map[toY][toX].unit;
+
+        // Utiliser getEffectiveCellStats pour obtenir les stats réelles
+        const attackerStats = getEffectiveCellStats(
+          gameState.map[fromY][fromX],
+        );
+        const defenderStats = getEffectiveCellStats(gameState.map[toY][toX]);
+
+        const distance = getDistance(fromX, fromY, toX, toY);
+
+        // === PHASE 1 : ATTAQUE PRINCIPALE ===
+        let baseDamage = calculateDamage(attacker, distance);
+
+        if (baseDamage === 0) {
+          const message = `${attacker.name} ne peut pas attaquer à cette distance (${distance})!`;
+          showCombatLog(message);
+          console.log(message);
+          cancelAction();
+          return;
+        }
+
+        console.log(`=== COMBAT ===`);
+        console.log(
+          `Attaquant: ${attacker.name} (${attacker.currentHp}/${attacker.hp} HP) sur ${attackerStats.name}`,
+        );
+        console.log(
+          `Défenseur: ${defender.name} (${defender.currentHp}/${defender.hp} HP) sur ${defenderStats.name}`,
+        );
+        console.log(`Distance: ${distance}`);
+        console.log(`Dégâts de base: ${baseDamage}`);
+
+        // Application des modificateurs de terrain par type d'unité
+        let finalDamage = baseDamage;
+
+        // Malus d'attaque du terrain de l'ATTAQUANT (ex: tank attaquant depuis un village = -2)
+        const attackerAttackMod = getAttackModValue(
+          attackerStats.attackMod,
+          attacker.category,
+          attacker.type,
+        );
+        console.log(
+          `Malus terrain attaquant (${attackerStats.name}): ${attackerAttackMod}`,
+        );
+        finalDamage += attackerAttackMod;
+
+        // Bonus défensif du terrain selon le type de l'ATTAQUANT
+        const defenseValue = getDefenseValueForUnit(
+          defenderStats.defense,
+          attacker.category,
+          attacker.type,
+        );
+        console.log(
+          `Bonus défensif terrain contre ${attacker.category} (${defenderStats.name}): ${defenseValue}`,
+        );
+        finalDamage = finalDamage - defenseValue;
+
+        console.log(`Dégâts finaux: ${finalDamage}`);
+
+        // Vérifier si l'attaque est possible
+        if (finalDamage <= 0) {
+          const message = `${attacker.name} ne peut pas infliger de dégâts (protection trop forte)`;
+          console.log(message);
+          showCombatLog(message);
+          cancelAction();
+          return;
+        }
+
+        //  : Au lieu d'appliquer directement, on lance les dés
+        attacker.hasAttacked = true;
+
+        // Sauvegarder le contexte de l'attaque pour l'appliquer après le popup
+        gameState.pendingDiceRoll = {
+          attackerX: fromX,
+          attackerY: fromY,
+          defenderX: toX,
+          defenderY: toY,
+          numDice: finalDamage,
+          attacker: attacker,
+          defender: defender,
+          distance: distance,
+        };
+
+        // Lancer le popup de dés
+        showDiceRoll(finalDamage, attacker);
+        return; // On sort de executeAttack, les résultats seront appliqués après le popup
+      }
+
+      // ========================================
+      // CONTRÔLES
+      // ========================================
+
+      document.getElementById("move-btn").onclick = () => {
+        if (!gameState.selectedHex) return;
+
+        const cell =
+          gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+        if (!cell.unit) return;
+
+        console.log(
+          `Action: Déplacement sans attaque (${cell.unit.name}) - Mouvement: ${cell.unit.movementWithoutAttack}`,
+        );
+
+        //  : Sauvegarder l'état de l'unité
+        gameState.savedUnitState = {
+          x: gameState.selectedHex.x,
+          y: gameState.selectedHex.y,
+          unit: JSON.parse(JSON.stringify(cell.unit)), // Copie profonde
+          actionCostPaid: getEffectiveActionCost(cell.unit, gameState.selectedHex.x, gameState.selectedHex.y),
+        };
+
+        gameState.actionMode = "move";
+        gameState.availableActions = findMovableHexes(
+          gameState.selectedHex.x,
+          gameState.selectedHex.y,
+          cell.unit.movementWithoutAttack,
+        );
+
+        // Vérifier jeton de mouvement gratuit (carte free_move)
+        if (cell.unit.freeMoveToken) {
+          cell.unit.freeMoveToken = false;
+          console.log(`${cell.unit.name} utilise son mouvement gratuit (0 PA)`);
+        } else {
+          consumeActionPoints(cell.unit);
+        }
+
+        refreshDisplay();
+        updateInfoPanel();
+      };
+
+
+      
+      document.getElementById("move-attack-btn").onclick = () => {
+        if (!gameState.selectedHex) return;
+
+        const cell =
+          gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+        if (!cell.unit) return;
+
+        console.log(
+          `Action: Déplacement + Attaque (${cell.unit.name}) - Mouvement: ${cell.unit.movementWithAttack}`,
+        );
+
+        // Déterminer le coût avant de consommer le token
+        const hasFreeToken = cell.unit.freeMoveToken;
+        const costPaid = hasFreeToken ? 0 : getEffectiveActionCost(cell.unit, gameState.selectedHex.x, gameState.selectedHex.y);
+
+        //  : Sauvegarder l'état de l'unité
+        gameState.savedUnitState = {
+          x: gameState.selectedHex.x,
+          y: gameState.selectedHex.y,
+          unit: JSON.parse(JSON.stringify(cell.unit)),
+          actionCostPaid: costPaid,
+        };
+
+        gameState.actionMode = "move-attack";
+        gameState.availableActions = findMovableHexes(
+          gameState.selectedHex.x,
+          gameState.selectedHex.y,
+          cell.unit.movementWithAttack,
+        );
+
+        // Vérifier jeton de mouvement gratuit (carte free_move)
+        if (cell.unit.freeMoveToken) {
+          cell.unit.freeMoveToken = false;
+          console.log(`${cell.unit.name} utilise son mouvement gratuit (0 PA)`);
+        } else {
+          consumeActionPoints(cell.unit);
+        }
+
+        refreshDisplay();
+        updateInfoPanel();
+      };
+
+
+
+
+      document.getElementById("attack-btn").onclick = () => {
+        if (!gameState.selectedHex) return;
+
+        const cell =
+          gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+        if (!cell.unit) return;
+
+        console.log(
+          `Action: Attaque seulement (${cell.unit.name}) - Portée: ${cell.unit.range}`,
+        );
+
+        //  : Sauvegarder l'état de l'unité
+        gameState.savedUnitState = {
+          x: gameState.selectedHex.x,
+          y: gameState.selectedHex.y,
+          unit: JSON.parse(JSON.stringify(cell.unit)), // Copie profonde
+          actionCostPaid: getEffectiveActionCost(cell.unit, gameState.selectedHex.x, gameState.selectedHex.y),
+        };
+
+        gameState.actionMode = "attack";
+        gameState.availableActions = findAttackableHexes(
+          gameState.selectedHex.x,
+          gameState.selectedHex.y,
+          cell.unit,
+        );
+
+        console.log(`Cibles disponibles: ${gameState.availableActions.length}`);
+
+        // Vérifier jeton de mouvement gratuit (carte free_move) -> Faire attaque gratuite plus tard
+        /*
+        if (cell.unit.freeMoveToken) {
+          cell.unit.freeMoveToken = false;
+          console.log(`${cell.unit.name} utilise son mouvement gratuit (0 PA)`);
+        } else {
+          consumeActionPoints(cell.unit);
+        }
+        */
+        consumeActionPoints(cell.unit);
+
+        refreshDisplay();
+        updateInfoPanel();
+      };
+
+      document.getElementById("cancel-btn").onclick = () => {
+        //  : Restaurer l'état sauvegardé si présent
+        if (gameState.savedUnitState) {
+          const saved = gameState.savedUnitState;
+          const currentCell =
+            gameState.map[gameState.selectedHex.y][gameState.selectedHex.x];
+
+          // Si l'unité a été déplacée, la ramener à sa position d'origine
+          if (
+            currentCell.unit &&
+            (gameState.selectedHex.x !== saved.x ||
+              gameState.selectedHex.y !== saved.y)
+          ) {
+            console.log(
+              `Annulation: ${saved.unit.name} retourne en (${saved.x}, ${saved.y})`,
+            );
+
+            // Supprimer l'unité de sa position actuelle
+            gameState.map[gameState.selectedHex.y][
+              gameState.selectedHex.x
+            ].unit = null;
+
+            // Restaurer l'unité à sa position d'origine avec ses stats d'origine
+            gameState.map[saved.y][saved.x].unit = saved.unit;
+
+            // Reselectionner la position d'origine
+            gameState.selectedHex = { x: saved.x, y: saved.y };
+          } else if (currentCell.unit) {
+            // L'unité n'a pas bougé mais peut avoir des stats modifiées (HP après attaque)
+            // Restaurer ses stats d'origine
+            console.log(
+              `Annulation: Restauration des stats de ${saved.unit.name}`,
+            );
+            gameState.map[saved.y][saved.x].unit = saved.unit;
+          }
+
+          //Toujours restaurer les points d'action lors d'une annulation
+          const cost = saved.actionCostPaid ?? saved.unit.actionCost;
+          gameState.currentActions[gameState.currentPlayer] += cost;
+          console.log(`Points d'action restaurés: +${cost} (coût réellement payé)`);
+
+          // Effacer la sauvegarde
+          gameState.savedUnitState = null;
+        }
+        cancelAction();
+      };
+
+      document.getElementById("ground-take-btn").onclick = () => {
+        if (
+          !gameState.specialMove ||
+          gameState.specialMove.type !== "ground-take"
+        )
+          return;
+
+        const { fromX, fromY, toX, toY } = gameState.specialMove;
+        const unit = gameState.map[fromY][fromX].unit;
+
+        console.log(
+          `Prise de terrain: ${unit.name} se déplace de (${fromX},${fromY}) à (${toX},${toY})`,
+        );
+
+        // Déplacer l'unité dans le state
+        gameState.map[toY][toX].unit = unit;
+        gameState.map[fromY][fromX].unit = null;
+
+        unit.hasAttacked = true;
+        unit.hasMoved = true;
+
+        showCombatLog(`${unit.name} effectue une prise de terrain!`);
+        gameState.specialMove = null;
+        gameState.selectedHex = { x: toX, y: toY };
+
+        if (window.AnimSystem) {
+          AnimSystem.playMoveAnimation([{x: fromX, y: fromY}, {x: toX, y: toY}], () => {
+            cancelAction();
+          });
+        } else {
+          cancelAction();
+        }
+      };
+
+      document.getElementById("breakthrough-btn").onclick = () => {
+        if (
+          !gameState.specialMove ||
+          gameState.specialMove.type !== "breakthrough"
+        )
+          return;
+
+        const { fromX, fromY, toX, toY, hasBreakthroughAttacked } =
+          gameState.specialMove;
+        const unit = gameState.map[fromY][fromX].unit;
+
+        console.log(
+          `Percée de blindé: ${unit.name} se déplace de (${fromX},${fromY}) à (${toX},${toY})`,
+        );
+
+        
+        // Déplacer l'unité dans le state
+        gameState.map[toY][toX].unit = unit;
+        gameState.map[fromY][fromX].unit = null;
+
+        // Animer le mouvement, puis déclencher la suite
+        const _afterBreakthroughAnim = () => {
+          if (!hasBreakthroughAttacked) {
+            const availableTargets = findAttackableHexes(toX, toY, unit);
+
+            if (availableTargets.length > 0) {
+              showCombatLog(`${unit.name} effectue une percée de blindé! Peut attaquer.`);
+              gameState.specialMove.hasBreakthroughAttacked = true;
+              gameState.selectedHex = { x: toX, y: toY };
+              gameState.actionMode = "attack";
+              gameState.availableActions = availableTargets;
+              refreshDisplay();
+              updateInfoPanel();
+            } else {
+              console.log(`${unit.name} effectue une percée mais n'a aucune cible`);
+              showCombatLog(`${unit.name} effectue une percée de blindé mais n'a aucune cible à portée.`);
+              unit.hasAttacked = true;
+              unit.hasMoved = true;
+              gameState.specialMove = null;
+              gameState.selectedHex = { x: toX, y: toY };
+              cancelAction();
+            }
+          } else {
+            showCombatLog(`${unit.name} effectue une deuxième prise de terrain!`);
+            unit.hasAttacked = true;
+            unit.hasMoved = true;
+            gameState.specialMove = null;
+            gameState.selectedHex = { x: toX, y: toY };
+            cancelAction();
+          }
+        };
+
+        if (window.AnimSystem) {
+          AnimSystem.playMoveAnimation([{x: fromX, y: fromY}, {x: toX, y: toY}], _afterBreakthroughAnim);
+        } else {
+          _afterBreakthroughAnim();
+        }
+      };
+
+      function cancelAction() {
+        gameState.actionMode = null;
+        gameState.availableActions = [];
+        gameState.specialMove = null;
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function cutWire(targetX, targetY) {
+        if (!gameState.selectedHex) return;
+
+        const { x, y } = gameState.selectedHex;
+        const unit = gameState.map[y][x].unit;
+
+        if (!unit || unit.category !== "infantry") {
+          console.log("Seule l'infanterie peut couper les barbelés");
+          return;
+        }
+
+        const targetCell = gameState.map[targetY][targetX];
+        if (!targetCell.structure) return;
+
+        const structureType = getStructureType(targetCell.structure);
+        const structure = STRUCTURES[structureType];
+
+        if (!structure || !structure.cuttable) return;
+
+        console.log(
+          `${unit.name} coupe ${structure.name} en (${targetX}, ${targetY})`,
+        );
+        showCombatLog(`✂️ ${unit.name} coupe ${structure.name}!`);
+
+        // Supprimer la structure
+        targetCell.structure = null;
+
+        // Marquer l'unité comme ayant agi
+        unit.hasAttacked = true;
+
+        // Rafraîchir
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function demine(targetX, targetY) {
+        if (!gameState.selectedHex) return;
+
+        const { x, y } = gameState.selectedHex;
+        const unit = gameState.map[y][x].unit;
+
+        if (!unit) return;
+
+        const targetCell = gameState.map[targetY][targetX];
+        if (!targetCell.structure) return;
+
+        const structureType = getStructureType(targetCell.structure);
+        const structure = STRUCTURES[structureType];
+
+        if (!structure || !structure.trap) return;
+
+        // Vérifier si l'unité peut déminer
+        const canDemine =
+          structure.crushableBy &&
+          (structure.crushableBy.includes(unit.category) ||
+            structure.crushableBy.includes(unit.type));
+
+        if (!canDemine) {
+          console.log(`${unit.name} ne peut pas déminer`);
+          return;
+        }
+
+        console.log(
+          `${unit.name} démine ${structure.name} en (${targetX}, ${targetY})`,
+        );
+        showCombatLog(`💣 ${unit.name} démine ${structure.name}!`);
+
+        // Supprimer la structure
+        targetCell.structure = null;
+
+        // Marquer l'unité comme ayant agi
+        unit.hasAttacked = true;
+
+        // Rafraîchir
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function buildStructure(structureKey) {
+        if (!gameState.selectedHex) return;
+
+        const { x, y } = gameState.selectedHex;
+        const unit = gameState.map[y][x].unit;
+        if (!unit) return;
+
+        const structure = STRUCTURES[structureKey];
+        if (!structure || !structure.buildableBy) return;
+
+        const canBuild =
+          structure.buildableBy.includes(unit.category) ||
+          structure.buildableBy.includes(unit.type);
+        if (!canBuild) return;
+
+        if (unit.builtStructures.includes(structureKey)) {
+          console.log(
+            `${unit.name} a déjà construit ${structure.name} cette partie`,
+          );
+          return;
+        }
+
+        const cell = gameState.map[y][x];
+        if (cell.structure) {
+          console.log(`Impossible : structure déjà présente`);
+          return;
+        }
+
+        // Déterminer la variante selon la structure et le camp/terrain
+        let variant = null;
+        if (structureKey === "pont") {
+          variant = "acier90";
+        } else if (structureKey === "sacs_de_sable") {
+          variant = unit.side === "axis" ? "bleu" : "vert";
+        } else if (structureKey === "obstacle") {
+          // Variante selon le biome de la carte
+          const bg = MAP_DATA.meta.background;
+          if (bg === "#FDCA7B") {
+            variant = "desert";
+          } else if (bg === "#eaebe5") {
+            variant = "neige";
+          }
+          // Sinon variant = null → obstacle par défaut (prairie)
+        }
+
+        cell.structure = variant
+          ? { type: structureKey, variant }
+          : { type: structureKey };
+
+        unit.builtStructures.push(structureKey);
+        gameState.savedUnitState = null;
+        unit.hasAttacked = true;
+        // Coût d'action supplémentaire pour la construction
+        gameState.currentActions[gameState.currentPlayer] -= 1;
+        console.log(
+          `Construction de ${structure.name} : -1 PA supplémentaire. Reste: ${gameState.currentActions[gameState.currentPlayer]}`,
+        );
+
+        const variantLabel = variant ? `-${variant}` : "";
+        console.log(
+          `${unit.name} construit ${structure.name}${variantLabel} en (${x}, ${y})`,
+        );
+        showCombatLog(`🏗️ ${unit.name} construit ${structure.name}!`);
+
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function reinforceUnit(unitType, targetX, targetY) {
+        if (!gameState.selectedHex) return;
+
+        const { x, y } = gameState.selectedHex;
+        const sourceUnit = gameState.map[y][x].unit;
+        if (!sourceUnit || !sourceUnit.renfort) return;
+
+        const maxHp = sourceUnit.renfort[unitType];
+        if (maxHp === undefined) return;
+
+        const alreadyGiven = sourceUnit.renforcementsGiven[unitType] || 0;
+        if (alreadyGiven >= maxHp) {
+          console.log(
+            `${sourceUnit.name} a déjà donné le maximum de renforts pour ${unitType}`,
+          );
+          return;
+        }
+
+        const targetCell = gameState.map[targetY][targetX];
+        const targetUnit = targetCell.unit;
+        if (!targetUnit || targetUnit.type !== unitType) return;
+        if (targetUnit.currentHp >= targetUnit.hp) {
+          console.log(`${targetUnit.name} est déjà au maximum de ses HP`);
+          return;
+        }
+
+        // Appliquer le renfort
+        targetUnit.currentHp += 1;
+        sourceUnit.renforcementsGiven[unitType] = alreadyGiven + 1;
+
+        // Coût PA supplémentaire
+        gameState.currentActions[gameState.currentPlayer] -= 1;
+
+        console.log(
+          `${sourceUnit.name} renforce ${targetUnit.name} : +1 HP (${targetUnit.currentHp}/${targetUnit.hp}). -1 PA supplémentaire.`,
+        );
+        showCombatLog(
+          `🔨 ${sourceUnit.name} renforce ${targetUnit.name} ! (+1 HP)`,
+        );
+
+        // Marquer l'unité source comme ayant agi
+        sourceUnit.hasAttacked = true;
+        gameState.savedUnitState = null;
+
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+      }
+
+      function executeRetreat(toX, toY) {
+        if (!gameState.pendingRetreat) {
+          console.error("Pas de retraite en attente");
+          return;
+        }
+
+        const {
+          unit,
+          fromX,
+          fromY,
+          attackerX,
+          attackerY,
+          attacker,
+          retreatFlags,
+          hits,
+          distance,
+          combatMessage,
+        } = gameState.pendingRetreat;
+
+        console.log(
+          `${unit.name} recule de (${fromX},${fromY}) vers (${toX},${toY})`,
+        );
+
+        // Appliquer les dégâts normaux immédiatement (pas visuel)
+        unit.currentHp -= hits;
+
+        // Lancer l'animation AVANT de déplacer dans le state
+        if (window.AnimSystem) {
+          AnimSystem.playRetreatAnimation(fromX, fromY, toX, toY, null);
+        }
+
+        // Déplacer l'unité dans le state
+        gameState.map[fromY][fromX].unit = null;
+        gameState.map[toY][toX].unit = unit;
+
+        let finalMessage = combatMessage + `. ${unit.name} recule !`;
+
+        // Gérer les retraites multiples
+        const remainingRetreatFlags = retreatFlags - 1;
+
+        if (remainingRetreatFlags > 0) {
+          // Il reste des drapeaux de retraite
+          const retreatDistance = unit.retreatDistance || 1;
+          const availableRetreatHexes = getRetreatHexes(
+            toX,
+            toY,
+            unit,
+            retreatDistance,
+          );
+
+          if (availableRetreatHexes.length === 0) {
+            // Plus de retraite possible → dégâts
+            console.log(
+              `${unit.name} ne peut plus reculer → ${remainingRetreatFlags} dégâts supplémentaires`,
+            );
+            unit.currentHp -= remainingRetreatFlags;
+            finalMessage += ` (${remainingRetreatFlags} dégâts supplémentaires)`;
+          } else {
+            // Retraite supplémentaire possible
+            gameState.pendingRetreat = {
+              unit: unit,
+              fromX: toX,
+              fromY: toY,
+              initialDefenderX: gameState.pendingRetreat.initialDefenderX, // AJOUT : Conserver la position initiale
+              initialDefenderY: gameState.pendingRetreat.initialDefenderY, // AJOUT : Conserver la position initiale
+              attackerX: attackerX,
+              attackerY: attackerY,
+              attacker: attacker,
+              retreatFlags: remainingRetreatFlags,
+              hits: 0, // Les dégâts normaux sont déjà appliqués
+              distance: distance,
+              combatMessage: finalMessage,
+            };
+
+            gameState.actionMode = "retreat";
+            gameState.availableActions = availableRetreatHexes.map((h) => ({
+              x: h.x,
+              y: h.y,
+              type: "retreat",
+            }));
+
+            showCombatLog(
+              `${unit.name} doit encore reculer ! (${remainingRetreatFlags} drapeaux restants)`,
+            );
+            refreshDisplay();
+            updateInfoPanel();
+            return;
+          }
+        }
+
+        // Vérifier si l'unité est détruite
+        if (unit.currentHp <= 0) {
+          destroyUnit(unit, attacker.side);
+          gameState.map[toY][toX].unit = null;
+          finalMessage += ` ${unit.name} détruite!`;
+
+          // Pas de contre-attaque possible
+          gameState.pendingRetreat = null;
+          gameState.savedUnitState = null;
+
+          showCombatLog(finalMessage);
+          cancelAction();
+          refreshDisplay();
+          updateInfoPanel();
+          return;
+        }
+
+        // L'unité a reculé → PAS de contre-attaque
+        finalMessage += `. ${unit.name} ne peut pas contre-attaquer après avoir reculé.`;
+
+        // ===  : GESTION PERCÉE / PRISE DE TERRAIN APRÈS RETRAITE ===
+        // IMPORTANT : Ne déclencher la prise de terrain QUE si c'est la dernière retraite
+        const isLastRetreat = remainingRetreatFlags === 0;
+
+        if (isLastRetreat) {
+          const isMelee = distance === 1; // Corps à corps
+          const isInfantry = attacker.category === "infantry";
+          const isTank = attacker.category === "tank";
+          const isBreakthroughAttack =
+            gameState.specialMove &&
+            gameState.specialMove.type === "breakthrough" &&
+            gameState.specialMove.hasBreakthroughAttacked;
+
+          // IMPORTANT : La position initiale du défenseur (avant les retraites)
+          // On doit la récupérer depuis le premier appel (sauvegardée quelque part)
+          // Pour cela, on va ajouter initialDefenderX/Y dans pendingRetreat
+          const initialDefenderX =
+            gameState.pendingRetreat.initialDefenderX || fromX;
+          const initialDefenderY =
+            gameState.pendingRetreat.initialDefenderY || fromY;
+
+          if (isMelee) {
+            // Vérifier si l'unité peut entrer sur le terrain libéré (la position INITIALE)
+            const targetCell =
+              gameState.map[initialDefenderY][initialDefenderX];
+            const terrainType = getTerrainType(targetCell.terrain);
+
+            // 1. Vérifier cannotCross
+            if (!attacker.cannotCross.includes(terrainType)) {
+              // 2. Vérifier si une structure bloque cette unité
+              let canEnter = true;
+              if (targetCell.structure) {
+                const structureType = getStructureType(targetCell.structure);
+                const structure = STRUCTURES[structureType];
+
+                if (
+                  structure &&
+                  structure.impassableFor &&
+                  structure.impassableFor.includes(attacker.category)
+                ) {
+                  const canCrush =
+                    structure.crushableBy &&
+                    (structure.crushableBy.includes(attacker.category) ||
+                      structure.crushableBy.includes(attacker.type));
+
+                  if (!canCrush) {
+                    canEnter = false;
+                  }
+                }
+              }
+
+              // L'unité peut entrer sur le terrain
+              if (canEnter) {
+                if (isInfantry && !isBreakthroughAttack) {
+                  // Prise de terrain possible pour infanterie
+                  console.log(
+                    `Prise de terrain possible pour ${attacker.name} après retraite complète`,
+                  );
+                  gameState.specialMove = {
+                    type: "ground-take",
+                    fromX: attackerX,
+                    fromY: attackerY,
+                    toX: initialDefenderX, // Position INITIALE du défenseur
+                    toY: initialDefenderY,
+                  };
+
+                  gameState.pendingRetreat = null;
+
+                  showCombatLog(finalMessage);
+                  refreshDisplay();
+                  updateInfoPanel();
+                  return;
+                } else if (isTank && !isBreakthroughAttack) {
+                  // Vérifier si le tank peut attaquer depuis ce terrain
+                  const canAttackFromTerrain =
+                    !attacker.mustStopAndCannotFight.includes(terrainType);
+
+                  if (canAttackFromTerrain) {
+                    // Première percée de blindé possible (avec attaque)
+                    console.log(
+                      `Percée de blindé possible pour ${attacker.name} après retraite complète`,
+                    );
+                    gameState.specialMove = {
+                      type: "breakthrough",
+                      fromX: attackerX,
+                      fromY: attackerY,
+                      toX: initialDefenderX,
+                      toY: initialDefenderY,
+                      hasBreakthroughAttacked: false,
+                    };
+                  } else {
+                    // Ne peut pas attaquer depuis ce terrain → simple prise de terrain
+                    console.log(
+                      `${attacker.name} ne peut pas attaquer depuis ${terrainType} → Prise de terrain simple`,
+                    );
+                    gameState.specialMove = {
+                      type: "ground-take",
+                      fromX: attackerX,
+                      fromY: attackerY,
+                      toX: initialDefenderX,
+                      toY: initialDefenderY,
+                    };
+                  }
+
+                  gameState.pendingRetreat = null;
+
+                  showCombatLog(finalMessage);
+                  refreshDisplay();
+                  updateInfoPanel();
+                  return;
+                } else if (isTank && isBreakthroughAttack) {
+                  // Deuxième prise de terrain après percée
+                  console.log(
+                    `Deuxième prise de terrain possible après percée pour ${attacker.name} (après retraite complète)`,
+                  );
+                  gameState.specialMove = {
+                    type: "breakthrough",
+                    fromX: attackerX,
+                    fromY: attackerY,
+                    toX: initialDefenderX,
+                    toY: initialDefenderY,
+                    hasBreakthroughAttacked: true,
+                  };
+
+                  gameState.pendingRetreat = null;
+
+                  showCombatLog(finalMessage);
+                  refreshDisplay();
+                  updateInfoPanel();
+                  return;
+                }
+              }
+            }
+          }
+        }
+        // === FIN GESTION PERCÉE / PRISE DE TERRAIN ===
+
+        // Nettoyer
+        gameState.pendingRetreat = null;
+        gameState.savedUnitState = null;
+
+        showCombatLog(finalMessage);
+        cancelAction();
+        refreshDisplay();
+        updateInfoPanel();
+        
+      }
+
+      document.getElementById("end-turn-btn").onclick = () => {
+        console.log(`\n${"=".repeat(50)}`);
+        console.log(
+          `FIN DU TOUR ${gameState.currentPlayer === "allies" ? "ALLIÉS" : "AXE"}`,
+        );
+        console.log("=".repeat(50));
+
+        gameState.currentActions[gameState.currentPlayer] =
+          gameState.maxActions[gameState.currentPlayer];
+
+        for (let y = 0; y < CONFIG.HEIGHT; y++) {
+          for (let x = 0; x < CONFIG.WIDTH; x++) {
+            const unit = gameState.map[y][x].unit;
+            if (unit && unit.side === gameState.currentPlayer) {
+              unit.hasMoved = false;
+              unit.hasAttacked = false;
+            }
+          }
+        }
+
+        const endingSide = gameState.currentPlayer;
+        gameState.turn = (gameState.turn || 0) + 1;
+        gameState.currentPlayer = gameState.currentPlayer === "allies" ? "axis" : "allies";
+        gameState.selectedHex = null;
+
+        cancelAction();
+        updateTurnDisplay();
+        refreshDisplay();
+        clearInfoPanel();
+
+        // Notifier le système de cartes de la fin du tour
+        if (window.CardsAPI) {
+          window.CardsAPI.onTurnEnd(gameState.currentPlayer);
+        }
+
+        // Notifier le système d'objectifs
+        if (window.ObjectivesSystem) {
+          ObjectivesSystem.onTurnEnd(gameState.turn, endingSide);
+        }
+
+        const message = `Tour des ${gameState.currentPlayer === "allies" ? "Alliés" : "Axe"}`;
+        console.log(`\n${"=".repeat(50)}`);
+        console.log(message);
+        console.log("=".repeat(50));
+        showCombatLog(message);
+      };
+
+      const container = document.getElementById("map-container");
+      const map = document.getElementById("map");
+
+      let isDragging = false;
+      let startX, startY;
+      let scrollLeft, scrollTop;
+
+      container.addEventListener("mousedown", (e) => {
+        // Si on clique sur une unité ou un bouton, on ne veut pas forcément déplacer la carte
+        if (e.target.closest(".unit") || e.target.closest("button")) return;
+
+        isDragging = true;
+        startX = e.pageX - container.offsetLeft;
+        startY = e.pageY - container.offsetTop;
+        scrollLeft = map.offsetLeft;
+        scrollTop = map.offsetTop;
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const x = e.pageX - container.offsetLeft;
+        const y = e.pageY - container.offsetTop;
+
+        const walkX = x - startX;
+        const walkY = y - startY;
+
+        map.style.left = scrollLeft + walkX + "px";
+        map.style.top = scrollTop + walkY + "px";
+      });
+
+      window.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+
+      // Zoom
+      let scale = 1;
+      const ZOOM_SPEED = 0.12;
+      const MIN_SCALE = 0.5;
+      const MAX_SCALE = 1.8;
+
+      container.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+
+          // Déterminer la direction du zoom
+          const delta = e.deltaY > 0 ? -ZOOM_SPEED : ZOOM_SPEED;
+          const oldScale = scale;
+          scale = Math.min(Math.max(MIN_SCALE, scale + delta), MAX_SCALE);
+
+          // Calcul pour zoomer vers la position de la souris
+          const rect = container.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const mouseY = e.clientY - rect.top;
+
+          // Ajustement de la position de la carte (left/top) pour compenser le scale
+          const mapX = map.offsetLeft;
+          const mapY = map.offsetTop;
+
+          const newX = mouseX - (mouseX - mapX) * (scale / oldScale);
+          const newY = mouseY - (mouseY - mapY) * (scale / oldScale);
+
+          map.style.left = `${newX}px`;
+          map.style.top = `${newY}px`;
+          map.style.transform = `scale(${scale})`;
+        },
+        { passive: false },
+      );
+
+      // ========================================
+      // MESSAGES
+      // ========================================
+
+      // On crée une variable à l'extérieur pour garder une trace du timer
+      let combatLogTimer = null;
+      function showCombatLog(message) {
+        const log = document.getElementById("combat-log");
+        // 1. Si un timer est déjà en cours, on l'annule !
+        if (combatLogTimer) {
+          clearTimeout(combatLogTimer);
+        }
+        // 2. Mise à jour du message
+        log.textContent = message;
+        log.classList.add("show");
+        // 3. On lance le nouveau timer et on stocke son ID
+        combatLogTimer = setTimeout(() => {
+          log.classList.remove("show");
+          combatLogTimer = null; // Optionnel : on nettoie la variable
+        }, 4500);
+      }
+
+      // ========================================
+      // API PUBLIQUE POUR cards.js
+      // ========================================
+      window.GameAPI = {
+        getState:       () => gameState,
+        getMapCards:    () => MAP_DATA?.cards || null,
+        refresh:        refreshDisplay,
+        updatePanel:    updateInfoPanel,
+        log:            showCombatLog,
+        getDistance:    getDistance,
+        getNeighbors:   getNeighbors,
+        destroyUnit:    destroyUnit,
+        updateScore:    updateScoreDisplay,
+        placeUnit:      placeUnit,
+        getTerrainType: getTerrainType,
+        CONFIG:         CONFIG,
+        get UNIT_TYPES() { return UNIT_TYPES; },
+        get TERRAINS()   { return TERRAINS; },
+        get STRUCTURES() { return STRUCTURES; },
+      };
+
+      // ========================================
+      // INITIALISATION
+      // ========================================
+      loadGameData();
+    </script>
+    <script src="campaign.js"></script>
+    <script src="animations.js"></script>
+    <script src="cards.js"></script>
+    <script src="objectives.js"></script>
+
+  </body>
+</html>
